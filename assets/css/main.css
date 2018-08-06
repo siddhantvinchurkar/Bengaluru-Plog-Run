@@ -3438,10 +3438,10 @@ input, select, textarea {
 		}
 
 		#banner:after {
-			background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("https://www.amaturesblogs.com/wp-content/uploads/2017/11/Bangalore.jpg");;
-			background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("https://www.amaturesblogs.com/wp-content/uploads/2017/11/Bangalore.jpg");;
-			background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("https://www.amaturesblogs.com/wp-content/uploads/2017/11/Bangalore.jpg");;
-			background-image: linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("https://www.amaturesblogs.com/wp-content/uploads/2017/11/Bangalore.jpg");;
+			background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("../../images/img1.jpg");;
+			background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("../../images/img1.jpg");;
+			background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("../../images/img1.jpg");;
+			background-image: linear-gradient(top, rgba(23, 24, 32, 0.6), rgba(23, 24, 32, 0.95)), url("../../images/img1.jpg");;
 			content: '';
 			display: block;
 			height: 100%;

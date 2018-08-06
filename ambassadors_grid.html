@@ -72,8 +72,42 @@
 			 
 		</div><!-- /view -->
 		</div>
-		
-		
+
+
+		<script src="assets/js/classie.js"></script>
+		<script src="assets/js/dynamics.min.js"></script>
+		<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+		<script src="assets/js/main_grid.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+
+		<script>
+			window.onload = function(){
+				// Initialize Firestore
+				firebase.initializeApp({
+					apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
+					authDomain: 'bengaluru-plog-run.firebaseapp.com',
+					projectId: 'bengaluru-plog-run'
+				});
+
+				// Initialize Cloud Firestore through Firebase
+				var db = firebase.firestore();
+				var i=0;
+				var volunteers = [];
+				db.collection("volunteers").get().then(function(querySnapshot){
+					querySnapshot.forEach(function(doc){
+						// doc.data() is never undefined for query doc snapshots
+						console.log(doc.data());
+						volunteers[i] = doc.data();
+						i++;
+						});
+					});
+			}
+
+// Array volunteers contains everything!
+
+		</script>
+
 <script>
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
@@ -133,10 +167,5 @@ app.controller('myCtrl', function($scope) {
 });
 </script>
 
-
-		<script src="assets/js/classie.js"></script>
-		<script src="assets/js/dynamics.min.js"></script>
-		<script src="assets/js/imagesloaded.pkgd.min.js"></script>
-		<script src="assets/js/main_grid.js"></script>
 	</body>
 </html>
