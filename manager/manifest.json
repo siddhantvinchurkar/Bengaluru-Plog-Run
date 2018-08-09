@@ -1,0 +1,19 @@
+{  
+    "short_name":"BPR Manager",
+    "name":"Bengaluru Plog Run Manager",
+    "icons":[  
+        {  
+            "src":"https://via.placeholder.com/512x512/222222/bada55?text=BPR%20Logo",
+            "type":"image/ico",
+            "sizes":"512x512"
+        }
+    ],
+    "background_color":"#FFFFFF",
+    "display":"standalone",
+    "orientation":"portrait",
+    "theme_color":"#FFD700",
+    "start_url":"index.html",
+    "manifest_version": 2,
+    "version": "1.0",
+    "summary":"Bengaluru Plog Run Manager helps manage volunteers and ambassadors"
+}

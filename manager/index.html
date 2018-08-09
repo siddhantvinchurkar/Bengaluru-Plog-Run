@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--Basic meta tags-->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<!--Load Materialize Asynchronously-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" media="none" onload="if(media!='screen,projection')media='screen,projection'">
+		<!--Load Material Icon Font Asynchronously-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='screen,projection')media='screen,projection'">
+		<!--Set the shortcut icon-->
+		<link rel="shortcut icon" type="image/ico" href="https://via.placeholder.com/512x512/222222/bada55?text=BPR%20Logo">
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--Progressive Web App meta tags-->
+		<link rel="manifest" href="manifest.json">
+		<meta name="theme-color" content="#FFD700">
+		<meta name="Description" content="Bengaluru Plog Run Manager helps manage volunteers and ambassadors">
+		<!--Title-->
+		<title>BPR Manager</title>
+		<!--Internal Styles-->
+		<style>
+			body{
+				background-color:#F6F6F6;
+				display: flex;
+				min-height: 100vh;
+				flex-direction: column;
+			}
+			main {
+				flex: 1 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<div class="row">
+				<div class="col s12 m6 offset-m3">
+					<h1 style="color:#FFD700; text-align:center;"><span style="color:#FF0000;">Bengaluru</span> Plog Run</h1>
+					<h4 style="color:#0000FF; text-align:right;"><span><i class="material-icons" style="color:#00FF00; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manager</h4>
+					<div class="card" id="signInCard">
+							<div class="card-content">
+								<h5 style="color:#000000;">Sign in to continue</h5>
+								<hr />
+								<div class="row">
+									<div id="passwordProgress" class="progress col s12 m6 offset-m3" style="margin-top:1em;">
+										<div class="indeterminate"></div>
+									</div>
+									<div id="passwordField" class="col s12 m6 offset-m2 input-field" style="display:none;">
+										<input id="password" type="password" class="validate" autofocus disabled>
+										<label for="password">Password</label>
+									</div>
+									<div id="passwordButton" class="col s12 m4 input-field" style="display:none;">
+										<a class="waves-effect waves-light btn" style="background-color:#FFFFFF; color:#009900; font-weight:bold;"><i class="material-icons right">keyboard_arrow_right</i>Sign In</a>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</main>
+<footer class="page-footer" style="padding:0px 0px 0px 0px;">
+          <div class="footer-copyright" style="background-color:#F6F6F6; padding:0px 0px 0px 0px; color:#000000;">
+            <div class="container">
+            <p>&copy; <span id="footerYear">2018</span> <a href="https:;/volatile.ga/" target="_blank">Volatile, Inc.</a>&emsp;|&emsp;All rights reserved.<span class="right">Designed by <a href="https://siddhantvinchurkar.me/">Siddhant Vinchurkar</a>.</span></p>
+            </div>
+          </div>
+        </footer>
+		<!--Load Materialize Asynchronously-->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js" async></script>
+		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js" async></script>
+		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js" async></script>
+		<script type="text/javascript">
+			window.onload = function(){
+
+				// Register a Service Worker
+				if('serviceWorker' in navigator) {
+				  navigator.serviceWorker
+				           .register('sw.js')
+				           .then(function() { console.log("%c Service Worker Registered", "background:#222222; color:#BADA55;"); });
+				}
+
+				// Set year on footer
+				document.getElementById("footerYear").innerHTML = new Date().getFullYear();
+
+				// Initialize Firebase
+				firebase.initializeApp({
+				apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
+				authDomain: 'bengaluru-plog-run.firebaseapp.com',
+				projectId: 'bengaluru-plog-run'
+				});
+
+				// Acknowledge changes
+				firebase.firestore().settings({timestampsInSnapshots: true});
+
+				// Initialize Cloud Firestore through Firebase
+				var db = firebase.firestore();
+
+				// Password store
+				var pwd = "password";
+
+				// Retrieve password from the database
+				db.collection("passwords").get().then((querySnapshot) => {
+					querySnapshot.forEach((doc) => {
+						pwd = doc.data().pwd;
+						// Enable signin
+						document.getElementById("password").disabled = false;
+						document.getElementById("passwordProgress").style.display = "none";
+						document.getElementById("passwordField").style.display = "block";
+						document.getElementById("passwordButton").style.display = "block";
+					});
+				});
+
+				// Handle Sign in
+				document.getElementById("passwordButton").onclick = function(){
+					if(document.getElementById("password").value === pwd){
+						// Password is correct; grant access
+						document.getElementById("signInCard").style.display = "none";
+						alert("Yay!");
+					}
+					else{
+						// Password is wrong; deny access
+						alert("Nope. Try again.");
+					}
+				}
+
+				// Handle enter keypress
+				document.getElementById("password").addEventListener("keyup", function(event) {
+					event.preventDefault();
+					if(event.keyCode === 13){
+						document.getElementById("passwordButton").click();
+					}
+				});
+
+			}
+		</script>
+	</body>
+</html>
