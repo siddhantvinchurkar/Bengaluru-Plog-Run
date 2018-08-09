@@ -185,6 +185,10 @@
 								document.getElementById("tableProgress").style.display = "none";
 								buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
 							});
+
+							// Scroll table into view
+							document.getElementById("records").scrollIntoView();
+
 						});
 					}
 				});
@@ -201,6 +205,10 @@
 							document.getElementById("tableProgress").style.display = "none";
 							buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
 						});
+
+						// Scroll table into view
+						document.getElementById("records").scrollIntoView();
+
 					});
 
 				}
@@ -233,14 +241,14 @@
 
 				// Update table contents
 				if(ambassador)
-					document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+					document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 				else
-					document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+					document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 
 			}
 
 			// Handle upgrades and downgrades
-			function downgradeAmbassador(email){
+			function downgradeAmbassador(name, email){
 
 				// Update Firestore document
 				gdb.collection("volunteers").doc(email).update({
@@ -257,6 +265,12 @@
 							document.getElementById("tableProgress").style.display = "none";
 							buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
 						});
+
+						// Display toast
+						M.toast({html: name + ' is now a volunteer!', classes: 'rounded'});
+
+						// Scroll table into view
+						document.getElementById("records").scrollIntoView();
 					});
 
 				})
@@ -266,7 +280,7 @@
 
 			}
 
-			function upgradeVolunteer(email){
+			function upgradeVolunteer(name, email){
 				// Update Firestore document
 				gdb.collection("volunteers").doc(email).update({
 					designation: "ambassador"
@@ -282,6 +296,13 @@
 							document.getElementById("tableProgress").style.display = "none";
 							buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
 						});
+
+						// Display toast
+						M.toast({html: name + ' is now an ambassador!', classes: 'rounded'});
+
+						// Scroll table into view
+						document.getElementById("records").scrollIntoView();
+
 					});
 
 				})
