@@ -173,7 +173,7 @@
 					var documentCounter = 0;
 
 					// Push data to Firebase!
-					db.collection("volunteers").add({
+					db.collection("volunteers").doc(eml).set({
 						firstName: fn,
 						lastName: ln,
 						email: eml,
@@ -182,7 +182,8 @@
 						age: age,
 						bloodGroup: bg,
 						tShirtSize: tss,
-						locality: loc
+						locality: loc,
+						designation: "volunteer"
 					})
 					.then(function(docRef) {
 						console.log("Document written with ID: ", docRef.id);

@@ -37,22 +37,48 @@
 					<h1 style="color:#FFD700; text-align:center;"><span style="color:#FF0000;">Bengaluru</span> Plog Run</h1>
 					<h4 style="color:#0000FF; text-align:right;"><span><i class="material-icons" style="color:#00FF00; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manager</h4>
 					<div class="card" id="signInCard">
-							<div class="card-content">
-								<h5 style="color:#000000;">Sign in to continue</h5>
-								<hr />
-								<div class="row">
-									<div id="passwordProgress" class="progress col s12 m6 offset-m3" style="margin-top:1em;">
-										<div class="indeterminate"></div>
-									</div>
-									<div id="passwordField" class="col s12 m6 offset-m2 input-field" style="display:none;">
-										<input id="password" type="password" class="validate" autofocus disabled>
-										<label for="password">Password</label>
-									</div>
-									<div id="passwordButton" class="col s12 m4 input-field" style="display:none;">
-										<a class="waves-effect waves-light btn" style="background-color:#FFFFFF; color:#009900; font-weight:bold;"><i class="material-icons right">keyboard_arrow_right</i>Sign In</a>
-									</div>
+						<div class="card-content">
+							<h5 style="color:#000000;">Sign in to continue</h5>
+							<hr />
+							<div class="row">
+								<div id="passwordProgress" class="progress col s12 m6 offset-m3" style="margin-top:1em;">
+									<div class="indeterminate"></div>
+								</div>
+								<div id="passwordField" class="col s12 m6 offset-m2 input-field" style="display:none;">
+									<input id="password" type="password" class="validate" autofocus disabled>
+									<label for="password">Password</label>
+								</div>
+								<div id="passwordButton" class="col s12 m4 input-field" style="display:none;">
+									<a class="waves-effect waves-light btn" style="background-color:#FFFFFF; color:#009900; font-weight:bold;"><i class="material-icons right">keyboard_arrow_right</i>Sign In</a>
 								</div>
 							</div>
+							<p id="passwordMessage" style="color:#A6A6A6; text-align:center; display:none;"><span><i class="material-icons" style="color:#A6A6A6; vertical-align:middle;">info</i></span>&emsp;Passwords are <u>changed everyday</u> for security reasons.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="records" class="row" style="display:none;">
+				<div class="col s12 m10 offset-m1">
+					<div class="card">
+						<div class="card-content">
+							<h4><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" class="btn-floating right" style="background-color:#00AA00;" title="Refresh Table (Spacebar)"><i class="material-icons">refresh</i></a></h4>
+							<div id="tableProgress" class="progress col s12 m6 offset-m3" style="margin-top:1em;">
+								<div class="indeterminate"></div>
+							</div>
+						</div>
+						<table class="striped highlight centered responsive-table">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Designation</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="tableContents">
+								<!--This stuff is populated dynamically-->
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -69,6 +95,10 @@
 		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js" async></script>
 		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js" async></script>
 		<script type="text/javascript">
+
+			// Global db object
+			var gdb;
+
 			window.onload = function(){
 
 				// Register a Service Worker
@@ -94,6 +124,9 @@
 				// Initialize Cloud Firestore through Firebase
 				var db = firebase.firestore();
 
+				// Transfer scope
+				gdb = db;
+
 				// Password store
 				var pwd = "password";
 
@@ -106,6 +139,16 @@
 						document.getElementById("passwordProgress").style.display = "none";
 						document.getElementById("passwordField").style.display = "block";
 						document.getElementById("passwordButton").style.display = "block";
+						document.getElementById("passwordMessage").style.display = "block";
+
+						// Begin fetching volunteer and/or ambassador records in the background
+						db.collection("volunteers").get().then((querySnapshot) => {
+							querySnapshot.forEach((doc) => {
+								// Background fetch complete; hide progress bar
+								document.getElementById("tableProgress").style.display = "none";
+								buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+							});
+						});
 					});
 				});
 
@@ -114,7 +157,7 @@
 					if(document.getElementById("password").value === pwd){
 						// Password is correct; grant access
 						document.getElementById("signInCard").style.display = "none";
-						alert("Yay!");
+						document.getElementById("records").style.display = "block";
 					}
 					else{
 						// Password is wrong; deny access
@@ -130,7 +173,124 @@
 					}
 				});
 
+				// Handle 'Spacebar' keypress
+				document.addEventListener("keydown", function(event) {
+					if(event.keyCode === 32){
+						// Refresh table
+						document.getElementById("tableContents").innerHTML = "";
+						document.getElementById("tableProgress").style.display = "block";
+						db.collection("volunteers").get().then((querySnapshot) => {
+							querySnapshot.forEach((doc) => {
+								// Background fetch complete; hide progress bar
+								document.getElementById("tableProgress").style.display = "none";
+								buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+							});
+						});
+					}
+				});
+
+				// Handle refresh
+				document.getElementById("refreshButton").onclick = function(){
+
+					// Refresh table
+					document.getElementById("tableContents").innerHTML = "";
+					document.getElementById("tableProgress").style.display = "block";
+					db.collection("volunteers").get().then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							// Background fetch complete; hide progress bar
+							document.getElementById("tableProgress").style.display = "none";
+							buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+						});
+					});
+
+				}
+
 			}
+
+			// Handle button hover
+			function startPulse(button){
+				button.classList.add("pulse");
+			}
+
+			function stopPulse(button){
+				button.classList.remove("pulse");
+			}
+
+			// Build table rows
+			function buildTableRow(name="unknown", email="unknown", designation="unknown"){
+
+				// Flags
+				var ambassador = false;
+
+				// Handle single quotes
+				name = name.replace(/'/g, "\\'");
+				email = email.replace(/'/g, "\\'");
+				designation = designation.replace(/'/g, "\\'");
+
+				// Handle designation styling
+				if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
+				else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
+
+				// Update table contents
+				if(ambassador)
+					document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+				else
+					document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+
+			}
+
+			// Handle upgrades and downgrades
+			function downgradeAmbassador(email){
+
+				// Update Firestore document
+				gdb.collection("volunteers").doc(email).update({
+					designation: "volunteer"
+				})
+				.then(function(docRef) {
+
+					// Refresh table
+					document.getElementById("tableContents").innerHTML = "";
+					document.getElementById("tableProgress").style.display = "block";
+					gdb.collection("volunteers").get().then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							// Background fetch complete; hide progress bar
+							document.getElementById("tableProgress").style.display = "none";
+							buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+						});
+					});
+
+				})
+				.catch(function(error) {
+					console.error("Error adding document: ", error);
+				});
+
+			}
+
+			function upgradeVolunteer(email){
+				// Update Firestore document
+				gdb.collection("volunteers").doc(email).update({
+					designation: "ambassador"
+				})
+				.then(function(docRef) {
+
+					// Refresh table
+					document.getElementById("tableContents").innerHTML = "";
+					document.getElementById("tableProgress").style.display = "block";
+					gdb.collection("volunteers").get().then((querySnapshot) => {
+						querySnapshot.forEach((doc) => {
+							// Background fetch complete; hide progress bar
+							document.getElementById("tableProgress").style.display = "none";
+							buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+						});
+					});
+
+				})
+				.catch(function(error) {
+					console.error("Error adding document: ", error);
+				});
+
+			}
+
 		</script>
 	</body>
 </html>
