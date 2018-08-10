@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Bengaluru Plog Run</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../../../../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../../../../../assets/css/noscript.css" /></noscript>
+		<link rel="shortcut icon" type="image/png" href="https://via.placeholder.com/512x512/222222/bada55?text=BPR%20Logo"/>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="../../../../../../index.html">Bengaluru Plog Run</a></h1>
+				</header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container" id="container">
+						<header class="major">
+							<h2>Welcome, ambassador.</h2>
+							<p>We're gonna need your picture, Facebook profile link and Twitter profile link.</p>
+						</header>
+
+						<!-- Content -->
+						<section id="content">
+							<h3 style="text-align:center;" id="uploadProgress">Let's start with your picture.</h3>
+							<form>
+								<input id="picture" placeholder="Pick an image" accept="image/jpeg" type="file" style="display:none;" />
+								<div class="row" id="selector">
+									<div class="col-8 off-2">
+										<a id="selectImage" class="button primary fit">Pick an image</a>
+									</div>
+								</div>
+								<div class="row" id="facebookInput" style="display:none;">
+									<div class="col-8 off-2">
+										<input id="facebookLink" placeholder="Facebook" type="text" />
+									</div>
+								</div>
+								<br />
+								<div class="row" id="twitterInput" style="display:none;">
+									<div class="col-8 off-2">
+										<input id="twitterLink" placeholder="Twitter" type="text" />
+									</div>
+								</div>
+								<br />
+								<div class="row" id="submitter" style="display:none;">
+									<div class="col-8 off-2">
+										<a id="submitForm" class="button primary fit">Submit Details <span style="font-weight:bold;">>></span></a>
+									</div>
+								</div>
+							</form>
+						</section>
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; <p style="display:inline;" id="year">2018</p> <a href="https://volatile.ga/" target="_blank">Volatile, Inc.</a> All rights reserved.</li><li>Designed by <a href="https://siddhantvinchurkar.me">Siddhant Vinchurkar.</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../../../../../assets/js/jquery.min.js"></script>
+			<script src="../../../../../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../../../../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../../../../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../../../../../assets/js/browser.min.js"></script>
+			<script src="../../../../../../assets/js/breakpoints.min.js"></script>
+			<script src="../../../../../../assets/js/util.js"></script>
+			<script src="../../../../../../assets/js/main.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-storage.js"></script>
+
+		<script type="text/javascript">
+			window.onload = function(){
+
+				// Get email from route
+				var email = window.location.href.substring(window.location.href.indexOf("#")+1, window.location.href.length);
+
+				// Create variable for file path
+				var imagePath = "unknown";
+
+				// Create variable for file download link
+				var photoUrl = "https://via.placeholder.com/512x512/222222/bada55?text=BPR%20Logo"
+
+				// Create variables for social media links
+				var facebookLink = "#";
+				var twitterLink = "#";
+
+				// Set year on footer
+				document.getElementById("year").innerHTML = new Date().getFullYear();
+
+				// Initialize Firestore
+				firebase.initializeApp({
+					apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
+					authDomain: 'bengaluru-plog-run.firebaseapp.com',
+					projectId: 'bengaluru-plog-run',
+					storageBucket: 'bengaluru-plog-run.appspot.com'
+				});
+
+				// Initialize Cloud Firestore through Firebase
+				var db = firebase.firestore();
+
+				// Initalize Firebase Storage
+				var storage = firebase.storage();
+
+				// Handle file selection
+				document.getElementById("selectImage").onclick = function(){
+					document.getElementById('picture').click();
+				}
+
+				// Handle file upload
+				document.getElementById("picture").onchange = function(){
+					imagePath = document.getElementById('picture').files[0];
+					document.getElementById("selectImage").innerHTML = document.getElementById('picture').files[0].name;
+					var imageRef = storage.ref().child(imagePath.name).put(new Blob([imagePath], {type: 'image/jpeg'})).on('state_changed', function(snapshot){
+						document.getElementById("selector").style.display = "none";
+						var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						document.getElementById("uploadProgress").innerHTML = "Uploading " + Math.floor(progress) + " %";
+						if(progress === 100){
+							progress = 0;
+							document.getElementById("uploadProgress").innerHTML = "Perfect. We'll need links to your social media accounts now.";
+							document.getElementById("submitter").style.display = "block";
+							document.getElementById("facebookInput").style.display = "block";
+							document.getElementById("twitterInput").style.display = "block";
+							document.getElementById("selectImage").style.display = "none";
+							snapshot.ref.getDownloadURL().then(function(downloadUrl){
+								photoUrl = downloadUrl;
+							});
+						}
+						switch(snapshot.state){
+							case firebase.storage.TaskState.PAUSED:
+								// Upload has paused
+								break;
+							case firebase.storage.TaskState.RUNNING:
+								// Upload is running
+								break;
+						}
+					},function(error){
+						// Handle unsuccessful uploads
+					},function(){
+						// Handle successful uploads on complete
+					});
+				}
+
+				// Handle database updation
+				document.getElementById("submitForm").onclick = function(){
+					facebookLink = document.getElementById("facebookLink").value;
+					twitterLink = document.getElementById("twitterLink").value;
+					db.collection("volunteers").doc(email).update({
+						photoUrl: photoUrl,
+						facebookLink: facebookLink,
+						twitterLink: twitterLink
+					})
+					.then(function(docRef){
+						// Document updated successfully
+						document.getElementById("facebookLink").style.display = "none";
+						document.getElementById("twitterLink").style.display = "none";
+						document.getElementById("submitter").style.display = "none";
+						document.getElementById("uploadProgress").innerHTML = "Thanks! You're all set!";
+					})
+					.catch(function(error) {
+						console.error("Error adding document: ", error);
+					});
+				}
+
+			}
+		</script>
+
+	</body>
+</html>
