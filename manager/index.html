@@ -89,6 +89,18 @@
 					<div class="card">
 						<div class="card-content">
 							<h4><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" class="btn-floating right" style="background-color:#00AA00;" title="Refresh Table (Spacebar)"><i class="material-icons">refresh</i></a></h4>
+
+							<div class="row">
+								<div class="col s12 m2 offset-m9">
+									<select id="filterOptions">
+										<option value="0" disabled selected>Filter Options</option>
+										<option value="1">Everyone</option>
+										<option value="2">Volunteers</option>
+										<option value="3">Ambassadors</option>
+									</select>
+								</div>
+							</div>
+
 							<div id="tableProgress" class="progress col s12 m6 offset-m3" style="margin-top:1em;">
 								<div class="indeterminate"></div>
 							</div>

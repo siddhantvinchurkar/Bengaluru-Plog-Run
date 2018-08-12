@@ -6,6 +6,8 @@ var modalElements;
 var modalInstances;
 var featureDiscoveryElements;
 var featureDiscoveryInstances;
+var selectElements;
+var selectInstances
 
 window.onload = function(){
 
@@ -17,6 +19,11 @@ window.onload = function(){
 	// Initialize Materialize Feature Discovery
 	featureDiscoveryElements = document.querySelectorAll('.tap-target');
 	featureDiscoveryInstances = M.TapTarget.init(featureDiscoveryElements, {onClose: onFeatureDiscoveryClosed});
+	console.log("%cFeature Discovery Elements Initialized!", "background:#222222; color:#BADA55;");
+
+	// Initialize Materialize Select
+	selectElements = document.querySelectorAll('select');
+	selectInstances = M.FormSelect.init(selectElements);
 	console.log("%cFeature Discovery Elements Initialized!", "background:#222222; color:#BADA55;");
 
 	// Register a Service Worker
@@ -69,6 +76,58 @@ window.onload = function(){
 			});
 		});
 	});
+
+	// Handle filtering
+	document.getElementById("filterOptions").onchange = function(){
+		if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Everyone"){
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+				});
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+
+		});
+		}
+		else if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Volunteers"){
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildVolunteerTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+				});
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+
+		});
+		}
+		else if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Ambassadors"){
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildAmbassadorTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation);
+				});
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+
+		});
+		}
+	}
 
 	// Handle search button click
 	document.getElementById("searchButton").onclick = function(){
@@ -169,7 +228,7 @@ window.onload = function(){
 
 	// Handle refresh
 	document.getElementById("refreshButton").onclick = function(){
-			// Refresh table
+		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
 		db.collection("volunteers").get().then((querySnapshot) => {
@@ -220,7 +279,52 @@ function buildTableRow(name="unknown", email="unknown", designation="unknown"){
 
 }
 
-// Build table rows
+// Build ambassador table rows
+function buildAmbassadorTableRow(name="unknown", email="unknown", designation="unknown"){
+
+	// Flags
+	var ambassador = false;
+
+	// Handle single quotes
+	name = name.replace(/'/g, "\\'");
+	email = email.replace(/'/g, "\\'");
+	designation = designation.replace(/'/g, "\\'");
+
+	// Handle designation styling
+	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
+	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
+
+	// Update table contents
+	if(ambassador)
+		document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+
+}
+
+// Build volunteer table rows
+function buildVolunteerTableRow(name="unknown", email="unknown", designation="unknown"){
+
+	// Flags
+	var ambassador = false;
+
+	// Handle single quotes
+	name = name.replace(/'/g, "\\'");
+	email = email.replace(/'/g, "\\'");
+	designation = designation.replace(/'/g, "\\'");
+
+	// Handle designation styling
+	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
+	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
+
+	// Update table contents
+	if(ambassador){
+		// Don't do anything
+	}
+	else
+		document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+
+}
+
+// Build search table rows
 function buildSearchTableRow(searchString="", name="unknown", email="unknown", designation="unknown"){
 
 	// Flags
@@ -330,6 +434,5 @@ function onModalOpened(){
 
 // Handle feature discovery close
 function onFeatureDiscoveryClosed(){
-console.log("here");
 document.getElementById("floatingSearchButton").classList.remove("disabled");
 }
