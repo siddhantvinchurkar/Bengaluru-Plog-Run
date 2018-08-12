@@ -33,13 +33,29 @@
 	<body>
 		<main>
 
+			<!--Floating Search Button-->
+			<div id="floatingSearchButtonContainer" class="fixed-action-btn direction-top active" style="bottom: 45px; right: 24px;">
+				<a id="floatingSearchButton" class="btn btn-floating btn-large cyan disabled"><i class="material-icons">search</i></a>
+			</div>
+
+			<!--Floating Search Button Feature Discovery-->
+			<div class="tap-target teal" data-target="floatingSearchButton" id="floatingSearchButtonFeatureDiscovery">
+				<div class="tap-target-content white-text">
+					<h5>Search for volunteers and ambassadors</h5>
+					<p>Click here or start typing to search.</p>
+				</div>
+			</div>
+
 			<!--Search Modal-->
-			<div id="searchModal" class="modal">
+			<div id="searchModal" class="modal modal-fixed-footer bottom-sheet">
 				<div class="modal-content">
 					<h4>Search</h4>
 					<i class="material-icons prefix">search</i>
 					<input type="text" id="searchBar">
 					<label for="searchBar">Search by name or email</label>
+				</div>
+				<div class="modal-footer">
+					<a id="searchButton" class="modal-close waves-effect waves-green btn-flat">Search</a>
 				</div>
 			</div>
 
@@ -103,8 +119,9 @@
         </footer>
 		<!--Load Scripts Asynchronously-->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js" async></script>
-		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js" async></script>
-		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js" async></script>
+		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" async></script>
+		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js" async></script>
+		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js" async></script>
 		<script type="text/javascript" src="main.js" async></script>
 	</body>
 </html>

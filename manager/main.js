@@ -1,15 +1,23 @@
-// Global db object
+// Global variables
 var gdb;
+var modalState = false;
+var signedIn = false;
+var modalElements;
+var modalInstances;
+var featureDiscoveryElements;
+var featureDiscoveryInstances;
 
 window.onload = function(){
 
-	// Initialize Materialize
-	M.AutoInit();
-	console.log("%cMaterialize Initialized!", "background:#222222; color:#BADA55;");
+	// Initialize Materialize Modals
+	modalElements = document.querySelectorAll('.modal');
+	modalInstances = M.Modal.init(modalElements, {onCloseEnd: onModalClosed, onOpenEnd: onModalOpened});
+	console.log("%cMaterialize Modals Initialized!", "background:#222222; color:#BADA55;");
 
-	// Global variables
-	var modalState = false;
-	var signedIn = false;
+	// Initialize Materialize Feature Discovery
+	featureDiscoveryElements = document.querySelectorAll('.tap-target');
+	featureDiscoveryInstances = M.TapTarget.init(featureDiscoveryElements, {onClose: onFeatureDiscoveryClosed});
+	console.log("%cFeature Discovery Elements Initialized!", "background:#222222; color:#BADA55;");
 
 	// Register a Service Worker
 	if('serviceWorker' in navigator) {
@@ -62,17 +70,41 @@ window.onload = function(){
 		});
 	});
 
+	// Handle search button click
+	document.getElementById("searchButton").onclick = function(){
+		document.getElementById('searchBar').dispatchEvent(new KeyboardEvent('keyup',{'keyCode':13}));
+	}
+
+	// Handle floating search button click
+	document.getElementById("floatingSearchButton").onclick = function(){
+		if(signedIn){
+			if(!modalState){
+				modalState = true;
+				M.Modal.getInstance(searchModal).open();
+				document.getElementById("searchBar").value = null;
+				document.getElementById("searchBar").focus();
+			}
+		}
+	}
+
 	// Handle Sign in
 	document.getElementById("passwordButton").onclick = function(){
 		if(document.getElementById("password").value === pwd){
+
 			// Password is correct; grant access
 			document.getElementById("signInCard").style.display = "none";
 			document.getElementById("records").style.display = "block";
+
+			// Tell people about the search functionality
+			M.TapTarget.getInstance(floatingSearchButtonFeatureDiscovery).open();
+			setTimeout(function(){M.TapTarget.getInstance(floatingSearchButtonFeatureDiscovery).close();}, 3000);
+
+			// Change signedIn state
 			signedIn = true;
 		}
 		else{
 			// Password is wrong; deny access
-			alert("Nope. Try again.");
+			swal("Nope. Try again.", "", "error");
 		}
 	}
 
@@ -284,4 +316,20 @@ function upgradeVolunteer(name, email){
 		console.error("Error adding document: ", error);
 	});
 
+}
+
+// Handle modal dismissal
+function onModalClosed(){
+modalState = false;
+}
+
+// Handle modal open
+function onModalOpened(){
+// Do stuff here
+}
+
+// Handle feature discovery close
+function onFeatureDiscoveryClosed(){
+console.log("here");
+document.getElementById("floatingSearchButton").classList.remove("disabled");
 }
