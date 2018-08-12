@@ -8,6 +8,12 @@ self.addEventListener('install', function(e) {
 		caches.open('Omega').then(function(cache) {
 			return cache.addAll([
 				'index.html',
+				'icons/48.png',
+				'icons/72.png',
+				'icons/96.png',
+				'icons/144.png',
+				'icons/192.png',
+				'icons/512.png'
 			]);
 		})
 	);
