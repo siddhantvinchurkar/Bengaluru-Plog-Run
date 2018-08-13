@@ -8,6 +8,8 @@ var featureDiscoveryElements;
 var featureDiscoveryInstances;
 var selectElements;
 var selectInstances
+var parallaxElements;
+var parallaxInstances;
 
 window.onload = function(){
 
@@ -25,6 +27,11 @@ window.onload = function(){
 	selectElements = document.querySelectorAll('select');
 	selectInstances = M.FormSelect.init(selectElements);
 	console.log("%cFeature Discovery Elements Initialized!", "background:#222222; color:#BADA55;");
+
+	// Initialize Materialize Parallax
+	parallaxElements = document.querySelectorAll('.parallax');
+	parallaxInstances = M.Parallax.init(parallaxElements);
+	console.log("%cParallax Elements Initialized!", "background:#222222; color:#BADA55;");
 
 	// Register a Service Worker
 	if('serviceWorker' in navigator) {
