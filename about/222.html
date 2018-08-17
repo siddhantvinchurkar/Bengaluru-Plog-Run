@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Bengaluru Plog Run</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<link rel="stylesheet" href="../assets/css/style.css">
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
+	</head>
+	<body class="is-preload landing">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="index.html">Bengaluru Plog Run</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a style="font-size:1.5m;" href="index.html">Home</a></li>
+							<li><a href="#one" class="scrolly">About Us</a></li>
+							<li><a href="ambassadors/">Ambassadors</a></li>
+							<li><a href="#">Students</a></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner">
+					<div class="content">
+						<header>
+							<h2>Let's run for a plastic-free Bengaluru!</h2>
+							<br />
+							<a href="join.html" class="button">Join The Movement >></a>
+						</header>
+						<span class="image"><img src="https://via.placeholder.com/512x512/222222/bada55?text=BPR%20LOGO" alt="" /></span>
+					</div>
+					<a href="#one" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- One -->
+				<section id="one" class="spotlight style1 bottom">
+					<span class="image fit main"><img src="https://cms.qz.com/wp-content/uploads/2017/08/bangalore1-reuters-traffic-moves-along-a-road-in-the-southern-indian-city-of-bangalore-december-14-2005.jpg" alt="" /></span>
+					<div class="content">
+						<div class="container">
+							<div class="row">
+								<div class="col-4 col-12-medium">
+									<header>
+										<h2>What Is It About?</h2>
+										<p>Bengaluru Plog Run is an initiative by Go Native that calls out to all citizens of Bengaluru.</p>
+									</header>
+								</div>
+								<div class="col-4 col-12-medium">
+									<p>The increasing amount of plastic use and  improper plastic waste disposal has steadily been choking the environment and Bengaluru, as a city, has been making constant efforts to actively bring about a change.</p>
+								</div>
+								<div class="col-4 col-12-medium">
+									<p>But, the <b>STIGMA</b> attached to the act of picking up garbage has been enforced for centuries and is now fixated heavily within us - making us think twice before we pick up a piece of plastic that has been littered all over, sometimes even by us.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="#two" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- Two -->
+				<section id="two" class="spotlight style2 right">
+					<span class="image fit main"><img src="images/pic01.jpg" alt="" /></span>
+					<div class="content">
+						<header>
+							<h2>Our vision.</h2>
+							<p>Make Bengaluru plastic-free with the help of passionate ambassadors who will break all barriers.</p>						
+						</header>
+						<p>Because we can no longer turn a blind eye towards plastic.</p>
+						<ul class="actions">
+							<li><a href="#" class="button">Learn More</a></li>
+						</ul>
+					</div>
+					<a href="#three" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- Three -->
+				<section id="three" class="spotlight style3 left">
+					<span class="image fit main bottom"><img src="images/pic02.jpg" alt="" /></span>
+					<div class="content">
+						<header>
+							<h2>Our mission.</h2>	
+							<p>Make picking up waste a everyday ethic.</p>
+						</header>
+						<p>Organise plog runs throughout the city to refuse, reduce, reuse and recycle plastic.</p>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; <p style="display:inline;" id="year">2018</p> <a href="https://volatile.ga/" target="_blank">Volatile, Inc.</a> All rights reserved.</li><li>Designed by <a href="https://siddhantvinchurkar.me">Siddhant Vinchurkar.</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script src="../assets/js/textanim.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+
+			<script type="text/javascript">
+				window.onload = function(){
+
+					// Set footer year
+					document.getElementById("year").innerHTML = new Date().getFullYear();
+
+					// Handle mouse over event for links
+
+					document.getElementById("header-logo").onmouseover = function(){
+						document.getElementById("header-logo").style = "";
+					}
+					document.getElementById("header-logo").onmouseout = function(){
+						document.getElementById("header-logo").style = "";
+					}
+
+				// Initialize Firestore
+				firebase.initializeApp({
+					apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
+					authDomain: 'bengaluru-plog-run.firebaseapp.com',
+					projectId: 'bengaluru-plog-run'
+				});
+
+				// Initialize Cloud Firestore through Firebase
+				var db = firebase.firestore();
+
+				// Get email element
+				var email = document.getElementById("ebutton").onclick = function(){
+					// Push data to Firebase!
+					db.collection("non-joiner-emails").add({
+						email: document.getElementById("email").value
+					})
+					.then(function(docRef) {
+						console.log("Document written with ID: ", docRef.id);
+					})
+					.catch(function(error) {
+						console.error("Error adding document: ", error);
+					});
+
+				// Replace form with text
+				document.getElementById("eform").innerHTML = '<p>Thank you for your interest! We appreciate it.</p>';
+				}
+
+				}
+			</script>
+
+	</body>
+</html>

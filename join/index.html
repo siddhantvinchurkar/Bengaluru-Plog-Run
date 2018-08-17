@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Bengaluru Plog Run</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<link rel="shortcut icon" type="image/png" href="https://via.placeholder.com/512x512/222222/bada55?text=BPR%20Logo"/>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="index.html">Bengaluru Plog Run</a></h1>
+				</header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container" id="container">
+						<header class="major">
+							<h2>Join the Movement</h2>
+							<p>Be the change you want to see. Apply to become a volunteer today!</p>
+						</header>
+
+						<!-- Content -->
+							<section id="content">
+								<form>
+									<div class="row">
+										<div class="col-4 off-2">
+											<input id="fn" type="text" placeholder="First Name" />
+										</div>
+										<div class="col-4">
+											<input id="ln" type="text" placeholder="Last Name" />
+										</div>
+									</div>
+									<div style="margin-top:15px; margin-bottom:15px;"></div>
+									<div class="row">
+										<div class="col-4 off-2">
+											<input id="eml" type="email" placeholder="Email" />
+										</div>
+										<div class="col-4">
+											<input id="org" type="text" placeholder="Organization" />
+										</div>
+									</div>
+									<div style="margin-top:15px; margin-bottom:15px;"></div>
+									<div class="row">
+										<div class="col-2 off-2">
+											<input id="phone" type="text" placeholder="Phone" />
+										</div>
+										<div class="col-2">
+											<input id="age" type="text" placeholder="Age" />
+										</div>
+										<div class="col-2">
+											<select id="bg">
+												<option>Blood Group</option>
+												<option>A +ve</option>
+												<option>A -ve</option>
+												<option>B +ve</option>
+												<option>B -ve</option>
+												<option>O +ve</option>
+												<option>O -ve</option>
+												<option>AB +ve</option>
+												<option>AB -ve</option>
+											</select>
+										</div>
+										<div class="col-2">
+											<select id="tss">
+												<option>T-shirt size</option>
+												<option>XXXS</option>
+												<option>XXS</option>
+												<option>XS</option>
+												<option>S</option>
+												<option>M</option>
+												<option>L</option>
+												<option>XL</option>
+												<option>XXL</option>
+												<option>XXXL</option>
+											</select>
+										</div>
+									</div>
+									<div style="margin-top:15px; margin-bottom:15px;"></div>
+									<div class="row">
+										<div class="col-4 off-2">
+											<select id="loc">
+												<option>Locality</option>
+												<option>Jayanagar</option>
+												<option>Koramangala</option>
+												<option>Indiranagar</option>
+												<option>BTM</option>
+												<option>Malleswaram</option>
+												<option>Rajajinagar</option>
+												<option>Basvangudi</option>
+												<option>Banashankari</option>
+												<option>Shantinagar</option>
+											</select>
+										</div>
+										<div class="col-4">
+										<a id="cmi" class="button primary fit">Count me in!</a>
+										</div>
+									</div>
+								</form>
+								<div class="row">
+									<div class="col-10 off-2">
+										<p><a href="#" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a href="">terms and conditions</a>.</p>
+									</div>
+								</div>
+							</section>
+
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; <p style="display:inline;" id="year">2018</p> <a href="https://volatile.ga/" target="_blank">Volatile, Inc.</a> All rights reserved.</li><li>Designed by <a href="https://siddhantvinchurkar.me">Siddhant Vinchurkar.</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+
+		<script type="text/javascript">
+			window.onload = function(){
+
+				// Initialize Firestore
+				firebase.initializeApp({
+					apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
+					authDomain: 'bengaluru-plog-run.firebaseapp.com',
+					projectId: 'bengaluru-plog-run'
+				});
+
+				// Initialize Cloud Firestore through Firebase
+				var db = firebase.firestore();
+
+				// Get button instance
+				var cmi = document.getElementById("cmi");
+
+				cmi.onclick = function(){
+
+					// Get form data
+					var fn = document.getElementById("fn").value;
+					var ln = document.getElementById("ln").value;
+					var eml = document.getElementById("eml").value;
+					var org = document.getElementById("org").value;
+					var phone = document.getElementById("phone").value;
+					var age = document.getElementById("age").value;
+					var bg = document.getElementById("bg").value;
+					var tss = document.getElementById("tss").value;
+					var loc = document.getElementById("loc").value;
+
+					// documentCounter
+					var documentCounter = 0;
+
+					// Push data to Firebase!
+					db.collection("volunteers").doc(eml).set({
+						firstName: fn,
+						lastName: ln,
+						email: eml,
+						organization: org,
+						phone: phone,
+						age: age,
+						bloodGroup: bg,
+						tShirtSize: tss,
+						locality: loc,
+						designation: "volunteer",
+						photoUrl: "https://via.placeholder.com/512x512/222222/bada55?text=BPR%20Logo",
+						facebookLink: "#",
+						twitterLink: "#"
+					})
+					.then(function(docRef) {
+						console.log("Document written with ID: ", docRef.id);
+					})
+					.catch(function(error) {
+						console.error("Error adding document: ", error);
+					});
+
+					if(documentCounter < 50){
+						// Send welcome email to volunteer
+						$.get(
+							"https://admin.sotf.in/console/sendbprmail.php",
+							{fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+								function(data) {
+								console.log("%c" + data, "background: #222222; color: #BADA55;");
+							}
+						);
+
+						// Send notification about new volunteer to area ambassador
+						$.get(
+							"https://admin.sotf.in/console/sendbprambmail.php",
+							{fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+							function(data) {
+								console.log("%c" + data, "background: #222222; color: #BADA55;");
+							}
+						);
+					}
+
+					// Display message on success
+					document.getElementById("container").innerHTML = '<h3>Thnk you for signing up! We\'ll get in touch with you shortly.</h3>';
+
+				}
+			}
+		</script>
+
+	</body>
+</html>
