@@ -3106,6 +3106,10 @@ input, select, textarea {
 		}
 
 		.spotlight.style1 .content {
+			border-color: #ff591f
+		}
+		
+		.spotlight.style1p5 .content {
 			border-color: #e44c65;
 		}
 

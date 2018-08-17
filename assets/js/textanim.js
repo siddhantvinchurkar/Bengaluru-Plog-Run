@@ -11,7 +11,7 @@ var Messenger = function(el){
     m.fadeBuffer = false;
     m.messages = [
       'Say \'no\' to single-use plastic.',
-      'The amount of plastic you come into contact with.',
+      'Your everyday contact with plastic.',
       'Non-perishable items.',
       'What you can.'
     ];
