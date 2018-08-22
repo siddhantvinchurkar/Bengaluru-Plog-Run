@@ -1,5 +1,6 @@
 var recycler = 0;
 var rearray = ["Refuse.", "Reduce.", "Reuse.", "Recycle."];
+document.getElementById("r4").innerHTML = rearray[recycler];
 var Messenger = function(el){
   'use strict';
   var m = this;
@@ -74,7 +75,7 @@ var Messenger = function(el){
       setTimeout(m.cycleText, 2000);
     }
   };
-  
+
   m.cycleText = function(){
     m.message = m.message + 1;
     if(m.message >= m.messages.length){
@@ -97,6 +98,4 @@ var Messenger = function(el){
   
   m.init();
 }
-
-console.clear();
 var messenger = new Messenger($('#messenger'));

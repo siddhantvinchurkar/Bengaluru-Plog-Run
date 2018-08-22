@@ -40,8 +40,38 @@
 					<a href="#one" class="goto-next scrolly">Next</a>
 				</section>
 
-			<!-- One -->
+				<!-- One -->
 				<section id="one" class="spotlight style1 bottom">
+					<span class="image fit main"><img src="images/header-2.jpg" alt="" /></span>
+					<div class="content">
+						<div class="container">
+							<div class="row">
+								<div class="col-4 col-12-medium">
+									<header>
+										<h2 id="tLoc" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
+										<p style="text-align:center; font-weight:bold;">Localities</p>
+									</header>
+								</div>
+								<div class="col-4 col-12-medium">
+									<header>
+										<h2 id="tPlog" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
+										<p style="text-align:center; font-weight:bold;">Ploggers</p>
+									</header>
+								</div>
+								<div class="col-4 col-12-medium">
+									<header>
+										<h2 id="dRem" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
+										<p style="text-align:center; font-weight:bold;">Days remaining</p>
+									</header>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="#two" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- One Backup -->
+				<!-- <section id="one" class="spotlight style1 bottom">
 					<span class="image fit main"><img src="images/header-2.jpg" alt="" /></span>
 					<div class="content">
 						<div class="container">
@@ -62,7 +92,7 @@
 						</div>
 					</div>
 					<a href="#two" class="goto-next scrolly">Next</a>
-				</section>
+				</section> -->
 				
 				<!-- Two -->
 				<section id="two" class="spotlight style1 bottom">
@@ -114,20 +144,25 @@
 						</header>
 						<div class="box alt">
 							<div class="row gtr-uniform">
-								<section class="col-4 col-6-medium col-12-xsmall">
-									<a href="https://www.go-native.in/" target="_blank"><img src="https://www.go-native.in/img/Go_Native_Logo.png" width="27%" height="38%"/></a>
-									<h3><a href="https://www.go-native.in/" target="_blank">Go Native</a></h3>
+								<section class="col-3 col-6-medium col-12-xsmall">
+									<a href="https://www.go-native.in/" target="_blank"><img src="images/go-native.png"/></a>
+									<h4><a href="https://www.go-native.in/" target="_blank">Go Native</a></h4>
 									<p>Go Native is a quiet little retreat with a Farm to Table restaurant and lifestyle store in Bangalore. Go Native aims to bring the Sustainable products into our daily living</p>
 								</section>
-								<section class="col-4 col-6-medium col-12-xsmall">
+								<section class="col-3 col-6-medium col-12-xsmall">
 									<a href="https://nncf.life/" target="_blank"><img src="images/nncf.png"/></a>
-									<h3><a href="https://nncf.life/" target="_blank">Namma Nimma Cycle Foundation</a></h3>
+									<h4 style="margin-top:12px;"><a href="https://nncf.life/" target="_blank">Namma Nimma Cycle Foundation</a></h4>
 									<p>A not for profit company focussed on sustainable mobility and bringing the culture of cycling into urban areas.</p>
 								</section>
-								<section class="col-4 col-6-medium col-12-xsmall">
-									<a href="https://uwbengaluru.org/" target="_blank"><img src="https://uwbengaluru.org/wp-content/uploads/2017/11/uw_rgb_ful_bengaluru_v-e1510169250836.png" /></a>
-									<h3><a href="https://uwbengaluru.org/" target="_blank">United Way Bengaluru</a></h3>
+								<section class="col-3 col-6-medium col-12-xsmall">
+									<a href="https://uwbengaluru.org/" target="_blank"><img src="images/uwb.png" /></a>
+									<h4 style="margin-top:5px;"><a href="https://uwbengaluru.org/" target="_blank">United Way Bengaluru</a></h4>
 									<p>UWBe focuses its efforts on education, livelihood, health and environment. UWBe  seeks to engage with and empower local communities.</p>
+								</section>
+								<section class="col-3 col-6-medium col-12-xsmall">
+									<a href="http://letsbethechange.in/" target="_blank"><img src="images/lbtc.png" /></a>
+									<h4><a href="http://letsbethechange.in/" target="_blank">Let's Be The Change</a></h4>
+									<p>Let's Be The Change, a youth driven NGO run with a vision for a cleaner country. Over 5 years LBTC has fixed over 300 garbage dumps with over 1000  volunteers. LBTC is a bridge connection between the Municipal Corporation (BBMP) and the Citizens.</p>
 								</section>
 							</div>
 						</div>
@@ -175,14 +210,49 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/textanim.js"></script>
+			<script src="assets/js/countUp.js"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
 
 			<script type="text/javascript">
 				window.onload = function(){
 
+					// Set flags
+					var countedUp = false;
+
 					// Set footer year
 					document.getElementById("year").innerHTML = new Date().getFullYear();
+
+					// Get number of days remaining to event and set the countdown
+					var plogrundate = new Date(new Date().getFullYear(), 9, 2);
+					if (new Date().getMonth()==9 && new Date().getDate()>2) plogrundate.setFullYear(plogrundate.getFullYear()+1);
+					document.getElementById("dRem").innerHTML = Math.ceil((plogrundate.getTime()-new Date().getTime())/86400000).toString();
+
+					// Display counting up animation for numbers on scrolling to the section 'one'
+					$(document).on('scroll', function(){
+						if($(this).scrollTop()>=$('#one').position().top){
+							if(!countedUp){
+								countedUp = true;
+								var numAnim = new CountUp("dRem", 0, Math.ceil((plogrundate.getTime()-new Date().getTime())/86400000), 0, 4);
+								if(!numAnim.error){
+									numAnim.start();
+								}
+								else console.error(numAnim.error);
+			
+								numAnim = new CountUp("tLoc", 0, 50, 0, 5);
+								if(!numAnim.error){
+									numAnim.start(AddPlusToLoc);
+								}
+								else console.error(numAnim.error);
+			
+								numAnim = new CountUp("tPlog", 0, 5000, 0, 6);
+								if(!numAnim.error){
+									numAnim.start(AddPlusToPlog);
+								}
+								else console.error(numAnim.error);
+							}
+						}
+					});
 
 					// Handle mouse over event for header logo
 
@@ -221,6 +291,10 @@
 				}
 
 				}
+
+				// CountUp Animation End Callbacks
+				function AddPlusToLoc(){document.getElementById("tLoc").innerHTML += " +"}
+				function AddPlusToPlog(){document.getElementById("tPlog").innerHTML += " +"}
 			</script>
 
 	</body>
