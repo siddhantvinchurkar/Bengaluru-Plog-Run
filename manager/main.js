@@ -427,6 +427,14 @@ function upgradeVolunteer(name, email){
 		console.error("Error adding document: ", error);
 	});
 
+	// Send email with secret link to ambassador
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function(){
+		if(xmlHttp.readyState == 4 && xmlHttp.status == 200) console.log(xmlHttp.responseText);
+	}
+	xmlHttp.open("GET", "https://admin.sotf.in/console/sendbprsecretmail.php?fn=" + name + "&eml=" + email, true); // true for asynchronous 
+	xmlHttp.send(null);
+
 }
 
 // Handle modal dismissal
