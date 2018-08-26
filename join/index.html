@@ -7,6 +7,79 @@
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
 		<link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #272833;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #FF591F;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 10px;
+    background-color: #FF591F;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #FF591F;
+    color: white;
+}
+</style>
 	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
@@ -25,6 +98,23 @@
 				</header>
 
 			<!-- Main -->
+
+<!-- The Modal -->
+<div id="tncModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Terms and Conditions</h2>
+    </div>
+    <div class="modal-body">
+      <p id="tncHere"></p>
+    </div>
+  </div>
+
+</div>
+
 				<div id="main" class="wrapper style1">
 					<div class="container" id="container">
 						<header class="major">
@@ -36,31 +126,48 @@
 							<section id="content">
 								<form>
 									<div class="row">
-										<div class="col-4 off-2">
-											<input id="fn" type="text" placeholder="First Name" />
-										</div>
-										<div class="col-4">
-											<input id="ln" type="text" placeholder="Last Name" />
+										<div class="col-8 off-2">
+											<select id="loc">
+												<option>Locality</option>
+												<option>Jayanagar</option>
+												<option>Koramangala</option>
+												<option>Indiranagar</option>
+												<option>BTM</option>
+												<option>Malleswaram</option>
+												<option>Rajajinagar</option>
+												<option>Basvangudi</option>
+												<option>Banashankari</option>
+												<option>Shantinagar</option>
+											</select>
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
 									<div class="row">
-										<div class="col-4 off-2">
+										<div class="col-8 off-2">
+											<input id="fn" type="text" placeholder="Name" />
+										</div>
+										<div class="col-4" style="display:none;">
+											<input id="ln" type="text" placeholder="Last Name" value=" " />
+										</div>
+									</div>
+									<div style="margin-top:15px; margin-bottom:15px;"></div>
+									<div class="row">
+										<div class="col-8 off-2">
 											<input id="eml" type="email" placeholder="Email" />
 										</div>
-										<div class="col-4">
+										<div class="col-4" style="display:none;">
 											<input id="org" type="text" placeholder="Organization" />
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
 									<div class="row">
-										<div class="col-2 off-2">
+										<div class="col-3 off-2">
 											<input id="phone" type="text" placeholder="Phone" />
 										</div>
 										<div class="col-2">
 											<input id="age" type="text" placeholder="Age" />
 										</div>
-										<div class="col-2">
+										<div class="col-3">
 											<select id="bg">
 												<option>Blood Group</option>
 												<option>A +ve</option>
@@ -73,7 +180,7 @@
 												<option>AB -ve</option>
 											</select>
 										</div>
-										<div class="col-2">
+										<div class="col-2" style="display:none;">
 											<select id="tss">
 												<option>T-shirt size</option>
 												<option>XXXS</option>
@@ -90,28 +197,14 @@
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
 									<div class="row">
-										<div class="col-4 off-2">
-											<select id="loc">
-												<option>Locality</option>
-												<option>Jayanagar</option>
-												<option>Koramangala</option>
-												<option>Indiranagar</option>
-												<option>BTM</option>
-												<option>Malleswaram</option>
-												<option>Rajajinagar</option>
-												<option>Basvangudi</option>
-												<option>Banashankari</option>
-												<option>Shantinagar</option>
-											</select>
-										</div>
-										<div class="col-4">
+										<div class="col-8 off-2">
 										<a id="cmi" class="button primary fit">Count me in!</a>
 										</div>
 									</div>
 								</form>
 								<div class="row">
 									<div class="col-10 off-2">
-										<p><a href="#" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a href="">terms and conditions</a>.</p>
+										<p><a href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a id="tnc" href="#!">terms and conditions</a>.</p>
 									</div>
 								</div>
 							</section>
@@ -150,6 +243,10 @@
 
 		<script type="text/javascript">
 			window.onload = function(){
+
+				// Set terms and conditions
+
+				var tnc = '<b>Participation →</b><br />Each volunteer must have their e-mail ID registered prior to the event as they will need it at the time of attendance. By taking part, all volunteers agree to photos and videos of them being taken during the event for the sake of documentation. These images and videos can also be used for social media purposes and official documentation as well such as reports. There is no registration fee applicable for the event. In case anybody attempts to get your personal bank details for this cause, they are not to be trusted.<br /><br /><b>Day of the Event →</b><br />All volunteers are requested to follow instructions as provided by your Ambassador as well as official team members of the Plog Run. The safety measures taken during the event are for your own wellbeing; please do abide by them. All volunteers must wear the t-shirts and badges provided to them. As the expanse of your trail would be around 5 kms, it makes it easier for the ambassador to ensure everyone’s safety and wellbeing, also to make sure that nobody gets lost. All volunteers must acknowledge and agree that personal information (including medical information entered on their event number or collected by event medical staff during or after the Event) can be stored, used and disclosed by the Bengaluru Plog Run in connection with the initiative, promotion and administration of the Event and for the compilation of statistical information<br /><br /><b>The Beginning →</b><br />Volunteers shall assemble for the flag off, 20 minutes prior to the run starting. Volunteers shall then proceed to the start line. All Volunteers must be positioned behind the starting line when starting.<br /><br /><b>Standard Operating Procedure →</b><br />Any volunteer who refuses to obey the directions of the event official, city official or ambassador, or who conducts himself/herself/themselves in an unsportsmanlike manner, or who is offensive by action or language to officials, volunteers, ambassadors or spectators may be disqualified by the event and future participation at the discretion of event officials.<br /><br /><b>Safety of the Volunteer →</b><br />Medical personnel authorised by the event to do so may examine any volunteer who appears in distress. If in the sole opinion of authorised medical personnel it is in the best interest of the volunteer’s health and welfare, medical personnel can remove the participant from the event. Volunteer must retire at once from the event if ordered to do so by a member of the event’s official staff, official medical staff, or any governmental authority, including fire and police officers. Volunteers are responsible and assume liability for any and all medical expenses incurred as a result of training for and/or participation in the event, including but not limited to ambulance transport, hospital stays, physician and pharmaceutical goods and services.<br /><b>Amendments →</b><br />-  Event officials reserve the right, to modify, supplement or waive all or part of the event rules. Participants shall be bound by any modification or supplement of the event rules published prior to the event. Failure to follow these event rules, as can be amended, will result in immediate disqualification.<br /><b>DISCLAIMER →</b><br />In order to run in the Bengaluru Plog Run, runners must agree the following disclaimer: “In completing this entry I declare that I, or anyone that I am paying for, will not compete in the event unless medically fit to do so and that, in any event, we will compete at my/our own risk. I accept that the organisers will not be liable for any loss, damage, action, claim, costs or expenses which may arise in consequence of my/our participation of the event. I/We understand that entry fees are non-refundable. I also hereby give my permission to pass my/our details to my chosen charity and to use my/our name, quotes, video footage, and photographic likeness for marketing and promotional purposes. I also agree to the full Terms and Conditions as displayed on the event website.”';
 
 				// Initialize Firestore
 				firebase.initializeApp({
@@ -227,6 +324,16 @@
 					document.getElementById("container").innerHTML = '<h3>Thnk you for signing up! We\'ll get in touch with you shortly.</h3>';
 
 				}
+
+				// Handle Terms and conditions
+				document.getElementById("tnc").onclick = function(){
+					document.getElementById("tncHere").innerHTML = tnc;
+					document.getElementById('tncModal').style.display = "block";
+				}
+
+				// Handle Modal closure
+				document.getElementsByClassName("close")[0].onclick = function(){document.getElementById('tncModal').style.display = "none";}
+				 if(event.target == document.getElementById('tncModal')){document.getElementById('tncModal').style.display = "none";}
 
 				// Handle mouse over event for header logo
 
