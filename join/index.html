@@ -86,7 +86,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 			<!-- Header -->
 				<header id="header">
-					<h1 id="logo"><a href=""><img id="header-logo" src="../images/logo.svg" /></a></h1>
+					<h1 id="logo"><a href="../"><img id="header-logo" src="../images/logo.svg" /></a></h1>
 					<nav id="nav" style="font-size:1em; font-weight:bold;">
 						<ul>
 							<li><a style="font-size:1.5m;" href="../">Home</a></li>
@@ -129,15 +129,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
 										<div class="col-8 off-2">
 											<select id="loc">
 												<option>Locality</option>
-												<option>Jayanagar</option>
-												<option>Koramangala</option>
-												<option>Indiranagar</option>
-												<option>BTM</option>
-												<option>Malleswaram</option>
-												<option>Rajajinagar</option>
-												<option>Basvangudi</option>
-												<option>Banashankari</option>
-												<option>Shantinagar</option>
 											</select>
 										</div>
 									</div>
@@ -238,6 +229,17 @@ body {font-family: Arial, Helvetica, sans-serif;}
 			<script src="../assets/js/breakpoints.min.js"></script>
 			<script src="../assets/js/util.js"></script>
 			<script src="../assets/js/main.js"></script>
+
+			<script type="text/javascript">
+				function locList(data){
+					for(obj in data.feed.entry){
+						var row = data.feed.entry[obj].content.$t;
+						document.getElementById('loc').innerHTML += '<option>' + row + '</option>';
+					}
+				}
+			</script>
+
+			<script src="https://spreadsheets.google.com/feeds/cells/1tZyPqON4hEKD6WUz9bikJxsAQ2fFb_Kw3l3XyXWChZY/1/public/values?alt=json-in-script&callback=locList"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
 			<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
 
@@ -304,7 +306,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 						// Send welcome email to volunteer
 						$.get(
 							"https://admin.sotf.in/console/sendbprmail.php",
-							{fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+							// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+							{fn : fn, ln : ln, eml : eml, amb : "info@bengaluruplog.run"},
 								function(data) {
 								console.log("%c" + data, "background: #222222; color: #BADA55;");
 							}
@@ -313,7 +316,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 						// Send notification about new volunteer to area ambassador
 						$.get(
 							"https://admin.sotf.in/console/sendbprambmail.php",
-							{fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+							// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+							{fn : fn, ln : ln, eml : eml, amb : "info@bengaluruplog.run"},
 							function(data) {
 								console.log("%c" + data, "background: #222222; color: #BADA55;");
 							}
@@ -321,7 +325,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 					}
 
 					// Display message on success
-					document.getElementById("container").innerHTML = '<h3>Thnk you for signing up! We\'ll get in touch with you shortly.</h3>';
+					document.getElementById("container").innerHTML = '<center><h2>Thank you for signing up! We\'ll get in touch with you shortly.</h2></center>';
 
 				}
 
