@@ -199,6 +199,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 										<p><a href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a id="tnc" href="#!">terms and conditions</a>.</p>
 									</div>
 								</div>
+								<div id='map' style='width: 400px; height: 300px;'></div>
 							</section>
 
 					</div>
@@ -330,6 +331,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 					document.getElementById("container").innerHTML = '<center><h2>Thank you for signing up! We\'ll get in touch with you shortly.</h2></center>';
 
 				}
+
+				// Set up Mapbox
+				mapboxgl.accessToken = 'pk.eyJ1Ijoic2lkZGhhbnR2aW5jaHVya2FyIiwiYSI6ImNqbGprZTIxdTBic2wzcG5kbnFnZDZnOTAifQ.ztgcGv9lZMeV61VvGKMHIw';
+				var map = new mapboxgl.Map({
+					container: 'map',
+					style: 'mapbox://styles/mapbox/streets-v10'
+				});
 
 				// Handle Terms and conditions
 				document.getElementById("tnc").onclick = function(){
