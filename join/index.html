@@ -341,6 +341,54 @@ body {font-family: Arial, Helvetica, sans-serif;}
 					zoom: 10.8 // starting zoom
 				});
 
+				var editorData = $.ajax({
+    url: "../locations/MALLESWARAM.json"
+    }).done(function(data){
+        map.on('load', function(){
+            // Add a new source from our GeoJSON data 
+            map.addSource("myData", {
+                type: "geojson",
+                data: data
+            });
+
+            // Create layer from source
+            map.addLayer({
+                "id": "dataLayer",
+                "type": "symbol",
+                "source": "myData",
+                "layout": {
+                    "icon-image": "music-15"
+                }
+            });
+
+            // Add listener to change mouse pointer when
+            // over on of our markers 
+            map.on('mousemove', function (e) {
+                var features = map.queryRenderedFeatures(e.point, { layers: ['dataLayer'] });
+                map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+            });
+            
+                        // When a click event occurs near a marker icon, open a popup at the location of
+            // the feature, with description HTML from its properties.
+            map.on('click', function (e) {
+                var features = map.queryRenderedFeatures(e.point, { layers: ['dataLayer'] });
+
+                if (!features.length) {
+                    return;
+                }
+
+                var feature = features[0];
+
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                var popup = new mapboxgl.Popup()
+                    .setLngLat(feature.geometry.coordinates)
+                    .setHTML("<h1>Hi!</h1>")
+                    .addTo(map);
+            });
+        });
+    });
+
 				// Handle Terms and conditions
 				document.getElementById("tnc").onclick = function(){
 					document.getElementById("tncHere").innerHTML = tnc;
