@@ -62,8 +62,14 @@
 								</div>
 								<div class="col-4 col-12-medium">
 									<header>
-										<h2 id="dRem" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
-										<p style="text-align:center; font-weight:bold;">Days remaining</p>
+										<div id="dRemContainer">
+											<h2 id="dRem" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
+											<p style="text-align:center; font-weight:bold;">Days remaining</p>
+										</div>
+										<div id="dateContainer" style="display:none;">
+											<h2 style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">October 2<sup>nd</sup></h2>
+											<p style="text-align:center; font-weight:bold;">Mark your calendar</p>
+										</div>
 									</header>
 								</div>
 							</div>
@@ -221,6 +227,7 @@
 
 					// Set flags
 					var countedUp = false;
+					var dRemFlag = false;
 
 					// Set footer year
 					document.getElementById("year").innerHTML = new Date().getFullYear();
@@ -256,6 +263,20 @@
 						}
 					});
 
+					// Display date of event
+					setInterval(function(){
+						if(dRemFlag){
+							document.getElementById("dRemContainer").style.display = "none";
+							document.getElementById("dateContainer").style.display = "block";
+							dRemFlag = false;
+						}
+						else{
+							document.getElementById("dRemContainer").style.display = "block";
+							document.getElementById("dateContainer").style.display = "none";
+							dRemFlag = true;
+						}
+					}, 3000);
+
 					// Handle mouse over event for header logo
 
 					document.getElementById("header-logo").onmouseover = function(){
@@ -265,32 +286,32 @@
 						document.getElementById("header-logo").src = "images/logo.svg";
 					}
 
-				// Initialize Firestore
-				firebase.initializeApp({
-					apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
-					authDomain: 'bengaluru-plog-run.firebaseapp.com',
-					projectId: 'bengaluru-plog-run'
-				});
-
-				// Initialize Cloud Firestore through Firebase
-				var db = firebase.firestore();
-
-				// Get email element
-				var email = document.getElementById("ebutton").onclick = function(){
-					// Push data to Firebase!
-					db.collection("non-joiner-emails").add({
-						email: document.getElementById("email").value
-					})
-					.then(function(docRef) {
-						console.log("Document written with ID: ", docRef.id);
-					})
-					.catch(function(error) {
-						console.error("Error adding document: ", error);
+					// Initialize Firestore
+					firebase.initializeApp({
+						apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
+						authDomain: 'bengaluru-plog-run.firebaseapp.com',
+						projectId: 'bengaluru-plog-run'
 					});
 
-				// Replace form with text
-				document.getElementById("eform").innerHTML = '<p>Thank you for your interest! We appreciate it.</p>';
-				}
+					// Initialize Cloud Firestore through Firebase
+					var db = firebase.firestore();
+
+					// Get email element
+					var email = document.getElementById("ebutton").onclick = function(){
+						// Push data to Firebase!
+						db.collection("non-joiner-emails").add({
+							email: document.getElementById("email").value
+						})
+						.then(function(docRef) {
+							console.log("Document written with ID: ", docRef.id);
+						})
+						.catch(function(error) {
+							console.error("Error adding document: ", error);
+						});
+
+					// Replace form with text
+					document.getElementById("eform").innerHTML = '<p>Thank you for your interest! We appreciate it.</p>';
+					}
 
 				}
 
