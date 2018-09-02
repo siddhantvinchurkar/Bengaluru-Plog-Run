@@ -119,8 +119,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 				<div id="main" class="wrapper style1">
 					<div class="container" id="container">
 						<header class="major">
-							<h2>Join the Movement</h2>
-							<p>Be the change you want to see. Join us today!</p>
+							<h2>Collaborate with us</h2>
+							<p>Be the change you want to see. Support us today!</p>
 						</header>
 
 						<!-- Content -->
@@ -147,7 +147,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 								<form>
 									<div class="row" style="display:none;">
 										<div class="col-8 off-2">
-											<select id="loc">
+											<select id="locn">
 												<option>Locality</option>
 											</select>
 										</div>
@@ -201,7 +201,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
 									<div class="row">
 										<div class="col-8 off-2">
-											<textarea id="pro" type="text" placeholder="Tell us abut your project" rows="7"></textarea>
+											<textarea id="pro" type="text" placeholder="Comments" rows="7"></textarea>
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
@@ -216,7 +216,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 										<p><a href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a id="tnc" href="#!">terms and conditions</a>.</p>
 									</div>
 								</div>
-								<!--<div id="map" style="width:600px; height:400px;"></div>-->
+								<div style="display:none;" id="map" style="width:600px; height:400px;"></div>
 							</section>
 
 					</div>
@@ -251,7 +251,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 				function locList(data){
 					for(obj in data.feed.entry){
 						var row = data.feed.entry[obj].content.$t;
-						document.getElementById('loc').innerHTML += '<option>' + row + '</option>';
+						document.getElementById('locn').innerHTML += '<option>' + row + '</option>';
 					}
 				}
 			</script>
@@ -289,9 +289,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 					var eml = document.getElementById("eml").value;
 					var org = document.getElementById("org").value;
 					var phone = document.getElementById("phone").value;
-					var age = document.getElementById("age").value;
-					var bg = document.getElementById("bg").value;
-					var tss = document.getElementById("tss").value;
+					//var age = document.getElementById("age").value;
+					//var bg = document.getElementById("bg").value;
+					//var tss = document.getElementById("tss").value;
 					var loc = document.getElementById("loc").value;
 					var web = document.getElementById("web").value;
 					var pro = document.getElementById("pro").value;
@@ -306,11 +306,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 						email: eml,
 						organization: org,
 						phone: phone,
-						website: web
-						age: age,
-						bloodGroup: bg,
-						tShirtSize: tss,
-						locality: loc,
+						website: web,
+						comments: pro,
+						type: loc,
 						designation: "volunteer",
 						photoUrl: "https://bengaluru.plog.run/images/orange-logo.svg",
 						facebookLink: "#",
