@@ -201,7 +201,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 										<p><a href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a id="tnc" href="#!">terms and conditions</a>.</p>
 									</div>
 								</div>
-								<div id='map' style='width: 400px; height: 300px;'></div>
+								<div id="map" style="width:600px; height:400px;"></div>
 							</section>
 
 					</div>
@@ -336,7 +336,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 				mapboxgl.accessToken = 'pk.eyJ1Ijoic2lkZGhhbnR2aW5jaHVya2FyIiwiYSI6ImNqbGprZTIxdTBic2wzcG5kbnFnZDZnOTAifQ.ztgcGv9lZMeV61VvGKMHIw';
 				var map = new mapboxgl.Map({
 					container: 'map',
-					style: 'mapbox://styles/mapbox/streets-v10'
+					style: 'mapbox://styles/mapbox/streets-v10',
+ 					center: [77.5946, 12.9716], // starting position
+					zoom: 10.8 // starting zoom
 				});
 
 				// Handle Terms and conditions
