@@ -1,0 +1,47 @@
+<html>
+<body>
+	<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; <p style="display:inline;" id="year">2018</p> <a href="https://volatile.ga/" target="_blank">Volatile, Inc.</a> All rights reserved.</li><li>Designed by <a href="https://siddhantvinchurkar.me">Siddhant Vinchurkar.</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+			<script type="text/javascript">
+				window.onload = function(){
+
+					// Set footer year
+					document.getElementById("year").innerHTML = new Date().getFullYear();
+
+					// Handle mouse over event for header logo
+
+					document.getElementById("header-logo").onmouseover = function(){
+						document.getElementById("header-logo").src = "../images/orange-logo.svg";
+					}
+					document.getElementById("header-logo").onmouseout = function(){
+						document.getElementById("header-logo").src = "../images/logo.svg";
+					}
+
+				}
+			</script>
+
+	</body>
+</html>
