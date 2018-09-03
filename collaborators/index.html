@@ -116,18 +116,53 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </div>
 				<div id="main" class="wrapper style1">
 					<div class="container" id="container">
-						<header class="major">
-							<h2>Join the Movement</h2>
-							<p>Be the change you want to see. Apply to become a volunteer today!</p>
+						<header class="major" style="margin-top:-5em;">
+							<h2>Collaborate with us</h2>
+							<p>Be the change you want to see. Support us today!</p>
 						</header>
 
 						<!-- Content -->
 							<section id="content">
+								<div class="row">
+									<div class="col-4">
+										<h3>Corporate</h3>
+										<p>
+											<li>Support plog.run by donating kits ( a kit will have a Apron, Gloves, Bags)</li>
+											<li>Organize plog.run around your company with your employees</li>
+											<li>Share your story of running a <a href="https://twitter.com/RunPlog/" target="_blank">#IamPlasticLess</a> <a href="https://www.gonative.live/" target="_blank">#GoNative story</a></li>
+										</p>
+										</div>
+										<div class="col-4">
+										<h3>Civic Organizations</h3>
+										<p>
+											<li>Support plog.run by enrolling the volunteers in various localities</li>
+											<li>Organize plog.run around your community with your members</li>
+											<li>Share your story of running a <a href="https://twitter.com/RunPlog/" target="_blank">#IamPlasticLess</a> <a href="https://www.gonative.live/" target="_blank">#GoNative story</a></li>
+										</p>
+										</div>
+										<div class="col-4">
+										<h3>Institutions</h3>
+										<p>
+											<li>Organize plog.run around your Institution  with your staff members/students</li>
+											<li>Share your story of running a <a href="https://twitter.com/RunPlog/" target="_blank">#IamPlasticLess</a> <a href="https://www.gonative.live/" target="_blank">#GoNative story</a></li>
+										</p>
+									</div>
+								</div>
 								<form>
+									<div class="row" style="display:none;">
+										<div class="col-8 off-2">
+											<select id="locn">
+												<option>Locality</option>
+											</select>
+										</div>
+									</div>
 									<div class="row">
 										<div class="col-8 off-2">
 											<select id="loc">
-												<option>Locality</option>
+												<option>Select type</option>
+												<option>Corporate</option>
+												<option>Civic Organizations</option>
+												<option>Institutions</option>
 											</select>
 										</div>
 									</div>
@@ -151,38 +186,26 @@ body {font-family: Arial, Helvetica, sans-serif;}
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
 									<div class="row">
-										<div class="col-3 off-2">
+										<div class="col-8 off-2">
+											<input id="org" type="text" placeholder="Organization" />
+										</div>
+									</div>
+									<div style="margin-top:15px; margin-bottom:15px;"></div>
+									<div class="row">
+										<div class="col-8 off-2">
+											<input id="web" type="text" placeholder="Website" />
+										</div>
+									</div>
+									<div style="margin-top:15px; margin-bottom:15px;"></div>
+									<div class="row">
+										<div class="col-8 off-2">
 											<input id="phone" type="text" placeholder="Phone" />
 										</div>
-										<div class="col-2">
-											<input id="age" type="text" placeholder="Age" />
-										</div>
-										<div class="col-3">
-											<select id="bg">
-												<option>Blood Group</option>
-												<option>A +ve</option>
-												<option>A -ve</option>
-												<option>B +ve</option>
-												<option>B -ve</option>
-												<option>O +ve</option>
-												<option>O -ve</option>
-												<option>AB +ve</option>
-												<option>AB -ve</option>
-											</select>
-										</div>
-										<div class="col-2" style="display:none;">
-											<select id="tss">
-												<option>T-shirt size</option>
-												<option>XXXS</option>
-												<option>XXS</option>
-												<option>XS</option>
-												<option>S</option>
-												<option>M</option>
-												<option>L</option>
-												<option>XL</option>
-												<option>XXL</option>
-												<option>XXXL</option>
-											</select>
+									</div>
+									<div style="margin-top:15px; margin-bottom:15px;"></div>
+									<div class="row">
+										<div class="col-8 off-2">
+											<textarea id="pro" type="text" placeholder="Comments" rows="7"></textarea>
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
@@ -197,7 +220,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 										<p><a href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a id="tnc" href="#!">terms and conditions</a>.</p>
 									</div>
 								</div>
-								<!--<div id="map" style="width:600px; height:400px;"></div>-->
+								<div style="display:none;" id="map" style="width:600px; height:400px;"></div>
 							</section>
 
 					</div>
@@ -232,7 +255,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 				function locList(data){
 					for(obj in data.feed.entry){
 						var row = data.feed.entry[obj].content.$t;
-						document.getElementById('loc').innerHTML += '<option>' + row + '</option>';
+						document.getElementById('locn').innerHTML += '<option>' + row + '</option>';
 					}
 				}
 			</script>
@@ -270,25 +293,26 @@ body {font-family: Arial, Helvetica, sans-serif;}
 					var eml = document.getElementById("eml").value;
 					var org = document.getElementById("org").value;
 					var phone = document.getElementById("phone").value;
-					var age = document.getElementById("age").value;
-					var bg = document.getElementById("bg").value;
-					var tss = document.getElementById("tss").value;
+					//var age = document.getElementById("age").value;
+					//var bg = document.getElementById("bg").value;
+					//var tss = document.getElementById("tss").value;
 					var loc = document.getElementById("loc").value;
+					var web = document.getElementById("web").value;
+					var pro = document.getElementById("pro").value;
 
 					// documentCounter
 					var documentCounter = 0;
 
 					// Push data to Firebase!
-					db.collection("volunteers").doc(eml).set({
+					db.collection("collaborators").doc(eml).set({
 						firstName: fn,
 						lastName: ln,
 						email: eml,
 						organization: org,
 						phone: phone,
-						age: age,
-						bloodGroup: bg,
-						tShirtSize: tss,
-						locality: loc,
+						website: web,
+						comments: pro,
+						type: loc,
 						designation: "volunteer",
 						photoUrl: "https://bengaluru.plog.run/images/orange-logo.svg",
 						facebookLink: "#",

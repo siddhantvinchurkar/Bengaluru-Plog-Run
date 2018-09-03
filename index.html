@@ -21,7 +21,7 @@
 							<li><a style="font-size:1.5m;" href="index.html">Home</a></li>
 							<li><a href="about/" class="scrolly">About Us</a></li>
 							<li><a href="ambassadors/">Ambassadors</a></li>
-							<li><a href="#">Students</a></li>
+							<!--<li><a href="https://discourse.plog.run/" target="_blank">Forum</a></li>-->
 						</ul>
 					</nav>
 				</header>
@@ -31,9 +31,9 @@
 					<div class="content">
 						<header>
 							<center><img id="header-logo" src="images/go-native-bpr-logo.svg" /></center>
-							<h2 style="font-size:3em; font-family: 'Pacifico', cursive;">Let's run for a plastic-free Bengaluru!</h2>
+							<h2 style="font-size:2.8em; font-family: 'Pacifico', cursive;"> Let's run for a plastic-free Bengaluru On Oct 2, 2018!</h2>
 							<br />
-							<center><a href="join/" class="button primary" style="font-weight:bold;">Join The Movement</a></center>
+							<center><a href="join/" class="button primary" style="font-weight:bold;">Join The Movement</a>&emsp;<a href="collaborators/" class="button primary" style="font-weight:bold;">Partner with us</a>&emsp;<a href="collaborators/" class="button primary" style="font-weight:bold;">Support the movement - Donate Plog Kit</a></center>
 						</header>
 						
 					</div>
@@ -60,8 +60,14 @@
 								</div>
 								<div class="col-4 col-12-medium">
 									<header>
-										<h2 id="dRem" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
-										<p style="text-align:center; font-weight:bold;">Days remaining</p>
+										<div id="dRemContainer">
+											<h2 id="dRem" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
+											<p style="text-align:center; font-weight:bold;">Days remaining</p>
+										</div>
+										<div id="dateContainer" style="display:none;">
+											<h2 style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">October 2<sup>nd</sup></h2>
+											<p style="text-align:center; font-weight:bold;">Mark your calendar</p>
+										</div>
 									</header>
 								</div>
 							</div>
@@ -188,13 +194,13 @@
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
-						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="https://twitter.com/RunPlog/" target="_blank" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/bengaluruplogrun/" target="_blank" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="https://www.instagram.com/bengaluruplogrun/" target="_blank" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="mailto:info@bengaluruplog.run" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; <p style="display:inline;" id="year">2018</p> <a href="https://volatile.ga/" target="_blank">Volatile, Inc.</a> All rights reserved.</li><li>Designed by <a href="https://siddhantvinchurkar.me">Siddhant Vinchurkar.</a></li>
+						<li>&copy; <p style="display:inline;" id="year">2018</p> <a href="https://www.gonative.live/" target="_blank">Go Native</a> All rights reserved.</li>
 					</ul>
 				</footer>
 
@@ -219,6 +225,7 @@
 
 					// Set flags
 					var countedUp = false;
+					var dRemFlag = false;
 
 					// Set footer year
 					document.getElementById("year").innerHTML = new Date().getFullYear();
@@ -254,6 +261,20 @@
 						}
 					});
 
+					// Display date of event
+					setInterval(function(){
+						if(dRemFlag){
+							document.getElementById("dRemContainer").style.display = "none";
+							document.getElementById("dateContainer").style.display = "block";
+							dRemFlag = false;
+						}
+						else{
+							document.getElementById("dRemContainer").style.display = "block";
+							document.getElementById("dateContainer").style.display = "none";
+							dRemFlag = true;
+						}
+					}, 3000);
+
 					// Handle mouse over event for header logo
 
 					document.getElementById("header-logo").onmouseover = function(){
@@ -263,32 +284,32 @@
 						document.getElementById("header-logo").src = "images/logo.svg";
 					}
 
-				// Initialize Firestore
-				firebase.initializeApp({
-					apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
-					authDomain: 'bengaluru-plog-run.firebaseapp.com',
-					projectId: 'bengaluru-plog-run'
-				});
-
-				// Initialize Cloud Firestore through Firebase
-				var db = firebase.firestore();
-
-				// Get email element
-				var email = document.getElementById("ebutton").onclick = function(){
-					// Push data to Firebase!
-					db.collection("non-joiner-emails").add({
-						email: document.getElementById("email").value
-					})
-					.then(function(docRef) {
-						console.log("Document written with ID: ", docRef.id);
-					})
-					.catch(function(error) {
-						console.error("Error adding document: ", error);
+					// Initialize Firestore
+					firebase.initializeApp({
+						apiKey: 'AIzaSyBgEsyiffCICWGf32cc4SspPa4MvKJf1Hw',
+						authDomain: 'bengaluru-plog-run.firebaseapp.com',
+						projectId: 'bengaluru-plog-run'
 					});
 
-				// Replace form with text
-				document.getElementById("eform").innerHTML = '<p>Thank you for your interest! We appreciate it.</p>';
-				}
+					// Initialize Cloud Firestore through Firebase
+					var db = firebase.firestore();
+
+					// Get email element
+					var email = document.getElementById("ebutton").onclick = function(){
+						// Push data to Firebase!
+						db.collection("non-joiner-emails").add({
+							email: document.getElementById("email").value
+						})
+						.then(function(docRef) {
+							console.log("Document written with ID: ", docRef.id);
+						})
+						.catch(function(error) {
+							console.error("Error adding document: ", error);
+						});
+
+					// Replace form with text
+					document.getElementById("eform").innerHTML = '<p>Thank you for your interest! We appreciate it.</p>';
+					}
 
 				}
 
