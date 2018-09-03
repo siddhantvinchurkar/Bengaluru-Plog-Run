@@ -176,10 +176,28 @@
 }
 
 body {
-  background: #FFF;
+  background: #000000;
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+#wallpaper{
+	background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
+	background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
+	background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
+	background-image: linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
+	content: '';
+	background-attachment:fixed;
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 
 .container {
