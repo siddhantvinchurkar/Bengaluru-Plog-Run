@@ -6,23 +6,55 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" media="none" onload="if(media!='screen,projection')media='screen,projection'">
 		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' media="none" onload="if(media!='screen,projection')media='screen,projection'">
 		<link rel="stylesheet" href="../assets/css/astyle.css" media="none" onload="if(media!='screen,projection')media='screen,projection'">
-		<link rel="shortcut icon" type="image/png" href="https://via.placeholder.com/512x512/222222/bada55?text=BPR%20Logo"/>
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
 		<title>BPR Ambassadors</title>
 		<meta name="theme-color" content="#FFD700">
 		<meta name="Description" content="Bengaluru Plog Run Manager helps manage volunteers and ambassadors">
 	</head>
-	<body id="wallpaper">
+	<body id="wallpaper" class="landing">
+		<!-- Header -->
+		<header id="header">
+			<h1 id="logo"><a href=""><img id="header-logo" src="../images/logo.svg" /></a></h1>
+			<nav id="nav" style="font-size:1em; font-weight:bold;">
+				<ul>
+					<li><a style="font-size:1.5m;" href="../">Home</a></li>
+					<li><a href="../about/" class="scrolly">About Us</a></li>
+					<li><a href="../ambassadors/">Ambassadors</a></li>
+					<!--<li><a href="https://discourse.plog.run/" target="_blank">Forum</a></li>-->
+				</ul>
+			</nav>
+		</header>
+		<span style="margin:500px;"></span>
 		<div class="container">
 			<div class="at-section">
-				<div class="at-section__title" style="font-weight:bold;color:#FF591F;font-size:5em;">Meet The Ambassadors <span id="homer" style="cursor:pointer; font-size:0.3em; font-weight:normal;">of <span style="color:#FF0000;">Bengaluru</span> <span style="color:#FFD700;">Plog Run</span></span></div>
+				<header>
+					<center>
+						<h2 style="font-size:2.8em; font-family: 'Pacifico', cursive;"><br />Meet the Ambassadors of Bengaluru Plog Run</h2>
+					</center>
+				</header>
 			</div>
 			<div class="at-grid" data-column="3" id="cardContainer">
 				<div class="loader" id="loader"></div>
 			</div>
 		</div>
-		<footer style="text-align:center; margin-top:-55em; color:#FF591F">
-			<p>&copy; <span id="footerYear">2018</span> <a href="http://volatile.ga/" target="_blank" style="color:#FFD700;">Volatile, Inc.</a> All rights reserved.&emsp;|&emsp;Designed by <a href="https://wilbunfrank.me/" target="_blank" style="color:#FFD700;">Wilbun Frank Rodrigues</a></p>
-		</footer>
+		<!-- Footer -->
+		<center>
+			<footer style="margin-top:-40em;">
+				<ul class="icons">
+					<li><a href="https://twitter.com/RunPlog/" target="_blank" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="https://www.facebook.com/bengaluruplogrun/" target="_blank" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="https://www.instagram.com/bengaluruplogrun/" target="_blank" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="mailto:info@bengaluruplog.run" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<div class="copyright">
+					&copy; 
+					<p style="display:inline;" id="footerYear">2018</p>
+					<a href="https://www.gonative.live/" target="_blank">Go Native</a> All rights reserved.
+				</div>
+			</footer>
+			<br />
+		</center>
 		<!--Load scripts-->
 		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
