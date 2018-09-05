@@ -90,6 +90,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div id="records" class="row" style="display:none;">
 				<div class="col s12 m10 offset-m1">
 					<div class="card">
@@ -97,7 +98,12 @@
 							<h4><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" class="btn-floating right" style="background-color:#00AA00;" title="Refresh Table (Spacebar)"><i class="material-icons">refresh</i></a></h4>
 
 							<div class="row">
-								<div class="col s12 m2 offset-m9">
+								<div class="col s12 m6">
+									<div class="chip" style="cursor:pointer;" id="volunteerFilter"><img src="../images/volunteer.png" /><span id="volunteerCount" style="color:#FFD700;">1300</span> Volunteers</div>
+									<div class="chip" style="cursor:pointer;" id="ambassadorFilter"><img src="../images/ambassador.png" /><span id="ambassadorCount" style="color:#FF0000;">5610</span> Ambassadors</div>
+									<div class="chip" style="cursor:pointer;" id="totalFilter"><img src="../images/total.png" /><span id="totalCount" style="color:#0000FF;">4000</span> People in total</div>
+								</div>
+								<div class="col s12 m2 offset-m3">
 									<select id="filterOptions">
 										<option value="0" disabled selected>Filter Options</option>
 										<option value="1">Everyone</option>

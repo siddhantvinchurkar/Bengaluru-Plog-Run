@@ -1,7 +1,18 @@
-// Global variables
+/* Global variables */
+
+// Scope holders
 var gdb;
+
+// Flags
 var modalState = false;
 var signedIn = false;
+
+// Realtime variables
+var volunteerCount = 0;
+var ambassadorCount = 0;
+var totalCount = 0;
+
+// Materialize elements
 var modalElements;
 var modalInstances;
 var featureDiscoveryElements;
@@ -83,6 +94,49 @@ window.onload = function(){
 			});
 		});
 	});
+
+	// Retrieve Numbers
+	db.collection("volunteers").get().then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+			if(doc.data().designation == "volunteer") volunteerCount++;
+			else ambassadorCount++;
+		});
+		totalCount = volunteerCount + ambassadorCount;
+		// Set initial values
+		document.getElementById("volunteerCount").innerHTML = volunteerCount;
+		document.getElementById("ambassadorCount").innerHTML = ambassadorCount;
+		document.getElementById("totalCount").innerHTML = totalCount;
+	});
+
+	// Listen for data changes
+	db.collection("volunteers").onSnapshot(function(querySnapshot){
+		volunteerCount = 0;
+		ambassadorCount = 0;
+		totalCount = 0;
+		querySnapshot.forEach((doc) => {
+			if(doc.data().designation == "volunteer") volunteerCount++;
+			else ambassadorCount++;
+		});
+		totalCount = volunteerCount + ambassadorCount;
+		// Update values
+		document.getElementById("volunteerCount").innerHTML = volunteerCount;
+		document.getElementById("ambassadorCount").innerHTML = ambassadorCount;
+		document.getElementById("totalCount").innerHTML = totalCount;
+	});
+
+	// Handle chips
+	document.getElementById("volunteerFilter").onclick = function(){
+		document.getElementById("filterOptions").options.selectedIndex = 2;
+		document.getElementById("filterOptions").onchange();
+	}
+	document.getElementById("ambassadorFilter").onclick = function(){
+		document.getElementById("filterOptions").options.selectedIndex = 3;
+		document.getElementById("filterOptions").onchange();
+	}
+	document.getElementById("totalFilter").onclick = function(){
+		document.getElementById("filterOptions").options.selectedIndex = 1;
+		document.getElementById("filterOptions").onchange();
+	}
 
 	// Handle filtering
 	document.getElementById("filterOptions").onchange = function(){
