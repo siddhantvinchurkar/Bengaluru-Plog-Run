@@ -43,7 +43,7 @@ window.onload = function(){
 			return x == y ? 0 : x < y ? -1 : 1;
 		});
 		// Display stuff
-		for(var i=0; i<ambassadorArray.length; i++){console.log(ambassadorArray[i]); document.getElementById("cardContainer").innerHTML += ambassadorArray[i];}
+		for(var i=0; i<ambassadorArray.length; i++){document.getElementById("cardContainer").innerHTML += ambassadorArray[i];}
 		});
 	}
 
