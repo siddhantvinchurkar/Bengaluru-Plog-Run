@@ -23,7 +23,37 @@ var parallaxElements;
 var parallaxInstances;
 
 window.onload = function(){
+/*TODO*/
+var data = {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  series: [
+    [10,12,42,34,67,102]
+  ]
+};
 
+new Chartist.Line('#acquisitionChart', data, {low: 0,showArea: true}).on('draw', function(data) {
+  if(data.type === 'line' || data.type === 'area') {
+    data.element.animate({
+      d: {
+        begin: 2000 * data.index,
+        dur: 2000,
+        from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+        to: data.path.clone().stringify(),
+        easing: Chartist.Svg.Easing.easeOutQuint
+      }
+    });
+  }
+});
+new Chartist.Pie('#acquisitionChart2', {
+  series: [20, 10, 30, 40]
+}, {
+  donut: true,
+  donutWidth: 60,
+  donutSolid: true,
+  startAngle: 270,
+  showLabel: true
+});
+/*TODO*/
 	// Initialize Materialize Modals
 	modalElements = document.querySelectorAll('.modal');
 	modalInstances = M.Modal.init(modalElements, {onCloseEnd: onModalClosed, onOpenEnd: onModalOpened});
@@ -93,19 +123,6 @@ window.onload = function(){
 				});
 			});
 		});
-	});
-
-	// Retrieve Numbers
-	db.collection("volunteers").get().then((querySnapshot) => {
-		querySnapshot.forEach((doc) => {
-			if(doc.data().designation == "volunteer") volunteerCount++;
-			else ambassadorCount++;
-		});
-		totalCount = volunteerCount + ambassadorCount;
-		// Set initial values
-		document.getElementById("volunteerCount").innerHTML = volunteerCount;
-		document.getElementById("ambassadorCount").innerHTML = ambassadorCount;
-		document.getElementById("totalCount").innerHTML = totalCount;
 	});
 
 	// Listen for data changes

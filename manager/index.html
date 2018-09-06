@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" media="none" onload="if(media!='screen,projection')media='screen,projection'">
 		<!--Load Material Icon Font Asynchronously-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='screen,projection')media='screen,projection'">
+		<!--Load Chartist Asynchronously-->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" media="none" onload="if(media!='screen,projection')media='screen,projection'">
 		<!--Set the shortcut icon-->
 		<link rel="shortcut icon" type="image/ico" href="../images/favicon.png">
 		<!--Let browser know website is optimized for mobile-->
@@ -25,8 +27,18 @@
 				min-height: 100vh;
 				flex-direction: column;
 			}
-			main {
+			main{
 				flex: 1 0 auto;
+			}
+			.ct-series-a .ct-line{
+				stroke: #FFD700;
+				stroke-width: 5px;
+			}
+			.ct-chart .ct-series-a .ct-area{
+				fill: #FFD700;
+			}
+			.ct-chart-donut .ct-label{
+				color: #FFFFFF;
 			}
 		</style>
 	</head>
@@ -133,6 +145,26 @@
 					</div>
 				</div>
 			</div>
+			<div id="records" class="row" style="display:block;">
+				<div class="col s12 m10 offset-m1">
+					<div class="card">
+						<div class="card-content">
+							<h3><span><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons">multiline_chart</i></span>Analytics</h3>
+							<hr />
+							<div class="row">
+								<div class="col s12 m6">
+									<h5>User Acquisition Report</h5>
+									<div id="acquisitionChart" class="ct-chart ct-perfect-fourth"></div>
+								</div>
+								<div class="col s12 m6">
+									<h5>Acquisition Channel Distribution Report</h5>
+									<div id="acquisitionChart2" class="ct-chart ct-perfect-fourth"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 <footer class="page-footer" style="padding:0px 0px 0px 0px;">
           <div class="footer-copyright" style="background-color:#F6F6F6; padding:0px 0px 0px 0px; color:#000000;">
@@ -144,6 +176,7 @@
 		<!--Load Scripts Asynchronously-->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js" async></script>
 		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" async></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js" async></script>
 		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js" async></script>
 		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js" async></script>
 		<script type="text/javascript" src="main.js" async></script>
