@@ -126,6 +126,7 @@ window.onload = function(){
 		document.getElementById("ambassadorCount").innerHTML = ambassadorCount;
 		document.getElementById("totalCount").innerHTML = totalCount;
 		document.getElementById("totalNewCount").innerHTML = totalNewCount;
+		updateGraph();
 	});
 
 	// Handle chips
@@ -583,14 +584,8 @@ function upgradeVolunteer(name, email){
 
 }
 
-// Handle modal dismissal
-function onModalClosed(){
-modalState = false;
-}
-
-// Handle modal open
-function onModalOpened(){
 // Create graph
+function updateGraph(){
 	new Chartist.Line('#acquisitionChart', data, {low: 0, showArea: true, onlyInteger: true}).on('draw', function(data){
 		if(data.type === 'line' || data.type === 'area'){
 			data.element.animate({
@@ -604,6 +599,17 @@ function onModalOpened(){
 			});
 		}
 	});
+}
+
+// Handle modal dismissal
+function onModalClosed(){
+modalState = false;
+}
+
+// Handle modal open
+function onModalOpened(){
+	// Update graph
+	updateGraph();
 }
 
 // Handle feature discovery close
