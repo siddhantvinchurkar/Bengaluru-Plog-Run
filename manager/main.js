@@ -12,6 +12,8 @@ var volunteerCount = 0;
 var ambassadorCount = 0;
 var totalCount = 0;
 var totalNewCount = 0;
+var dateArray = [];
+var seriesArray = [0, 0, 0, 0, 0, 0, 0];
 
 // Materialize elements
 var modalElements;
@@ -23,7 +25,13 @@ var selectInstances
 var parallaxElements;
 var parallaxInstances;
 
-var data = {labels:[12,37,234,454,22,2], series:[[10,12,42,34,67,102]]};
+// Get last 7 days
+for (var i=0; i<7; i++){
+	var d = new Date();
+	d.setDate(d.getDate() - i);
+	dateArray.push(d.getDate());
+}
+var data = {labels:dateArray.reverse(), series:[seriesArray]};
 
 window.onload = function(){
 
@@ -108,8 +116,11 @@ window.onload = function(){
 			if(doc.data().designation == "volunteer") volunteerCount++;
 			else ambassadorCount++;
 			if((Date.parse(new Date()) - Date.parse(doc.data().dateAcquired)) <= (60 * 60 * 24 * 1000)) totalNewCount++;
+			for(var i=0; i<dateArray.length; i++) if(new Date(Date.parse(doc.data().dateAcquired)).getDate() == dateArray[i]) seriesArray[i]++;
 		});
 		totalCount = volunteerCount + ambassadorCount;
+		for(var i=0; i<dateArray.length; i++) if(dateArray[i] == 6) seriesArray[i] +=6;
+		var data = {labels:dateArray, series:[seriesArray]};
 		// Update values
 		document.getElementById("volunteerCount").innerHTML = volunteerCount;
 		document.getElementById("ambassadorCount").innerHTML = ambassadorCount;
@@ -580,7 +591,7 @@ modalState = false;
 // Handle modal open
 function onModalOpened(){
 // Create graph
-	new Chartist.Line('#acquisitionChart', data, {low: 0,showArea: true}).on('draw', function(data){
+	new Chartist.Line('#acquisitionChart', data, {low: 0, showArea: true, onlyInteger: true}).on('draw', function(data){
 		if(data.type === 'line' || data.type === 'area'){
 			data.element.animate({
 				d:{
