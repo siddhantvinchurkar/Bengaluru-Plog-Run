@@ -53,7 +53,7 @@
 
 			<!--Floating Search Button-->
 			<div id="floatingSearchButtonContainer" class="fixed-action-btn direction-top active" style="bottom: 45px; right: 24px;">
-				<a id="floatingSearchButton" class="btn btn-floating btn-large cyan disabled"><i class="material-icons">search</i></a>
+				<a id="floatingSearchButton" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn btn-floating btn-large cyan disabled"><i class="material-icons">search</i></a>
 			</div>
 
 			<!--Floating Search Button Feature Discovery-->
@@ -74,6 +74,22 @@
 				</div>
 				<div class="modal-footer">
 					<a id="searchButton" class="modal-close waves-effect waves-green btn-flat">Search</a>
+				</div>
+			</div>
+
+			<!--Analytics Modal-->
+			<div id="analyticsModal" class="modal modal-fixed-footer">
+				<div class="modal-content">
+					<h4><span><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons">multiline_chart</i></span>User Acquisition Report</h4>
+					<hr />
+					<div class="row">
+						<div class="col s12 m12">
+							<div id="acquisitionChart" class="ct-chart ct-perfect-fifth"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="modal-close waves-effect waves-green btn-flat">Close</a>
 				</div>
 			</div>
 
@@ -107,20 +123,26 @@
 				<div class="col s12 m10 offset-m1">
 					<div class="card">
 						<div class="card-content">
-							<h4><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" class="btn-floating right" style="background-color:#00AA00;" title="Refresh Table (Spacebar)"><i class="material-icons">refresh</i></a></h4>
+							<i class="material-icons right" style="vertical-align:middle; color:#C6C6C6;">info</i><p class="right" style="color:#C6C6C6;"><b>All statastics are updated in real time.</b></p>
+							<h4><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating right" style="background-color:#00AA00;" title="Refresh Table (Spacebar)"><i class="material-icons">refresh</i></a></h4>
 
 							<div class="row">
-								<div class="col s12 m6">
-									<div class="chip" style="cursor:pointer;" id="volunteerFilter"><img src="../images/volunteer.png" /><span id="volunteerCount" style="color:#FFD700;">1300</span> Volunteers</div>
+								<div class="col s12 m7">
+									<div class="chip" style="cursor:pointer;" id="volunteerFilter"><img src="../images/volunteer.png" /><span id="volunteerCount" style="color:#FFB500;">1300</span> Volunteers</div>
 									<div class="chip" style="cursor:pointer;" id="ambassadorFilter"><img src="../images/ambassador.png" /><span id="ambassadorCount" style="color:#FF0000;">5610</span> Ambassadors</div>
+									<div class="chip" style="cursor:pointer;" id="totalNewFilter"><img src="../images/new-user.png" /><span id="totalNewCount" style="color:#007700;">40</span> New people</div>
 									<div class="chip" style="cursor:pointer;" id="totalFilter"><img src="../images/total.png" /><span id="totalCount" style="color:#0000FF;">4000</span> People in total</div>
 								</div>
-								<div class="col s12 m2 offset-m3">
+								<div class="col s12 m3">
+									<a class="waves-effect waves-light btn modal-trigger blue darken-4" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" href="#analyticsModal"><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons left">multiline_chart</i>User Acquisition Report</a>
+								</div>
+								<div class="col s12 m2">
 									<select id="filterOptions">
 										<option value="0" disabled selected>Filter Options</option>
 										<option value="1">Everyone</option>
 										<option value="2">Volunteers</option>
 										<option value="3">Ambassadors</option>
+										<option value="4">New People</option>
 									</select>
 								</div>
 							</div>
@@ -142,26 +164,6 @@
 								<!--This stuff is populated dynamically-->
 							</tbody>
 						</table>
-					</div>
-				</div>
-			</div>
-			<div id="records" class="row" style="display:block;">
-				<div class="col s12 m10 offset-m1">
-					<div class="card">
-						<div class="card-content">
-							<h3><span><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons">multiline_chart</i></span>Analytics</h3>
-							<hr />
-							<div class="row">
-								<div class="col s12 m6">
-									<h5>User Acquisition Report</h5>
-									<div id="acquisitionChart" class="ct-chart ct-perfect-fourth"></div>
-								</div>
-								<div class="col s12 m6">
-									<h5>Acquisition Channel Distribution Report</h5>
-									<div id="acquisitionChart2" class="ct-chart ct-perfect-fourth"></div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
