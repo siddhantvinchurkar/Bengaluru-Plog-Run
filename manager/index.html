@@ -53,7 +53,7 @@
 
 			<!--Floating Search Button-->
 			<div id="floatingSearchButtonContainer" class="fixed-action-btn direction-top active" style="bottom: 45px; right: 24px;">
-				<a id="floatingSearchButton" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn btn-floating btn-large cyan disabled"><i class="material-icons">search</i></a>
+				<a id="floatingSearchButton" data-position="left" data-tooltip="Search (Start Typing)" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn btn-floating btn-large tooltipped cyan disabled"><i class="material-icons">search</i></a>
 			</div>
 
 			<!--Floating Search Button Feature Discovery-->
@@ -123,18 +123,18 @@
 				<div class="col s12 m10 offset-m1">
 					<div class="card">
 						<div class="card-content">
-							<i class="material-icons right" style="vertical-align:middle; color:#C6C6C6;">info</i><p class="right" style="color:#C6C6C6;"><b>All statastics are updated in real time.</b></p>
-							<h4><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating right" style="background-color:#00AA00;" title="Refresh Table (Spacebar)"><i class="material-icons">refresh</i></a></h4>
+							<i class="material-icons right" style="vertical-align:middle; color:#C6C6C6;">info</i><p class="right" style="color:#C6C6C6;"><b>All statastics are updated in real time.<br />Date and time of sign up is recorded for every signup only post Thursday, September 6<sup>th</sup> 2018.<br />All sign ups in the last 24 hours are considered new sign ups and have this<a href="#!" class="collection-item"><span class="new badge">+</span></a> badge:</b></p>
+							<h4 style="margin-top:2em;"><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" data-position="left" data-tooltip="Refresh (Spacebar)" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped right" style="background-color:#00AA00;"><i class="material-icons">refresh</i></a></h4>
 
 							<div class="row">
 								<div class="col s12 m7">
-									<div class="chip" style="cursor:pointer;" id="volunteerFilter"><img src="../images/volunteer.png" /><span id="volunteerCount" style="color:#FFB500;">1300</span> Volunteers</div>
-									<div class="chip" style="cursor:pointer;" id="ambassadorFilter"><img src="../images/ambassador.png" /><span id="ambassadorCount" style="color:#FF0000;">5610</span> Ambassadors</div>
-									<div class="chip" style="cursor:pointer;" id="totalNewFilter"><img src="../images/new-user.png" /><span id="totalNewCount" style="color:#007700;">40</span> New people</div>
-									<div class="chip" style="cursor:pointer;" id="totalFilter"><img src="../images/total.png" /><span id="totalCount" style="color:#0000FF;">4000</span> People in total</div>
+									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by volunteers" style="cursor:pointer;" id="volunteerFilter"><img src="../images/volunteer.png" /><span id="volunteerCount" style="color:#FFB500;">1300</span> Volunteers</div>
+									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by ambassadors" style="cursor:pointer;" id="ambassadorFilter"><img src="../images/ambassador.png" /><span id="ambassadorCount" style="color:#FF0000;">5610</span> Ambassadors</div>
+									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by new sign ups" style="cursor:pointer;" id="totalNewFilter"><img src="../images/new-user.png" /><span id="totalNewCount" style="color:#007700;">40</span> New people</div>
+									<div class="chip tooltipped" data-position="bottom" data-tooltip="Remove all filters" style="cursor:pointer;" id="totalFilter"><img src="../images/total.png" /><span id="totalCount" style="color:#0000FF;">4000</span> People total</div>
 								</div>
 								<div class="col s12 m3">
-									<a class="waves-effect waves-light btn modal-trigger blue darken-4" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" href="#analyticsModal"><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons left">multiline_chart</i>Acquisition Report</a>
+									<a class="waves-effect waves-light btn modal-trigger blue darken-4 tooltipped" data-position="bottom" data-tooltip="View volunteer acquisition report" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" href="#analyticsModal"><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons left">multiline_chart</i>Acquisition Report</a>
 								</div>
 								<div class="col s12 m2">
 									<select id="filterOptions">

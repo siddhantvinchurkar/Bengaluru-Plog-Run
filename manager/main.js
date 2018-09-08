@@ -24,6 +24,8 @@ var selectElements;
 var selectInstances
 var parallaxElements;
 var parallaxInstances;
+var tooltipElements;
+var tooltipInstances;
 
 // Get last 7 days
 for (var i=0; i<7; i++){
@@ -54,6 +56,11 @@ window.onload = function(){
 	parallaxElements = document.querySelectorAll('.parallax');
 	parallaxInstances = M.Parallax.init(parallaxElements);
 	console.log("%cParallax Elements Initialized!", "background:#222222; color:#BADA55;");
+
+	// Initialize Materialize Tooltips
+	tooltipElements = document.querySelectorAll('.tooltipped');
+	tooltipInstances = M.Tooltip.init(tooltipElements);
+	console.log("%cTooltip Elements Initialized!", "background:#222222; color:#BADA55;");
 
 	// Register a Service Worker
 	if('serviceWorker' in navigator) {
@@ -96,12 +103,13 @@ window.onload = function(){
 			document.getElementById("passwordMessage").style.display = "block";
 
 			// Begin fetching volunteer and/or ambassador records in the background
-			db.collection("volunteers").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired);
 				});
+				reinitializeTooltips();
 			});
 		});
 	});
@@ -154,12 +162,13 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired);
 				});
+				reinitializeTooltips();
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -170,12 +179,13 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildVolunteerTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired);
 				});
+				reinitializeTooltips();
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -186,12 +196,13 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildAmbassadorTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired);
 				});
+				reinitializeTooltips();
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -202,12 +213,13 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildNewPersonTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired);
 				});
+				reinitializeTooltips();
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -269,15 +281,18 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired);
 				});
-					// Scroll table into view
+				reinitializeTooltips();
+
+				// Scroll table into view
 				document.getElementById("records").scrollIntoView();
-				});
+
+			});
 		}
 		// Handle letters
 		else if(event.keyCode >= 65 && event.keyCode <= 90){
@@ -299,14 +314,17 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildSearchTableRow(document.getElementById("searchBar").value, doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired);
 				});
+				reinitializeTooltips();
+
 				// Scroll table into view
 				document.getElementById("records").scrollIntoView();
+
 			});
 			M.Modal.getInstance(searchModal).close();
 			modalState = false;
@@ -318,12 +336,13 @@ window.onload = function(){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		db.collection("volunteers").get().then((querySnapshot) => {
+		db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
 				buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired);
 			});
+			reinitializeTooltips();
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -350,29 +369,27 @@ function buildTableRow(name="unknown", email="unknown", designation="unknown", d
 	var ambassador = false;
 
 	// Handle single quotes
-	name = name.replace(/'/g, "\\'");
+	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
 	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
-//&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a>
 	// Update table contents
 	if(ambassador){
 		if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 		else
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 	}
 	else{
 		if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 		else{
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 		}
 	}
-
 }
 
 // Build ambassador table rows
@@ -382,7 +399,7 @@ function buildAmbassadorTableRow(name="unknown", email="unknown", designation="u
 	var ambassador = false;
 
 	// Handle single quotes
-	name = name.replace(/'/g, "\\'");
+	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 
@@ -393,13 +410,12 @@ function buildAmbassadorTableRow(name="unknown", email="unknown", designation="u
 	// Update table contents
 	if(ambassador){
 		if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000)){
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 		}
 		else{
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 		}
 	}
-
 }
 
 // Build volunteer table rows
@@ -409,7 +425,7 @@ function buildVolunteerTableRow(name="unknown", email="unknown", designation="un
 	var ambassador = false;
 
 	// Handle single quotes
-	name = name.replace(/'/g, "\\'");
+	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 
@@ -423,13 +439,12 @@ function buildVolunteerTableRow(name="unknown", email="unknown", designation="un
 	}
 	else{
 		if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000)){
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 		}
 		else{
-			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+			document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 		}
 	}
-
 }
 
 // Build search table rows
@@ -440,12 +455,12 @@ function buildSearchTableRow(searchString="", name="unknown", email="unknown", d
 	var recordExists = false;
 
 	// Handle single quotes
-	name = name.replace(/'/g, "\\'");
+	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 
 	// Handle filtering
-	if(name.includes(searchString) || email.includes(searchString)) recordExists = true;
+	if(name.toLowerCase().includes(searchString.toLowerCase()) || email.toLowerCase().includes(searchString.toLowerCase())) recordExists = true;
 
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
@@ -455,18 +470,18 @@ function buildSearchTableRow(searchString="", name="unknown", email="unknown", d
 	if(recordExists){
 		if(ambassador){
 			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000)){
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 			}
 			else{
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 			}
 		}
 		else{
 			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000)){
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 			}
 			else{
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 			}
 		}
 	}
@@ -479,7 +494,7 @@ function buildNewPersonTableRow(name="unknown", email="unknown", designation="un
 	var ambassador = false;
 
 	// Handle single quotes
-	name = name.replace(/'/g, "\\'");
+	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 
@@ -490,15 +505,15 @@ function buildNewPersonTableRow(name="unknown", email="unknown", designation="un
 	if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000)){
 		if(ambassador){
 			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 			else
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating" style="background-color:#AA0000;" title="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a></td></tr>';
 		}
 		else{
 			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 			else{
-				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating" title="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td>'+email+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a></td></tr>';
 			}
 		}
 	}
@@ -519,7 +534,7 @@ function downgradeAmbassador(name, email){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		gdb.collection("volunteers").get().then((querySnapshot) => {
+		gdb.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
@@ -554,7 +569,7 @@ function upgradeVolunteer(name, email){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		gdb.collection("volunteers").get().then((querySnapshot) => {
+		gdb.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
@@ -582,6 +597,19 @@ function upgradeVolunteer(name, email){
 	xmlHttp.open("GET", "https://admin.sotf.in/console/sendbprsecretmail.php?fn=" + name + "&eml=" + email, true); // true for asynchronous 
 	xmlHttp.send(null);
 
+}
+
+// Reinitialize tooltips
+function reinitializeTooltips(){
+	tooltipElements = document.querySelectorAll('.tooltipped');
+	tooltipInstances = M.Tooltip.init(tooltipElements);
+}
+
+// Capitalize names for display
+function capitalize(str){
+	var splitStr = str.toLowerCase().split(' ');
+	for(var i = 0; i < splitStr.length; i++) splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+	return splitStr.join(' '); 
 }
 
 // Create graph
