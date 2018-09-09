@@ -1,0 +1,134 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "HSR Layout",
+        "ambassador": "Rohith",
+        "ambassador_email": "rohith@gmail.com",
+        "ambassador_photo_profile": "http://rohith.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6522255,
+          12.9125066,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Hsr layout circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.6379776,
+              12.9144727,
+              0
+            ],
+            [
+              77.6381063,
+              12.9121302,
+              0
+            ],
+            [
+              77.6518393,
+              12.9119629,
+              0
+            ],
+            [
+              77.6516676,
+              12.9173589,
+              0
+            ],
+            [
+              77.644887,
+              12.9173171,
+              0
+            ],
+            [
+              77.6448011,
+              12.9152256,
+              0
+            ],
+            [
+              77.6425266,
+              12.9156021,
+              0
+            ],
+            [
+              77.6396513,
+              12.9158112,
+              0
+            ],
+            [
+              77.639823,
+              12.9144308,
+              0
+            ],
+            [
+              77.6379776,
+              12.9144727,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.64010190963745,
+          12.912276582035199
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.64469385147095,
+          12.915330164940633
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.64999389648438,
+          12.9173588945947
+        ]
+      }
+    }
+  ]
+}

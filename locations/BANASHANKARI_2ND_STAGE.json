@@ -1,0 +1,218 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "BSK II Stage",
+        "ambassador": "Brunda",
+        "ambassador_email": "brunda@gmail.com",
+        "ambassador_photo_profile": "http;/gottila.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5663304,
+          12.9251704,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "BSK II stage circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5662446,
+              12.9251809,
+              0
+            ],
+            [
+              77.5669527,
+              12.9249403,
+              0
+            ],
+            [
+              77.5671029,
+              12.9254632,
+              0
+            ],
+            [
+              77.5677145,
+              12.9253273,
+              0
+            ],
+            [
+              77.5685513,
+              12.9251809,
+              0
+            ],
+            [
+              77.5699139,
+              12.9249403,
+              0
+            ],
+            [
+              77.5705254,
+              12.9248462,
+              0
+            ],
+            [
+              77.570504,
+              12.9250763,
+              0
+            ],
+            [
+              77.5703967,
+              12.9257142,
+              0
+            ],
+            [
+              77.5701392,
+              12.9261324,
+              0
+            ],
+            [
+              77.5695062,
+              12.9264357,
+              0
+            ],
+            [
+              77.5687551,
+              12.9267494,
+              0
+            ],
+            [
+              77.5682831,
+              12.9269272,
+              0
+            ],
+            [
+              77.567929,
+              12.92745,
+              0
+            ],
+            [
+              77.5678325,
+              12.9278474,
+              0
+            ],
+            [
+              77.5678647,
+              12.9285689,
+              0
+            ],
+            [
+              77.5639594,
+              12.9292669,
+              0
+            ],
+            [
+              77.563659,
+              12.9281245,
+              0
+            ],
+            [
+              77.5623285,
+              12.9285793,
+              0
+            ],
+            [
+              77.5612128,
+              12.926488,
+              0
+            ],
+            [
+              77.5642383,
+              12.9258396,
+              0
+            ],
+            [
+              77.5639808,
+              12.9246789,
+              0
+            ],
+            [
+              77.565558,
+              12.9243652,
+              0
+            ],
+            [
+              77.5657296,
+              12.9252959,
+              0
+            ],
+            [
+              77.5662446,
+              12.9251809,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "BSK II stage support 2",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5678647,
+          12.9285689,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "BSK II stage support 1",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5634015,
+          12.9282656,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "BSK II stage support 3",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5701714,
+          12.9257978,
+          0
+        ]
+      }
+    }
+  ]
+}

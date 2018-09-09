@@ -1,0 +1,203 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Basavanagudi circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.566942,
+              12.9415769,
+              0
+            ],
+            [
+              77.566781,
+              12.9411586,
+              0
+            ],
+            [
+              77.5666952,
+              12.9399457,
+              0
+            ],
+            [
+              77.5667381,
+              12.9384818,
+              0
+            ],
+            [
+              77.566824,
+              12.9377917,
+              0
+            ],
+            [
+              77.5691843,
+              12.9379381,
+              0
+            ],
+            [
+              77.5699353,
+              12.9381263,
+              0
+            ],
+            [
+              77.5715446,
+              12.9390883,
+              0
+            ],
+            [
+              77.5712442,
+              12.9395484,
+              0
+            ],
+            [
+              77.5710404,
+              12.9450797,
+              0
+            ],
+            [
+              77.5713408,
+              12.9454352,
+              0
+            ],
+            [
+              77.5694311,
+              12.9467945,
+              0
+            ],
+            [
+              77.5681651,
+              12.9477147,
+              0
+            ],
+            [
+              77.5680685,
+              12.9479447,
+              0
+            ],
+            [
+              77.5680363,
+              12.9481747,
+              0
+            ],
+            [
+              77.5676501,
+              12.9481225,
+              0
+            ],
+            [
+              77.5676501,
+              12.9477669,
+              0
+            ],
+            [
+              77.5677681,
+              12.9475055,
+              0
+            ],
+            [
+              77.5678754,
+              12.9435845,
+              0
+            ],
+            [
+              77.5678325,
+              12.942748,
+              0
+            ],
+            [
+              77.5675964,
+              12.9423611,
+              0
+            ],
+            [
+              77.566942,
+              12.9415769,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "Basavanagudi",
+        "ambassador": "Yashas Koppa",
+        "ambassador_email": "yashaskr@gmail.com",
+        "ambassador_photo_profile": "http://yashas.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5675535,
+          12.9425389,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "Basavanagudi support 1",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.567811,
+          12.9481852,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "Basavanagudi support 2",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5715446,
+          12.9390883,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "Basavanagudi support 3",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5666738,
+          12.9377917,
+          0
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "BTM circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.6130438,
+              12.9066295,
+              0
+            ],
+            [
+              77.6138162,
+              12.9079681,
+              0
+            ],
+            [
+              77.6142883,
+              12.9078844,
+              0
+            ],
+            [
+              77.6145458,
+              12.908721,
+              0
+            ],
+            [
+              77.614932,
+              12.9085537,
+              0
+            ],
+            [
+              77.616241,
+              12.9136988,
+              0
+            ],
+            [
+              77.6151895,
+              12.9137093,
+              0
+            ],
+            [
+              77.6139235,
+              12.9140335,
+              0
+            ],
+            [
+              77.6132154,
+              12.9098923,
+              0
+            ],
+            [
+              77.6099968,
+              12.9100596,
+              0
+            ],
+            [
+              77.6115417,
+              12.9049562,
+              0
+            ],
+            [
+              77.6124429,
+              12.9049562,
+              0
+            ],
+            [
+              77.6130438,
+              12.9066295,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "support_btm",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6099968,
+          12.9100596,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "BTM Layout",
+        "ambassador": "Amrutha Reddy",
+        "ambassador_email": "amruthareddy@gmail.com",
+        "ambassador_photo_profile": "http:/gottilareddy.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6135159,
+          12.9074452,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "support-btm-2",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6134729,
+          12.9124648,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "support-btm-3",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6154685,
+          12.9105825,
+          0
+        ]
+      }
+    }
+  ]
+}

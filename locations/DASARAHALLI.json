@@ -1,0 +1,168 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Dasarahalli Circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5241661,
+              13.0415191,
+              0
+            ],
+            [
+              77.5234795,
+              13.0403485,
+              0
+            ],
+            [
+              77.5221491,
+              13.0382581,
+              0
+            ],
+            [
+              77.5232649,
+              13.0375473,
+              0
+            ],
+            [
+              77.5253677,
+              13.0364603,
+              0
+            ],
+            [
+              77.5273848,
+              13.0350806,
+              0
+            ],
+            [
+              77.530818,
+              13.0342444,
+              0
+            ],
+            [
+              77.5330496,
+              13.0326138,
+              0
+            ],
+            [
+              77.5379848,
+              13.0301052,
+              0
+            ],
+            [
+              77.5401735,
+              13.0289763,
+              0
+            ],
+            [
+              77.5406885,
+              13.0324466,
+              0
+            ],
+            [
+              77.5400877,
+              13.0329483,
+              0
+            ],
+            [
+              77.5360537,
+              13.0360004,
+              0
+            ],
+            [
+              77.5325775,
+              13.0382581,
+              0
+            ],
+            [
+              77.5286722,
+              13.0414355,
+              0
+            ],
+            [
+              77.5252819,
+              13.043944,
+              0
+            ],
+            [
+              77.5241661,
+              13.0415191,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star-stroked",
+        "locality": "Dasarahalloi",
+        "ambassador": "Anushree",
+        "ambassador_email": "anushree@gmail.com",
+        "ambassador_photo_profile": "http://gottila.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.54017353057861,
+          13.029059924514206
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.52897262573242,
+          13.034829709730193
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.52511024475098,
+          13.043985831878272
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.53884315490723,
+          13.033700849291993
+        ]
+      }
+    }
+  ]
+}

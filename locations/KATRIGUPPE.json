@@ -1,0 +1,173 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Katreguppa Circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5434995,
+              12.9304093,
+              0
+            ],
+            [
+              77.5492716,
+              12.9258292,
+              0
+            ],
+            [
+              77.5506878,
+              12.9250345,
+              0
+            ],
+            [
+              77.559936,
+              12.9218555,
+              0
+            ],
+            [
+              77.5606656,
+              12.9243861,
+              0
+            ],
+            [
+              77.5586057,
+              12.9243861,
+              0
+            ],
+            [
+              77.5570607,
+              12.9247417,
+              0
+            ],
+            [
+              77.555666,
+              12.9252436,
+              0
+            ],
+            [
+              77.5551724,
+              12.9254946,
+              0
+            ],
+            [
+              77.5554943,
+              12.9259128,
+              0
+            ],
+            [
+              77.5541854,
+              12.9263311,
+              0
+            ],
+            [
+              77.5535417,
+              12.926352,
+              0
+            ],
+            [
+              77.553134,
+              12.9267076,
+              0
+            ],
+            [
+              77.5525546,
+              12.9274396,
+              0
+            ],
+            [
+              77.5519323,
+              12.9275441,
+              0
+            ],
+            [
+              77.5512671,
+              12.9276905,
+              0
+            ],
+            [
+              77.5445724,
+              12.9317896,
+              0
+            ],
+            [
+              77.5434995,
+              12.9304093,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "Katriguppe",
+        "ambassador": "Varun",
+        "ambassador_email": "varun@gmail.com",
+        "ambassador_photo_profile": "http://varun.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.55135297775269,
+          12.92773234743579
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.54412174224854,
+          12.931162184606517
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.54991531372069,
+          12.925431820487027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.56021499633789,
+          12.922712988580587
+        ]
+      }
+    }
+  ]
+}

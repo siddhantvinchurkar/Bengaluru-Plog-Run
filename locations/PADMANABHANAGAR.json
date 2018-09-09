@@ -1,0 +1,201 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Padmanabhanagar Circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            77.5598502,
+            12.9191628,
+            0
+          ],
+          [
+            77.559582,
+            12.9176412,
+            0
+          ],
+          [
+            77.5594908,
+            12.9169824,
+            0
+          ],
+          [
+            77.5589758,
+            12.9155341,
+            0
+          ],
+          [
+            77.5589812,
+            12.9136256,
+            0
+          ],
+          [
+            77.5586057,
+            12.912057,
+            0
+          ],
+          [
+            77.5585091,
+            12.9115968,
+            0
+          ],
+          [
+            77.5562024,
+            12.9117537,
+            0
+          ],
+          [
+            77.5559664,
+            12.9115341,
+            0
+          ],
+          [
+            77.5555909,
+            12.9114923,
+            0
+          ],
+          [
+            77.5552583,
+            12.9114923,
+            0
+          ],
+          [
+            77.5551295,
+            12.9116805,
+            0
+          ],
+          [
+            77.5553441,
+            12.9115864,
+            0
+          ],
+          [
+            77.5522757,
+            12.9117328,
+            0
+          ],
+          [
+            77.5529838,
+            12.9132805,
+            0
+          ],
+          [
+            77.5538206,
+            12.9147445,
+            0
+          ],
+          [
+            77.5555801,
+            12.9197954,
+            0
+          ],
+          [
+            77.5579619,
+            12.9193092,
+            0
+          ],
+          [
+            77.5584072,
+            12.9197,
+            0
+          ],
+          [
+            77.5588524,
+            12.9196726,
+            0
+          ],
+          [
+            77.5598663,
+            12.919585,
+            0
+          ],
+          [
+            77.5598502,
+            12.9191628,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "Padmanabhanagar start /end point",
+        "ambassador": "Nirajith Ajai",
+        "ambassador_email": "gottila@gmail.com",
+        "ambassador_photo_profile": "http://gottla.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5597966,
+          12.9195863,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "Padmanabhanagar support 2",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5522113,
+          12.9117955,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "Padmanabhanagar support 1",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5585091,
+          12.9115968,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle",
+        "Name": "Padmanabhanagar support 1",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5555801,
+          12.9197954,
+          0
+        ]
+      }
+    }
+  ]
+}

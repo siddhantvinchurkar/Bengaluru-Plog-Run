@@ -1,0 +1,143 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Kengeri circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.4835253,
+              12.9179027,
+              0
+            ],
+            [
+              77.4853706,
+              12.9199941,
+              0
+            ],
+            [
+              77.4866581,
+              12.920747,
+              0
+            ],
+            [
+              77.4892759,
+              12.9218346,
+              0
+            ],
+            [
+              77.4886322,
+              12.9234241,
+              0
+            ],
+            [
+              77.4860144,
+              12.9243443,
+              0
+            ],
+            [
+              77.4853706,
+              12.9245116,
+              0
+            ],
+            [
+              77.4832249,
+              12.9191157,
+              0
+            ],
+            [
+              77.4830532,
+              12.9184465,
+              0
+            ],
+            [
+              77.4815083,
+              12.9142635,
+              0
+            ],
+            [
+              77.4820018,
+              12.913887,
+              0
+            ],
+            [
+              77.4835253,
+              12.9179027,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "Kengeri",
+        "ambassador": "Akshay",
+        "ambassador_email": "akshay@gmail.com",
+        "ambassador_photo_profile": "http://akshay.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.48339653015137,
+          12.917484382485883
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.48144388198853,
+          12.91428442157156
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.48539209365845,
+          12.924469775658508
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.48899698257446,
+          12.921771847561772
+        ]
+      }
+    }
+  ]
+}

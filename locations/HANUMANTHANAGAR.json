@@ -1,0 +1,194 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#0000ff",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "locality": "Hanumanthanagar ",
+        "ambassador": "Sawan Venkat",
+        "ambassador_email": "sawan@gmail.com",
+        "ambassador_photo_profile": "http://sawan.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5579512,
+          12.9494556,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Hanumanthanagar circuit",
+        "Description": ""
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5584608,
+              12.9486034,
+              0
+            ],
+            [
+              77.5593003,
+              12.9481748,
+              0
+            ],
+            [
+              77.5623715,
+              12.9487708,
+              0
+            ],
+            [
+              77.5627255,
+              12.9452052,
+              0
+            ],
+            [
+              77.5607192,
+              12.9446824,
+              0
+            ],
+            [
+              77.5607944,
+              12.9440969,
+              0
+            ],
+            [
+              77.5631654,
+              12.94417,
+              0
+            ],
+            [
+              77.5632083,
+              12.9443478,
+              0
+            ],
+            [
+              77.563498,
+              12.9443792,
+              0
+            ],
+            [
+              77.5634336,
+              12.9453202,
+              0
+            ],
+            [
+              77.5655473,
+              12.9452679,
+              0
+            ],
+            [
+              77.5654936,
+              12.947252,
+              0
+            ],
+            [
+              77.5641311,
+              12.9472703,
+              0
+            ],
+            [
+              77.5642169,
+              12.9485616,
+              0
+            ],
+            [
+              77.562865,
+              12.9490426,
+              0
+            ],
+            [
+              77.5626075,
+              12.9490426,
+              0
+            ],
+            [
+              77.5625002,
+              12.9489171,
+              0
+            ],
+            [
+              77.5579512,
+              12.9494818,
+              0
+            ],
+            [
+              77.5584608,
+              12.9486034,
+              0
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.56233930587769,
+          12.948739359967123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.56424903869629,
+          12.948551151684589
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.56425976753235,
+          12.945330676825957
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.56254315376282,
+          12.945173834455256
+        ]
+      }
+    }
+  ]
+}
