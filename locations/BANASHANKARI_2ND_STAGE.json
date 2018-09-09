@@ -10,7 +10,8 @@
         "locality": "BSK II Stage",
         "ambassador": "Brunda",
         "ambassador_email": "brunda@gmail.com",
-        "ambassador_photo_profile": "http;/gottila.com"
+        "ambassador_photo_profile": "http;/gottila.com",
+        "icon": "https://cdn.iconscout.com/icon/premium/png-512-thumb/favorite-491-391004.png"
       },
       "geometry": {
         "type": "Point",
