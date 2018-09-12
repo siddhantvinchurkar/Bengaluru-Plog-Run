@@ -89,6 +89,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
+					<a class="waves-effect waves-green btn-flat" id="downloadGraphButton"><i class="material-icons left">cloud_download</i>Download This Graph</a>
+					<a class="waves-effect waves-green btn-flat" id="downloadButton"><i class="material-icons left">cloud_download</i>Download Full Report</a>
 					<a class="modal-close waves-effect waves-green btn-flat">Close</a>
 				</div>
 			</div>
@@ -127,14 +129,14 @@
 							<h4 style="margin-top:2em;"><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" data-position="left" data-tooltip="Refresh (Spacebar)" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped right" style="background-color:#00AA00;"><i class="material-icons">refresh</i></a></h4>
 
 							<div class="row">
-								<div class="col s12 m7">
+								<div class="col s12 m8">
 									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by volunteers" style="cursor:pointer;" id="volunteerFilter"><img src="../images/volunteer.png" /><span id="volunteerCount" style="color:#FFB500;">1300</span> Volunteers</div>
 									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by ambassadors" style="cursor:pointer;" id="ambassadorFilter"><img src="../images/ambassador.png" /><span id="ambassadorCount" style="color:#FF0000;">5610</span> Ambassadors</div>
 									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by new sign ups" style="cursor:pointer;" id="totalNewFilter"><img src="../images/new-user.png" /><span id="totalNewCount" style="color:#007700;">40</span> New people</div>
 									<div class="chip tooltipped" data-position="bottom" data-tooltip="Remove all filters" style="cursor:pointer;" id="totalFilter"><img src="../images/total.png" /><span id="totalCount" style="color:#0000FF;">4000</span> People total</div>
 								</div>
-								<div class="col s12 m3">
-									<a class="waves-effect waves-light btn modal-trigger blue darken-4 tooltipped" data-position="bottom" data-tooltip="View volunteer acquisition report" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" href="#analyticsModal"><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons left">multiline_chart</i>Acquisition Report</a>
+								<div class="col s12 m2">
+									<a class="waves-effect waves-light btn modal-trigger blue darken-4 tooltipped" data-position="bottom" data-tooltip="View volunteer acquisition report" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" href="#analyticsModal"><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons left">multiline_chart</i>View Report</a>
 								</div>
 								<div class="col s12 m2">
 									<select id="filterOptions">

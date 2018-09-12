@@ -14,6 +14,7 @@ var totalCount = 0;
 var totalNewCount = 0;
 var dateArray = [];
 var seriesArray = [0, 0, 0, 0, 0, 0, 0];
+var csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link\n";
 
 // Materialize elements
 var modalElements;
@@ -120,11 +121,14 @@ window.onload = function(){
 		ambassadorCount = 0;
 		totalCount = 0;
 		totalNewCount = 0;
+		csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link\n";
 		querySnapshot.forEach((doc) => {
 			if(doc.data().designation == "volunteer") volunteerCount++;
 			else ambassadorCount++;
 			if((Date.parse(new Date()) - Date.parse(doc.data().dateAcquired)) <= (60 * 60 * 24 * 1000)) totalNewCount++;
 			for(var i=0; i<dateArray.length; i++) if(new Date(Date.parse(doc.data().dateAcquired)).getDate() == dateArray[i]) seriesArray[i]++;
+			// Build CSV
+			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + "\n";
 		});
 		totalCount = volunteerCount + ambassadorCount;
 		for(var i=0; i<dateArray.length; i++) if(dateArray[i] == 6) seriesArray[i] +=6;
@@ -135,6 +139,11 @@ window.onload = function(){
 		document.getElementById("totalCount").innerHTML = totalCount;
 		document.getElementById("totalNewCount").innerHTML = totalNewCount;
 		updateGraph();
+		// Prepare download links
+		document.getElementById("downloadButton").download = new Date().getDate() + "-" + new Date().getMonth()+1 + "-" + new Date().getFullYear() + "-" + new Date().getHours() + "-" + new Date().getMinutes() + "-" + new Date().getSeconds() + "_report.csv";
+		document.getElementById("downloadButton").href = "data:application/octet-stream," + encodeURI(csv);
+		document.getElementById("downloadGraphButton").download = new Date().getDate() + "-" + new Date().getMonth()+1 + "-" + new Date().getFullYear() + "-" + new Date().getHours() + "-" + new Date().getMinutes() + "-" + new Date().getSeconds() + "_graph.svg";
+		document.getElementById("downloadGraphButton").href = "data:application/octet-stream," + encodeURI(document.getElementById("acquisitionChart").innerHTML);
 	});
 
 	// Handle chips
@@ -638,6 +647,7 @@ modalState = false;
 function onModalOpened(){
 	// Update graph
 	updateGraph();
+	document.getElementById("downloadGraphButton").href = "data:application/octet-stream," + encodeURI(document.getElementById("acquisitionChart").innerHTML);
 }
 
 // Handle feature discovery close
