@@ -352,11 +352,14 @@
 			
 				// Handle location change
 				document.getElementById("loc").onchange = function(){
+					document.getElementById("ambassadorDetails").style.display = "none";
 					db.collection("volunteers").where("locality", "==", document.getElementById("loc").value).get().then(function(querySnapshot){querySnapshot.forEach(function(doc){
-						document.getElementById("ambassadorImage").src = doc.data().photoUrl;
-						document.getElementById("ambassadorName").innerHTML = doc.data().firstName + " " + doc.data().lastName;
-						document.getElementById("ambassadorEmail").innerHTML = doc.data().email;
-						document.getElementById("ambassadorPhone").innerHTML = "+91 " + doc.data().phone;
+						if(doc.data().designation == "ambassador"){
+							document.getElementById("ambassadorImage").src = doc.data().photoUrl;
+							document.getElementById("ambassadorName").innerHTML = doc.data().firstName + " " + doc.data().lastName;
+							document.getElementById("ambassadorEmail").innerHTML = doc.data().email;
+							document.getElementById("ambassadorPhone").innerHTML = "+91 " + doc.data().phone;
+						}
 					});}).catch(function(error){
 						console.log("Error getting documents: ", error);
 					});
