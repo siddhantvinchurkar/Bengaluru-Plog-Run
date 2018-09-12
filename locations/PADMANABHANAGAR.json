@@ -142,60 +142,6 @@
           0
         ]
       }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle",
-        "Name": "Padmanabhanagar support 2",
-        "Description": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.5522113,
-          12.9117955,
-          0
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle",
-        "Name": "Padmanabhanagar support 1",
-        "Description": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.5585091,
-          12.9115968,
-          0
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle",
-        "Name": "Padmanabhanagar support 1",
-        "Description": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.5555801,
-          12.9197954,
-          0
-        ]
-      }
     }
   ]
 }
