@@ -6,6 +6,7 @@ var gdb;
 // Flags
 var modalState = false;
 var signedIn = false;
+var recordExists = false;
 
 // Realtime variables
 var volunteerCount = 0;
@@ -237,6 +238,12 @@ window.onload = function(){
 		}
 	}
 
+	// Handle editing
+	document.getElementById("editOptions").onchange = function(){
+		switch(document.getElementById("editOptions").options[document.getElementById("editOptions").selectedIndex].text){
+			// Switch stuff
+		}
+	}
 	// Handle search button click
 	document.getElementById("searchButton").onclick = function(){
 		document.getElementById('searchBar').dispatchEvent(new KeyboardEvent('keyup',{'keyCode':13}));
@@ -252,6 +259,34 @@ window.onload = function(){
 				document.getElementById("searchBar").focus();
 			}
 		}
+	}
+
+	// Handle edit participant button click
+	document.getElementById("editButton").onclick = function(){
+		modalState = true;
+		document.getElementById("editEmail").focus();
+	}
+
+	// Handle get details button click
+	document.getElementById("getDetailsButton").onclick = function(){
+		document.getElementById("getDetailsSection").style.display = "none";
+		document.getElementById("editLoader").style.display = "block";
+		db.collection("volunteers").where("email", "==", document.getElementById("editEmail").value).get().then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				if(doc.data().designation == "ambassador" || doc.data().designation == "volunteer") recordExists = true;
+				buildParticipantDetailsTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().phone, doc.data().age, doc.data().locality, doc.data().designation, doc.data().dateAcquired, doc.data().photoUrl, doc.data().facebookLink, doc.data().twitterLink);
+			});
+			document.getElementById("editLoader").style.display = "none";
+			if(recordExists){
+				document.getElementById("editParticipantModal").classList.add("modal-fixed-footer");
+				document.getElementById("participantDetailsSection").style.display = "block";
+				document.getElementById("participantDetailsEditSection").style.display = "block";
+			}
+			else{
+				swal("Sorry, that record does not exist.", "", "error");
+				modalInstances[2].close();
+			}
+		});
 	}
 
 	// Handle Sign in
@@ -533,6 +568,14 @@ function buildNewPersonTableRow(name="unknown", email="unknown", designation="un
 	}
 }
 
+// Build Participant Details Table Rows
+
+function buildParticipantDetailsTableRow(name="unknown", email="unknown", phone="unknown", age="unknown", locality="unknown", designation="unknown", dateAcquired, photoUrl="unknown", facebookLink="unknown", twitterLink="unknown"){
+	if(designation == "ambassador") designation = '<span style="color:#FF0000;">Ambassador</span>';
+	else designation = '<span style="color:#FFD700;">Volunteer</span>';
+	document.getElementById("participantDetailsTable").innerHTML += '<tr><td>Name</td><td>'+name+'</td></tr><tr><td>Email Address</td><td><a href="mailto:'+email+'">'+email+'</a></td></tr><tr><td>Phone Number</td><td><a href="tel:'+phone+'">'+phone+'</a></td></tr><tr><td>Age</td><td>'+age+'</td></tr><tr><td>Locality</td><td>'+locality+'</td></tr><tr><td>Designation</td><td>'+designation+'</td></tr><tr><td>Date of sign up</td><td>'+dateAcquired+'</td></tr><tr><td>Photo URL</td><td><a href="'+photoUrl+'" target="_blank">'+photoUrl+'</a></td></tr><tr><td>Facebook Link</td><td><a href="'+facebookLink+'" target="_blank">'+facebookLink+'</a></td></tr><tr><td>Twitter Link</td><td><a href="'+twitterLink+'" target="_blank">'+twitterLink+'</a></td></tr>';
+}
+
 // Handle upgrades and downgrades
 function downgradeAmbassador(name, email){
 
@@ -645,7 +688,12 @@ function updateGraph(){
 
 // Handle modal dismissal
 function onModalClosed(){
-modalState = false;
+	modalState = false;
+	document.getElementById("getDetailsSection").style.display = "block";
+	document.getElementById("participantDetailsSection").style.display = "none";
+	document.getElementById("participantDetailsEditSection").style.display = "none";
+	document.getElementById("participantDetailsTable").innerHTML = "";
+	document.getElementById("editParticipantModal").classList.remove("modal-fixed-footer");
 }
 
 // Handle modal open

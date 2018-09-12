@@ -95,6 +95,80 @@
 				</div>
 			</div>
 
+			<!--Edit Participant Modal-->
+			<div id="editParticipantModal" class="modal">
+				<div class="modal-content">
+					<h4><i class="material-icons left">edit</i>Edit Participant Details</h4>
+					<div id="getDetailsSection" class="row">
+						<div class="col s12 m9">
+							<input type="text" id="editEmail">
+							<label for="editEmail">Enter email address of participant to edit</label>
+						</div>
+						<div class="col s12 m3">
+							<a id="getDetailsButton" class="waves-effect waves-green btn right">Get Details</a>
+						</div>
+					</div>
+					<center>
+						<div id="editLoader" style="display:none;" class="preloader-wrapper big active">
+							<div class="spinner-layer spinner-blue-only">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div>
+								<div class="gap-patch">
+									<div class="circle"></div>
+								</div>
+								<div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
+							</div>
+						</div>
+					</center>
+					<div id="participantDetailsSection" style="display:none;" class="row">
+						<div class="col s12 m12">
+							<table class="striped highlight centered responsive-table">
+								<thead>
+									<tr>
+										<th>Field</th>
+										<th>Value</th>
+									</tr>
+								</thead>
+								<tbody id="participantDetailsTable">
+									<!-- This will be filled with the participant's details -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="participantDetailsEditSection" style="display:none;" class="row">
+						<div class="col s12 m4 input-field">
+							<select id="editOptions">
+								<option value="0" disabled selected>Pick a field to modify</option>
+								<option value="1">Name</option>
+								<option value="2">Email Address</option>
+								<option value="3">Phone Number</option>
+								<option value="4">Age</option>
+								<option value="5">Locality</option>
+								<option value="6">Designation</option>
+								<option value="7">Date of sign up</option>
+								<option value="8">Photo URL</option>
+								<option value="9">Facebook Link</option>
+								<option value="10">Twitter Link</option>
+							</select>
+							<label>Pick a field to modify</label>
+						</div>
+						<div class="col s12 m5">
+							<input type="text" id="editField">
+							<label for="editField">Enter new value</label>
+						</div>
+						<div class="col s12 m3">
+							<a id="updateFieldButton" class="btn right"><i class="material-icons left">update</i>Update</a>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col s12 m6 offset-m3">
 					<h1 style="color:#FFD700; text-align:center;"><span style="color:#FF0000;">Bengaluru</span> Plog Run</h1>
@@ -126,7 +200,7 @@
 					<div class="card">
 						<div class="card-content">
 							<i class="material-icons right" style="vertical-align:middle; color:#C6C6C6;">info</i><p class="right" style="color:#C6C6C6;"><b>All statastics are updated in real time.<br />Date and time of sign up is recorded for every signup only post Thursday, September 6<sup>th</sup> 2018.<br />All sign ups in the last 24 hours are considered new sign ups and have this<a href="#!" class="collection-item"><span class="new badge">+</span></a> badge:</b></p>
-							<h4 style="margin-top:2em;"><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" data-position="left" data-tooltip="Refresh (Spacebar)" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped right" style="background-color:#00AA00;"><i class="material-icons">refresh</i></a></h4>
+							<h4 style="margin-top:2em;"><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" data-position="left" data-tooltip="Refresh (Spacebar)" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped right" style="background-color:#00AA00;"><i class="material-icons">refresh</i></a><a id="editButton" href="#editParticipantModal" data-position="left" data-tooltip="Edit Participant Details" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped modal-trigger right" style="background-color:#FFB500; margin-right:1em;"><i class="material-icons">edit</i></a></h4>
 
 							<div class="row">
 								<div class="col s12 m8">
