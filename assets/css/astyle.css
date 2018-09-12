@@ -148,10 +148,10 @@
   line-height: 2.375rem;
 }
 .at-user__location {
-  color: #6F808A;
+  color: #222222;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.3rem;
-  line-height: 2.375rem;
+  font-size: 0.875rem;
+  line-height: 2.0rem;
 }
 .at-social {
   margin: 0 0 -18px;
