@@ -160,60 +160,7 @@
           ]
         ]
       }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle",
-        "Name": "BSK II stage support 2",
-        "Description": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.5678647,
-          12.9285689,
-          0
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle",
-        "Name": "BSK II stage support 1",
-        "Description": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.5634015,
-          12.9282656,
-          0
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle",
-        "Name": "BSK II stage support 3",
-        "Description": ""
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.5701714,
-          12.9257978,
-          0
-        ]
-      }
     }
+    
   ]
 }
