@@ -173,51 +173,6 @@
           12.903743084073094
         ]
       }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.55186796188354,
-          12.906964095466414
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.55455017089844,
-          12.90309469364649
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#008000",
-        "marker-size": "medium",
-        "marker-symbol": "circle"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.55191087722777,
-          12.899267064299812
-        ]
-      }
     }
   ]
 }
