@@ -239,11 +239,49 @@ window.onload = function(){
 	}
 
 	// Handle editing
-	document.getElementById("editOptions").onchange = function(){
+	document.getElementById("updateFieldButton").onclick = function(){
+		document.getElementById("updateFieldButton").disabled = true;
+		document.getElementById("updateFieldButton").innerHTML = '<i class="material-icons left">update</i>Hold on...';
 		switch(document.getElementById("editOptions").options[document.getElementById("editOptions").selectedIndex].text){
-			// Switch stuff
+			case "Name": pushObject = {firstName : document.getElementById("editField").value}; break;
+			case "Email Address": pushObject = {email : document.getElementById("editField").value}; break;
+			case "Phone Number": pushObject = {phone : document.getElementById("editField").value}; break;
+			case "Age": pushObject = {age : document.getElementById("editField").value}; break;
+			case "Locality": pushObject = {locality : document.getElementById("editField").value}; break;
+			case "Designation": document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Try upgrading/downgrading concerned person."; break;
+			case "Date of sign up": document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Unfortunately, you cannot edit dates."; break;
+			case "Photo URL": pushObject = {photoUrl : document.getElementById("editField").value}; break;
+			case "Facebook Link": pushObject = {facebookLink : document.getElementById("editField").value}; break;
+			case "Twitter Link": pushObject = {twitterLink : document.getElementById("editField").value}; break;
+			default: break;
+		}
+		db.collection("volunteers").doc(document.getElementById("editEmail").value).update(pushObject).then(function(){
+			document.getElementById("updateFieldButton").disabled = false;
+			document.getElementById("updateFieldButton").innerHTML = '<i class="material-icons left">update</i>Update';
+			document.getElementById("getDetailsButton").click();
+		}).catch(function(error){
+			console.error("Error writing document: ", error);
+		});
+	}
+
+	// Handle edit previews
+	document.getElementById("editOptions").onchange = function(){
+		document.getElementById("editField").disabled=false;
+		switch(document.getElementById("editOptions").options[document.getElementById("editOptions").selectedIndex].text){
+			case "Name": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().firstName + " " + doc.data().lastName;}); break;
+			case "Email Address": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().email}); break;
+			case "Phone Number": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().phone}); break;
+			case "Age": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().age}); break;
+			case "Locality": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().locality}); break;
+			case "Designation": document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Upgrade/downgrade person instead."; break;
+			case "Date of sign up": document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Unfortunately, you cannot edit dates."; break;
+			case "Photo URL": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().photoUrl}); break;
+			case "Facebook Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().facebookLink}); break;
+			case "Twitter Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().twitterLink}); break;
+			default: break;
 		}
 	}
+
 	// Handle search button click
 	document.getElementById("searchButton").onclick = function(){
 		document.getElementById('searchBar').dispatchEvent(new KeyboardEvent('keyup',{'keyCode':13}));
@@ -271,6 +309,10 @@ window.onload = function(){
 	document.getElementById("getDetailsButton").onclick = function(){
 		document.getElementById("getDetailsSection").style.display = "none";
 		document.getElementById("editLoader").style.display = "block";
+		document.getElementById("editParticipantModal").classList.remove("modal-fixed-footer");
+		document.getElementById("participantDetailsSection").style.display = "none";
+		document.getElementById("participantDetailsEditSection").style.display = "none";
+		document.getElementById("participantDetailsTable").innerHTML = "";
 		db.collection("volunteers").where("email", "==", document.getElementById("editEmail").value).get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				if(doc.data().designation == "ambassador" || doc.data().designation == "volunteer") recordExists = true;
