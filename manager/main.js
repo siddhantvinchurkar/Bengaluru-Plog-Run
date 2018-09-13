@@ -240,7 +240,7 @@ window.onload = function(){
 
 	// Handle editing
 	document.getElementById("updateFieldButton").onclick = function(){
-		document.getElementById("updateFieldButton").disabled = true;
+		document.getElementById("updateFieldButton").classList.add("disabled");
 		document.getElementById("updateFieldButton").innerHTML = '<i class="material-icons left">update</i>Hold on...';
 		switch(document.getElementById("editOptions").options[document.getElementById("editOptions").selectedIndex].text){
 			case "Name": pushObject = {firstName : document.getElementById("editField").value}; break;
@@ -256,7 +256,7 @@ window.onload = function(){
 			default: break;
 		}
 		db.collection("volunteers").doc(document.getElementById("editEmail").value).update(pushObject).then(function(){
-			document.getElementById("updateFieldButton").disabled = false;
+			document.getElementById("updateFieldButton").classList.remove("disabled");
 			document.getElementById("updateFieldButton").innerHTML = '<i class="material-icons left">update</i>Update';
 			document.getElementById("getDetailsButton").click();
 		}).catch(function(error){
@@ -267,14 +267,15 @@ window.onload = function(){
 	// Handle edit previews
 	document.getElementById("editOptions").onchange = function(){
 		document.getElementById("editField").disabled=false;
+		document.getElementById("updateFieldButton").classList.remove("disabled");
 		switch(document.getElementById("editOptions").options[document.getElementById("editOptions").selectedIndex].text){
 			case "Name": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().firstName + " " + doc.data().lastName;}); break;
 			case "Email Address": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().email}); break;
 			case "Phone Number": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().phone}); break;
 			case "Age": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().age}); break;
 			case "Locality": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().locality}); break;
-			case "Designation": document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Upgrade/downgrade person instead."; break;
-			case "Date of sign up": document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Unfortunately, you cannot edit dates."; break;
+			case "Designation": document.getElementById("updateFieldButton").classList.add("disabled"); document.getElementById("editField").value=""; document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Upgrade/downgrade person instead."; break;
+			case "Date of sign up": document.getElementById("updateFieldButton").classList.add("disabled"); document.getElementById("editField").value=""; document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Unfortunately, you cannot edit dates."; break;
 			case "Photo URL": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().photoUrl}); break;
 			case "Facebook Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().facebookLink}); break;
 			case "Twitter Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().twitterLink}); break;
