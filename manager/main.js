@@ -29,13 +29,14 @@ var parallaxInstances;
 var tooltipElements;
 var tooltipInstances;
 
-// Get last 7 days
+// Other variables
 for (var i=0; i<7; i++){
 	var d = new Date();
 	d.setDate(d.getDate() - i);
 	dateArray.push(d.getDate());
 }
 var data = {labels:dateArray.reverse(), series:[seriesArray]};
+var shiftCount = 0;
 
 window.onload = function(){
 
@@ -381,6 +382,14 @@ window.onload = function(){
 				document.getElementById("records").scrollIntoView();
 
 			});
+		}
+		// Handle Double Shift
+		if(event.keyCode === 16){
+			if(shiftCount == 1){
+				document.getElementById("editButton").click();
+				shiftCount = 0;
+			}
+			else shiftCount++;
 		}
 		// Handle letters
 		else if(event.keyCode >= 65 && event.keyCode <= 90){
@@ -752,6 +761,7 @@ function updateGraph(){
 // Handle modal dismissal
 function onModalClosed(){
 	modalState = false;
+	shiftCount = 0;
 	document.getElementById("editEmail").value = "";
 	document.getElementById("getDetailsSection").style.display = "block";
 	document.getElementById("participantDetailsSection").style.display = "none";
