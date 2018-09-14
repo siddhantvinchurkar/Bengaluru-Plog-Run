@@ -3518,10 +3518,10 @@ input, select, textarea {
 		}
 
 		#banner2:after {
-			background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-5.jpg");;
-			background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-5.jpg");;
-			background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-5.jpg");;
-			background-image: linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-5.jpg");;
+			background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
+			background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
+			background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
+			background-image: linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 1)), url("../../images/header-1.jpg");;
 			content: '';
 			display: block;
 			height: 100%;
