@@ -367,7 +367,7 @@
 					});
 					document.getElementById("ambassadorDetails").style.display = "";
 					var geocoder = new google.maps.Geocoder();
-					geocoder.geocode({ 'address': document.getElementById("loc").value}, function(results, status){
+					geocoder.geocode({ 'address': document.getElementById("loc").value + ', Bengaluru'}, function(results, status){
 						if (status == 'OK') {
 							initMap(results[0].geometry.location.lat(), results[0].geometry.location.lng(), 14, document.getElementById("loc").value);
 						}
