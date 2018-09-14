@@ -269,17 +269,19 @@ window.onload = function(){
 	document.getElementById("editOptions").onchange = function(){
 		document.getElementById("editField").disabled=false;
 		document.getElementById("updateFieldButton").classList.remove("disabled");
+		document.getElementById("editSelectLoader").style.display = "block";
+		document.getElementById("editField").style.display = "none";
 		switch(document.getElementById("editOptions").options[document.getElementById("editOptions").selectedIndex].text){
-			case "Name": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().firstName + " " + doc.data().lastName;}); break;
-			case "Email Address": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().email}); break;
-			case "Phone Number": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().phone}); break;
-			case "Age": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().age}); break;
-			case "Locality": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().locality}); break;
+			case "Name": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().firstName + " " + doc.data().lastName; document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
+			case "Email Address": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().email;document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
+			case "Phone Number": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().phone; document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
+			case "Age": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().age; document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
+			case "Locality": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().locality;document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
 			case "Designation": document.getElementById("updateFieldButton").classList.add("disabled"); document.getElementById("editField").value=""; document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Upgrade/downgrade person instead."; break;
 			case "Date of sign up": document.getElementById("updateFieldButton").classList.add("disabled"); document.getElementById("editField").value=""; document.getElementById("editField").disabled="true"; document.getElementById("editField").placeholder="Unfortunately, you cannot edit dates."; break;
-			case "Photo URL": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().photoUrl}); break;
-			case "Facebook Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().facebookLink}); break;
-			case "Twitter Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().twitterLink}); break;
+			case "Photo URL": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().photoUrl; document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
+			case "Facebook Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().facebookLink; document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
+			case "Twitter Link": db.collection("volunteers").doc(document.getElementById("editEmail").value).get().then(function(doc){document.getElementById("editField").value = doc.data().twitterLink; document.getElementById("editSelectLoader").style.display = "none"; document.getElementById("editField").style.display = "block";}); break;
 			default: break;
 		}
 	}
