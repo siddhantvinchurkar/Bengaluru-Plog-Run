@@ -44,6 +44,7 @@ var shiftCount = 0;
 var sortBy = "firstName";
 var mailingList = {"Stuff": null, "More Stuff": null};
 var typedAddress = "someone@example.com";
+var previouslyTypedAddresses = [];
 var ambassadorRecipientArray = [];
 var volunteerRecipientArray = [];
 var everyoneRecipientArray = [];
@@ -432,6 +433,7 @@ window.onload = function(){
 	document.getElementById("addressAddButton").onclick = function(){
 		if(document.getElementById("addressBar").value.includes("@") && document.getElementById("addressBar").value.includes(".")){
 			recipientArray.push(typedAddress);
+			buildMailingListChip(typedAddress);
 		}
 	}
 
@@ -761,8 +763,11 @@ function buildParticipantDetailsTableRow(name="unknown", email="unknown", phone=
 
 // Build mailing list
 function buildMailingListChip(typedAddress){
-	typedAddress = typedAddress.substring(0, s.indexOf(' <'));
-	document.getElementById("mailingListChips").innerHTML += '<div class="chip">'+typedAddress+'<i class="close material-icons">close</i></div>';
+	var repeated = false;
+	typedAddress = typedAddress.substring(0, typedAddress.indexOf(' <'));
+	for(var i=0; i<previouslyTypedAddresses.length; i++)if(typedAddress == previouslyTypedAddresses[i]){repeated = true; break;}
+	if(!repeated)document.getElementById("mailingListChips").innerHTML += '<div class="chip">'+typedAddress+'<i class="close material-icons">close</i></div>';
+	previouslyTypedAddresses.push(typedAddress);
 }
 
 // Handle upgrades and downgrades
