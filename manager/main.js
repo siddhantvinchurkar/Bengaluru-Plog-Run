@@ -761,6 +761,7 @@ function buildParticipantDetailsTableRow(name="unknown", email="unknown", phone=
 
 // Build mailing list
 function buildMailingListChip(typedAddress){
+	typedAddress = typedAddress.substring(0, s.indexOf(' <'));
 	document.getElementById("mailingListChips").innerHTML += '<div class="chip">'+typedAddress+'<i class="close material-icons">close</i></div>';
 }
 
