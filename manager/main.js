@@ -28,6 +28,10 @@ var parallaxElements;
 var parallaxInstances;
 var tooltipElements;
 var tooltipInstances;
+var autocompleteElements;
+var autocompleteInstances;
+var tabsElements;
+var tabsInstances;
 
 // Other variables
 for (var i=0; i<7; i++){
@@ -37,6 +41,7 @@ for (var i=0; i<7; i++){
 }
 var data = {labels:dateArray.reverse(), series:[seriesArray]};
 var shiftCount = 0;
+var sortBy = "firstName";
 
 window.onload = function(){
 
@@ -65,12 +70,22 @@ window.onload = function(){
 	tooltipInstances = M.Tooltip.init(tooltipElements);
 	console.log("%cTooltip Elements Initialized!", "background:#222222; color:#BADA55;");
 
+	// Initialize Materialize Autocomplete
+	autocompleteElements = document.querySelectorAll('.autocomplete');
+	autocompleteInstances = M.Autocomplete.init(autocompleteElements, {data:{"Stuff":null, "More Stuff":null}});
+	console.log("%cAutocomplete Elements Initialized!", "background:#222222; color:#BADA55;");
+
+	// Initialize Materialize Tabs
+	tabsElements = document.querySelectorAll('.tabs');
+	tabsInstances = M.Tabs.init(tabsElements);
+	console.log("%cTabs Elements Initialized!", "background:#222222; color:#BADA55;");
+
 	// Register a Service Worker
-	if('serviceWorker' in navigator) {
-	  navigator.serviceWorker
-	           .register('sw.js')
-	           .then(function() { console.log("%cService Worker Registered!", "background:#222222; color:#BADA55;"); });
-	}
+//	if('serviceWorker' in navigator) {
+//	  navigator.serviceWorker
+//	           .register('sw.js')
+//	           .then(function() { console.log("%cService Worker Registered!", "background:#222222; color:#BADA55;"); });
+//	}
 
 	// Set year on footer
 	document.getElementById("footerYear").innerHTML = new Date().getFullYear();
@@ -167,6 +182,78 @@ window.onload = function(){
 		document.getElementById("filterOptions").onchange();
 	}
 
+	//Handle Sorting
+	document.getElementById("sortByName").onclick = function(){
+		sortBy = "firstName";
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+		});
+	}
+
+		document.getElementById("sortByEmail").onclick = function(){
+		sortBy = "email";
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+		});
+	}
+
+		document.getElementById("sortByLocality").onclick = function(){
+		sortBy = "locality";
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+		});
+	}
+
+		document.getElementById("sortByDesignation").onclick = function(){
+		sortBy = "designation";
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+		});
+	}
 	// Handle filtering
 	document.getElementById("filterOptions").onchange = function(){
 		if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Everyone"){
@@ -307,6 +394,12 @@ window.onload = function(){
 	document.getElementById("editButton").onclick = function(){
 		modalState = true;
 		document.getElementById("editEmail").focus();
+	}
+
+	// Handle announcements button click
+	document.getElementById("announceButton").onclick = function(){
+		modalState = true;
+		document.getElementById("addressBar").focus();
 	}
 
 	// Handle get details button click
