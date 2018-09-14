@@ -42,6 +42,7 @@ for (var i=0; i<7; i++){
 var data = {labels:dateArray.reverse(), series:[seriesArray]};
 var shiftCount = 0;
 var sortBy = "firstName";
+var mailingList = {"Stuff": null, "More Stuff": null};
 
 window.onload = function(){
 
@@ -72,7 +73,7 @@ window.onload = function(){
 
 	// Initialize Materialize Autocomplete
 	autocompleteElements = document.querySelectorAll('.autocomplete');
-	autocompleteInstances = M.Autocomplete.init(autocompleteElements, {data:{"Stuff":null, "More Stuff":null}});
+	autocompleteInstances = M.Autocomplete.init(autocompleteElements, {data:mailingList});
 	console.log("%cAutocomplete Elements Initialized!", "background:#222222; color:#BADA55;");
 
 	// Initialize Materialize Tabs
@@ -121,7 +122,7 @@ window.onload = function(){
 			document.getElementById("passwordMessage").style.display = "block";
 
 			// Begin fetching volunteer and/or ambassador records in the background
-			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -146,7 +147,11 @@ window.onload = function(){
 			for(var i=0; i<dateArray.length; i++) if(new Date(Date.parse(doc.data().dateAcquired)).getDate() == dateArray[i]) seriesArray[i]++;
 			// Build CSV
 			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + "\n";
+			// Build autocomplete mailing list data
+			console.log(doc.data().firstName + " " + doc.data().lastName + " &lt;" + doc.data().email + "&gt;");
+			mailingList[doc.data().firstName + " " + doc.data().lastName + " &lt;" + doc.data().email + "&gt;"] = null;
 		});
+		reinitializeAutocomplete();
 		totalCount = volunteerCount + ambassadorCount;
 		for(var i=0; i<dateArray.length; i++) if(dateArray[i] == 6) seriesArray[i] +=6;
 		var data = {labels:dateArray, series:[seriesArray]};
@@ -260,7 +265,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -277,7 +282,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -294,7 +299,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -311,7 +316,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -404,6 +409,7 @@ window.onload = function(){
 
 	// Handle get details button click
 	document.getElementById("getDetailsButton").onclick = function(){
+		modalState = true;
 		document.getElementById("getDetailsSection").style.display = "none";
 		document.getElementById("editLoader").style.display = "block";
 		document.getElementById("editParticipantModal").classList.remove("modal-fixed-footer");
@@ -465,7 +471,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -506,7 +512,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -528,7 +534,7 @@ window.onload = function(){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		db.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+		db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
@@ -740,7 +746,7 @@ function downgradeAmbassador(name, email){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		gdb.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+		gdb.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
@@ -775,7 +781,7 @@ function upgradeVolunteer(name, email){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		gdb.collection("volunteers").orderBy("firstName", "asc").get().then((querySnapshot) => {
+		gdb.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
@@ -809,6 +815,12 @@ function upgradeVolunteer(name, email){
 function reinitializeTooltips(){
 	tooltipElements = document.querySelectorAll('.tooltipped');
 	tooltipInstances = M.Tooltip.init(tooltipElements);
+}
+
+// Reinitialize autocomplete
+function reinitializeAutocomplete(){
+	autocompleteElements = document.querySelectorAll('.autocomplete');
+	autocompleteInstances = M.Autocomplete.init(autocompleteElements, {data:mailingList});
 }
 
 // Capitalize names for display
