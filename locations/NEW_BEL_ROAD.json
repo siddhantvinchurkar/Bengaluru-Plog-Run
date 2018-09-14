@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "New BEL Road", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5597455, 13.0377757, 0.0 ], [ 77.5613119, 13.036835, 0.0 ], [ 77.5628354, 13.0357061, 0.0 ], [ 77.563801, 13.0349745, 0.0 ], [ 77.5654747, 13.0335529, 0.0 ], [ 77.5667622, 13.0323614, 0.0 ], [ 77.5685002, 13.030898, 0.0 ], [ 77.5708767, 13.0287082, 0.0 ], [ 77.5711047, 13.0285018, 0.0 ], [ 77.5712361, 13.0284417, 0.0 ], [ 77.5709571, 13.0294033, 0.0 ], [ 77.5704582, 13.0306106, 0.0 ], [ 77.5700613, 13.0318335, 0.0 ], [ 77.5697931, 13.0323927, 0.0 ], [ 77.568452, 13.0342376, 0.0 ], [ 77.5677224, 13.0351783, 0.0 ], [ 77.5663384, 13.0366834, 0.0 ], [ 77.5651046, 13.0378959, 0.0 ], [ 77.5644501, 13.0388575, 0.0 ], [ 77.5627228, 13.0411883, 0.0 ], [ 77.5621219, 13.0420036, 0.0 ], [ 77.5614246, 13.0406866, 0.0 ], [ 77.5607379, 13.039631, 0.0 ], [ 77.5602015, 13.0385753, 0.0 ], [ 77.5597455, 13.0377757, 0.0 ] ] ] } },
+{ "type": "Feature", "properties": { "Name": "Start", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 77.5712361, 13.0284417, 0.0 ] } }
+]
+}

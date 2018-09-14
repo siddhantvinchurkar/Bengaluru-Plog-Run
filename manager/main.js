@@ -43,6 +43,11 @@ var data = {labels:dateArray.reverse(), series:[seriesArray]};
 var shiftCount = 0;
 var sortBy = "firstName";
 var mailingList = {"Stuff": null, "More Stuff": null};
+var typedAddress = "someone@example.com";
+var ambassadorRecipientArray = [];
+var volunteerRecipientArray = [];
+var everyoneRecipientArray = [];
+var recipientArray = [];
 
 window.onload = function(){
 
@@ -148,8 +153,7 @@ window.onload = function(){
 			// Build CSV
 			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + "\n";
 			// Build autocomplete mailing list data
-			console.log(doc.data().firstName + " " + doc.data().lastName + " &lt;" + doc.data().email + "&gt;");
-			mailingList[doc.data().firstName + " " + doc.data().lastName + " &lt;" + doc.data().email + "&gt;"] = null;
+			mailingList[doc.data().firstName + " " + doc.data().lastName + " (" + doc.data().email + ")"] = null;
 		});
 		reinitializeAutocomplete();
 		totalCount = volunteerCount + ambassadorCount;
@@ -405,6 +409,30 @@ window.onload = function(){
 	document.getElementById("announceButton").onclick = function(){
 		modalState = true;
 		document.getElementById("addressBar").focus();
+	}
+
+	// Handle announcements email selection
+	document.getElementById("addressBar").oninput = function(){
+		typedAddress = document.getElementById("addressBar").value;
+		typedAddress = typedAddress.replace("(", "<");
+		typedAddress = typedAddress.replace(")", ">");
+		document.getElementById("addressBar").value = typedAddress;
+		document.getElementById("addressBar").value = typedAddress;
+	}
+
+	document.getElementById("addressBar").onchange = function(){
+		typedAddress = document.getElementById("addressBar").value;
+		typedAddress = typedAddress.replace("(", "<");
+		typedAddress = typedAddress.replace(")", ">");
+		document.getElementById("addressBar").value = typedAddress;
+		document.getElementById("addressBar").value = typedAddress;
+	}
+
+	// Handle email list additions
+	document.getElementById("addressAddButton").onclick = function(){
+		if(document.getElementById("addressBar").value.includes("@") && document.getElementById("addressBar").value.includes(".")){
+			recipientArray.push(typedAddress);
+		}
 	}
 
 	// Handle get details button click
@@ -729,6 +757,11 @@ function buildParticipantDetailsTableRow(name="unknown", email="unknown", phone=
 	if(designation == "ambassador") designation = '<span style="color:#FF0000;">Ambassador</span>';
 	else designation = '<span style="color:#FFD700;">Volunteer</span>';
 	document.getElementById("participantDetailsTable").innerHTML += '<tr><td>Name</td><td>'+name+'</td></tr><tr><td>Email Address</td><td><a class="tooltipped" data-position="right" data-tooltip="Click to send an email" href="mailto:'+email+'">'+email+'</a></td></tr><tr><td>Phone Number</td><td><a class="tooltipped" data-position="right" data-tooltip="Click to place a call" href="tel:+91'+phone+'">'+'+91 '+phone+'</a>&emsp;<a class="tooltipped" data-position="right" data-tooltip="Whatsapp '+name+'" href="https://wa.me/'+whatsapp+'" target="_blank"><img style="vertical-align:middle;" src="../images/whatsapp.png" /></a></td></tr><tr><td>Age</td><td>'+age+'</td></tr><tr><td>Locality</td><td>'+locality+'</td></tr><tr><td>Designation</td><td>'+designation+'</td></tr><tr><td>Date of sign up</td><td>'+dateAcquired+'</td></tr><tr><td>Photo URL</td><td><a href="'+photoUrl+'" target="_blank">'+photoUrl+'</a></td></tr><tr><td>Facebook Link</td><td><a href="'+facebookLink+'" target="_blank">'+facebookLink+'</a></td></tr><tr><td>Twitter Link</td><td><a href="'+twitterLink+'" target="_blank">'+twitterLink+'</a></td></tr>';
+}
+
+// Build mailing list
+function buildMailingListChip(typedAddress){
+	document.getElementById("mailingListChips").innerHTML += '<div class="chip">'+typedAddress+'<i class="close material-icons">close</i></div>';
 }
 
 // Handle upgrades and downgrades

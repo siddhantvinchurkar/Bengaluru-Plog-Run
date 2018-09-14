@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Sarjapur", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.6955318, 12.9072223, 0.0 ], [ 77.6971626, 12.9067203, 0.0 ], [ 77.6987505, 12.9063439, 0.0 ], [ 77.700746, 12.9052563, 0.0 ], [ 77.7028489, 12.9042314, 0.0 ], [ 77.7039861, 12.9036039, 0.0 ], [ 77.7044582, 12.9045451, 0.0 ], [ 77.7047801, 12.9053817, 0.0 ], [ 77.7051019, 12.9062811, 0.0 ], [ 77.7054238, 12.9073478, 0.0 ], [ 77.7057028, 12.9084145, 0.0 ], [ 77.7054882, 12.9089374, 0.0 ], [ 77.7043938, 12.909272, 0.0 ], [ 77.703042, 12.9096276, 0.0 ], [ 77.701776, 12.9099831, 0.0 ], [ 77.7017116, 12.9097531, 0.0 ], [ 77.7007031, 12.9100877, 0.0 ], [ 77.6990723, 12.9106943, 0.0 ], [ 77.6979565, 12.9110917, 0.0 ], [ 77.6969909, 12.9097322, 0.0 ], [ 77.6957464, 12.9086237, 0.0 ], [ 77.6955318, 12.9072223, 0.0 ] ] ] } },
+{ "type": "Feature", "properties": { "Name": "Start", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 77.7039861, 12.9036039, 0.0 ] } }
+]
+}

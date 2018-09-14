@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Start", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 77.6236003, 12.9228212, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Madiwala", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.6181393, 12.9246302, 0.0 ], [ 77.6185899, 12.9238564, 0.0 ], [ 77.6202743, 12.921148, 0.0 ], [ 77.622742, 12.9225493, 0.0 ], [ 77.6236003, 12.9228212, 0.0 ], [ 77.6257031, 12.9233336, 0.0 ], [ 77.6274734, 12.9237309, 0.0 ], [ 77.6289218, 12.9241806, 0.0 ], [ 77.6261108, 12.9254773, 0.0 ], [ 77.6245444, 12.9262406, 0.0 ], [ 77.6209073, 12.9275686, 0.0 ], [ 77.6200168, 12.9254668, 0.0 ], [ 77.6181393, 12.9246302, 0.0 ] ] ] } }
+]
+}

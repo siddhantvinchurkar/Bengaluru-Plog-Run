@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Amruthahalli", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5968316, 13.0707487, 0.0 ], [ 77.596617, 13.0706651, 0.0 ], [ 77.5967243, 13.0702889, 0.0 ], [ 77.5956515, 13.0666728, 0.0 ], [ 77.598441, 13.0659412, 0.0 ], [ 77.599664, 13.0659622, 0.0 ], [ 77.60093, 13.0656904, 0.0 ], [ 77.6015952, 13.0694946, 0.0 ], [ 77.6033762, 13.0687839, 0.0 ], [ 77.6040629, 13.072588, 0.0 ], [ 77.6022819, 13.0726925, 0.0 ], [ 77.6012304, 13.0730061, 0.0 ], [ 77.5973466, 13.0728598, 0.0 ], [ 77.5968316, 13.0707487, 0.0 ] ] ] } },
+{ "type": "Feature", "properties": { "Name": "Start", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 77.5969604, 13.0707696, 0.0 ] } }
+]
+}

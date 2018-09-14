@@ -196,7 +196,7 @@
 									</div>
 									<div class="col-8">
 										<h3>Area Ambassador</h3>
-										<h4 id="ambassadorName">Ambassador Name</h4>
+										<h4 id="ambassadorName">Shankar Sadashiv</h4>
 										<h6 style="display:none;" id="ambassadorEmail">Ambassador Email</h6>
 										<h6 style="display:none;" id="ambassadorPhone">Ambassador Phone</h6>
 									</div>
@@ -245,7 +245,7 @@
 			}
 			
 			function initMap(lat, lng, zoom, geojson){
-				if(geojson != null)geojson = geojson.replace(/ /g,"_");
+				if(geojson != null){geojson = geojson.replace(/ /g,"_"); geojson = geojson.replace(/,/g,"_");}
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: zoom,
 					center: {lat: lat, lng: lng},

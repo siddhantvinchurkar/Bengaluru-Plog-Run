@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Majestic", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5742376, 12.9773649, 0.0 ], [ 77.5722742, 12.9802713, 0.0 ], [ 77.5709975, 12.980172, 0.0 ], [ 77.5710136, 12.979759, 0.0 ], [ 77.5709009, 12.9787004, 0.0 ], [ 77.570858, 12.9774014, 0.0 ], [ 77.5709868, 12.9765128, 0.0 ], [ 77.5710082, 12.9756503, 0.0 ], [ 77.570858, 12.9752321, 0.0 ], [ 77.570622, 12.9747093, 0.0 ], [ 77.5710619, 12.9745054, 0.0 ], [ 77.5721455, 12.9744532, 0.0 ], [ 77.5731003, 12.974427, 0.0 ], [ 77.5739318, 12.974427, 0.0 ], [ 77.5746131, 12.9746675, 0.0 ], [ 77.5747419, 12.9756293, 0.0 ], [ 77.5747365, 12.9764657, 0.0 ], [ 77.574538, 12.9770146, 0.0 ], [ 77.5742376, 12.9773649, 0.0 ] ] ] } },
+{ "type": "Feature", "properties": { "Name": "Start", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 77.5743103, 12.9773591, 0.0 ] } }
+]
+}
