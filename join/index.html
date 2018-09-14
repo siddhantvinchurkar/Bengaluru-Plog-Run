@@ -294,28 +294,30 @@
 					var documentCounter = 0;
 			
 					// Push data to Firebase!
-					db.collection("volunteers").doc(eml).set({
-						firstName: fn,
-						lastName: ln,
-						email: eml,
-						organization: org,
-						phone: phone,
-						age: age,
-						dateAcquired: new Date().toString(),
-						bloodGroup: bg,
-						tShirtSize: tss,
-						locality: loc,
-						designation: "volunteer",
-						photoUrl: "https://bengaluru.plog.run/images/orange-logo.svg",
-						facebookLink: "#",
-						twitterLink: "#"
-					})
-					.then(function(docRef) {
-						console.log("Document written with ID: ", docRef.id);
-					})
-					.catch(function(error) {
-						console.error("Error adding document: ", error);
-					});
+					if(eml.includes("@") && eml.includes(".")){
+						db.collection("volunteers").doc(eml).set({
+							firstName: fn,
+							lastName: ln,
+							email: eml,
+							organization: org,
+							phone: phone,
+							age: age,
+							dateAcquired: new Date().toString(),
+							bloodGroup: bg,
+							tShirtSize: tss,
+							locality: loc,
+							designation: "volunteer",
+							photoUrl: "https://bengaluru.plog.run/images/orange-logo.svg",
+							facebookLink: "#",
+							twitterLink: "#"
+						})
+						.then(function(docRef) {
+							console.log("Document written with ID: ", docRef.id);
+						})
+						.catch(function(error) {
+							console.error("Error adding document: ", error);
+						});
+					}
 			
 					if(documentCounter < 50){
 						// Send welcome email to volunteer
