@@ -362,6 +362,10 @@
 							document.getElementById("ambassadorEmail").innerHTML = doc.data().email;
 							document.getElementById("ambassadorPhone").innerHTML = "+91 " + doc.data().phone;
 						}
+						else{
+							document.getElementById("ambassadorImage").src = ../images/logo.svg;
+							document.getElementById("ambassadorName").innerHTML = "Shankar Sadashiv";
+						}
 					});}).catch(function(error){
 						console.log("Error getting documents: ", error);
 					});
