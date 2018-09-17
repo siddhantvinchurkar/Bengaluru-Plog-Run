@@ -117,7 +117,7 @@
 									<div class="row">
 										<div class="col-12">
 											<select id="loc">
-												<option>Nearest Locality</option>
+												<option selected disabled>Nearest Locality</option>
 											</select>
 										</div>
 									</div>
@@ -195,6 +195,7 @@
 										<img id="ambassadorImage" height="128px" width="128px" src="../images/logo.svg" />
 									</div>
 									<div class="col-8">
+										<h5 id="areaCode"></h5>
 										<h3>Area Ambassador</h3>
 										<h4 id="ambassadorName">Shankar Sadashiv</h4>
 										<h6 style="display:none;" id="ambassadorEmail">Ambassador Email</h6>
@@ -233,11 +234,13 @@
 		<script src="../assets/js/util.js"></script>
 		<script src="../assets/js/main.js"></script>
 		<script type="text/javascript">
+			var locCode = [];
 			function locList(data){
 				for(obj in data.feed.entry){
 					var row = data.feed.entry[obj].content.$t;
+					locCode.push(row.substring(row.indexOf("(") + 1, row.indexOf(")")));
 					var minusrow = row.substring(0, row.indexOf(' ('));
-					document.getElementById('loc').innerHTML += '<option>' + minusrow + '</option>';
+					document.getElementById('loc').innerHTML += '<option>' + minusrow + '&emsp;(' + locCode[locCode.length-1] + ')</option>';
 				}
 			}
 			
@@ -355,6 +358,8 @@
 			
 				// Handle location change
 				document.getElementById("loc").onchange = function(){
+					var locationCode = locCode[document.getElementById("loc").selectedIndex+1];
+					document.getElementById("areaCode").innerHTML = "Area Code: " + locationCode;
 					document.getElementById("ambassadorDetails").style.display = "none";
 					document.getElementById("ambassadorImage").src = "../images/logo.svg";
 					document.getElementById("ambassadorName").innerHTML = "Shankar Sadashiv";
