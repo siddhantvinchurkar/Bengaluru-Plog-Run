@@ -265,6 +265,10 @@
 		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
 		<script type="text/javascript">
 			window.onload = function(){
+
+				var utm = window.location.hash.substr(1);
+				if(utm.length<5) utm = "organic";
+				console.log(utm);
 			
 				// Set terms and conditions
 			
@@ -277,7 +281,7 @@
 					projectId: 'bengaluru-plog-run'
 				});
 			
-				// Initialize Cloud Firestore through Firebase
+				// Initialize Cloud Firestore through Firebasefacebook
 				var db = firebase.firestore();
 			
 				// Get button instance
@@ -308,6 +312,7 @@
 							organization: org,
 							phone: phone,
 							age: age,
+							utm_source: utm,
 							dateAcquired: new Date().toString(),
 							bloodGroup: bg,
 							tShirtSize: tss,
