@@ -236,7 +236,8 @@
 			function locList(data){
 				for(obj in data.feed.entry){
 					var row = data.feed.entry[obj].content.$t;
-					document.getElementById('loc').innerHTML += '<option>' + row + '</option>';
+					var minusrow = row.substring(0, row.indexOf(' ('));
+					document.getElementById('loc').innerHTML += '<option>' + minusrow + '</option>';
 				}
 			}
 			
