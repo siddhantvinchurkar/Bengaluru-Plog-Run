@@ -240,7 +240,7 @@
 					var row = data.feed.entry[obj].content.$t;
 					locCode.push(row.substring(row.indexOf("(") + 1, row.indexOf(")")));
 					var minusrow = row.substring(0, row.indexOf(' ('));
-					document.getElementById('loc').innerHTML += '<option>' + minusrow + '&emsp;(' + locCode[locCode.length-1] + ')</option>';
+					document.getElementById('loc').innerHTML += '<option>' + minusrow + ' (' + locCode[locCode.length-1] + ')</option>';
 				}
 			}
 			
@@ -358,7 +358,7 @@
 			
 				// Handle location change
 				document.getElementById("loc").onchange = function(){
-					var locationCode = locCode[document.getElementById("loc").selectedIndex+1];
+					var locationCode = locCode[document.getElementById("loc").selectedIndex1];
 					document.getElementById("areaCode").innerHTML = "Area Code: " + locationCode;
 					document.getElementById("ambassadorDetails").style.display = "none";
 					document.getElementById("ambassadorImage").src = "../images/logo.svg";
@@ -375,9 +375,10 @@
 					});
 					document.getElementById("ambassadorDetails").style.display = "";
 					var geocoder = new google.maps.Geocoder();
-					geocoder.geocode({ 'address': document.getElementById("loc").value + ', Bengaluru, Karnataka, India'}, function(results, status){
+					var row = document.getElementById("loc").value;
+					geocoder.geocode({ 'address': row.substring(0, row.indexOf(' (')) + ', Bengaluru, Karnataka, India'}, function(results, status){
 						if (status == 'OK') {
-							initMap(results[0].geometry.location.lat(), results[0].geometry.location.lng(), 14, document.getElementById("loc").value);
+							initMap(results[0].geometry.location.lat(), results[0].geometry.location.lng(), 14, row.substring(0, row.indexOf(' (')));
 						}
 						else{
 							console.log('Geocode was not successful for the following reason: ' + status);
