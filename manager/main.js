@@ -13,6 +13,10 @@ var volunteerCount = 0;
 var ambassadorCount = 0;
 var totalCount = 0;
 var totalNewCount = 0;
+var facebookCount = 0;
+var twitterCount = 0;
+var instagramCount = 0;
+var organicCount = 0;
 var dateArray = [];
 var seriesArray = [0, 0, 0, 0, 0, 0, 0];
 var csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link\n";
@@ -120,13 +124,6 @@ window.onload = function(){
 	db.collection("passwords").get().then((querySnapshot) => {
 		querySnapshot.forEach((doc) => {
 			pwd = doc.data().pwd;
-			// Enable signin
-			document.getElementById("password").disabled = false;
-			document.getElementById("passwordProgress").style.display = "none";
-			document.getElementById("passwordField").style.display = "block";
-			document.getElementById("passwordButton").style.display = "block";
-			document.getElementById("passwordMessage").style.display = "block";
-
 			// Begin fetching volunteer and/or ambassador records in the background
 			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
@@ -135,6 +132,13 @@ window.onload = function(){
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				// Enable signin
+				document.getElementById("password").disabled = false;
+				document.getElementById("passwordProgress").style.display = "none";
+				document.getElementById("passwordField").style.display = "block";
+				document.getElementById("passwordButton").style.display = "block";
+				document.getElementById("passwordMessage").style.display = "block";
+				document.getElementById("loadingMessage").style.display = "none";
 			});
 		});
 	});
@@ -145,14 +149,22 @@ window.onload = function(){
 		ambassadorCount = 0;
 		totalCount = 0;
 		totalNewCount = 0;
-		csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link\n";
+		facebookCount = 0;
+		twitterCount = 0;
+		instagramCount = 0;
+		organicCount = 0;
+		csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link,Source Of Sign Up\n";
 		querySnapshot.forEach((doc) => {
 			if(doc.data().designation == "volunteer") volunteerCount++;
 			else ambassadorCount++;
 			if((Date.parse(new Date()) - Date.parse(doc.data().dateAcquired)) <= (60 * 60 * 24 * 1000)) totalNewCount++;
+			if(doc.data().utm_source == "facebook") facebookCount++;
+			if(doc.data().utm_source == "twitter") twitterCount++;
+			if(doc.data().utm_source == "instagram") instagramCount++;
+			else organicCount++;
 			for(var i=0; i<dateArray.length; i++) if(new Date(Date.parse(doc.data().dateAcquired)).getDate() == dateArray[i]) seriesArray[i]++;
 			// Build CSV
-			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + "\n";
+			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + + "," + doc.data().utm_source + "\n";
 			// Build autocomplete mailing list data
 			mailingList[doc.data().firstName + " " + doc.data().lastName + " (" + doc.data().email + ")"] = null;
 		});
@@ -165,6 +177,10 @@ window.onload = function(){
 		document.getElementById("ambassadorCount").innerHTML = ambassadorCount;
 		document.getElementById("totalCount").innerHTML = totalCount;
 		document.getElementById("totalNewCount").innerHTML = totalNewCount;
+		document.getElementById("facebookCount").innerHTML = facebookCount;
+		document.getElementById("twitterCount").innerHTML = twitterCount;
+		document.getElementById("instagramCount").innerHTML = instagramCount;
+		document.getElementById("organicCount").innerHTML = organicCount;
 		updateGraph();
 		// Prepare download links
 		document.getElementById("downloadButton").download = new Date().getDate() + "-" + new Date().getMonth()+1 + "-" + new Date().getFullYear() + "-" + new Date().getHours() + "-" + new Date().getMinutes() + "-" + new Date().getSeconds() + "_report.csv";
@@ -189,6 +205,26 @@ window.onload = function(){
 
 	document.getElementById("totalNewFilter").onclick = function(){
 		document.getElementById("filterOptions").options.selectedIndex = 4;
+		document.getElementById("filterOptions").onchange();
+	}
+
+	document.getElementById("facebookFilter").onclick = function(){
+		document.getElementById("filterOptions").options.selectedIndex = 5;
+		document.getElementById("filterOptions").onchange();
+	}
+
+	document.getElementById("twitterFilter").onclick = function(){
+		document.getElementById("filterOptions").options.selectedIndex = 6;
+		document.getElementById("filterOptions").onchange();
+	}
+
+	document.getElementById("instagramFilter").onclick = function(){
+		document.getElementById("filterOptions").options.selectedIndex = 7;
+		document.getElementById("filterOptions").onchange();
+	}
+
+	document.getElementById("organicFilter").onclick = function(){
+		document.getElementById("filterOptions").options.selectedIndex = 8;
 		document.getElementById("filterOptions").onchange();
 	}
 
@@ -326,6 +362,74 @@ window.onload = function(){
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildNewPersonTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+
+		});
+		}
+		else if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Facebook Sign Ups"){
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildFacebookTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+
+		});
+		}
+		else if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Twitter Sign Ups"){
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildTwitterTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+
+		});
+		}
+		else if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Instagram Sign Ups"){
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildInstagramTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
+				});
+				reinitializeTooltips();
+
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+
+		});
+		}
+		else if(document.getElementById("filterOptions").options[document.getElementById("filterOptions").selectedIndex].text === "Organic Sign Ups"){
+			// Refresh table
+			document.getElementById("tableContents").innerHTML = "";
+			document.getElementById("tableProgress").style.display = "block";
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					// Background fetch complete; hide progress bar
+					document.getElementById("tableProgress").style.display = "none";
+					buildOrganicTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
 				});
 				reinitializeTooltips();
 
@@ -498,21 +602,23 @@ window.onload = function(){
 	document.addEventListener("keydown", function(event) {
 		// Handle 'spacebar'
 		if(event.keyCode === 32){
-			// Refresh table
-			document.getElementById("tableContents").innerHTML = "";
-			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					// Background fetch complete; hide progress bar
-					document.getElementById("tableProgress").style.display = "none";
-					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+			if(!modalState){
+				// Refresh table
+				document.getElementById("tableContents").innerHTML = "";
+				document.getElementById("tableProgress").style.display = "block";
+				db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+					querySnapshot.forEach((doc) => {
+						// Background fetch complete; hide progress bar
+						document.getElementById("tableProgress").style.display = "none";
+						buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+					});
+					reinitializeTooltips();
+
+					// Scroll table into view
+					document.getElementById("records").scrollIntoView();
+
 				});
-				reinitializeTooltips();
-
-				// Scroll table into view
-				document.getElementById("records").scrollIntoView();
-
-			});
+			}
 		}
 		// Handle Double Shift
 		if(event.keyCode === 16){
@@ -752,6 +858,138 @@ function buildNewPersonTableRow(name="unknown", email="unknown", designation="un
 	}
 }
 
+// Build facebook table rows
+function buildFacebookTableRow(name="unknown", email="unknown", designation="unknown", dateAcquired, location="unknown", utm_source="unknown"){
+
+	// Flags
+	var ambassador = false;
+
+	// Handle single quotes
+	name = capitalize(name.replace(/'/g, "\\'"));
+	email = email.replace(/'/g, "\\'");
+	designation = designation.replace(/'/g, "\\'");
+	location = location.replace(/'/g, "\\'");
+
+	// Handle designation styling
+	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
+	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
+	// Update table contents
+	if(utm_source == "facebook"){
+		if(ambassador){
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+		}
+		else{
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else{
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			}
+		}
+	}
+}
+
+// Build facebook table rows
+function buildTwitterTableRow(name="unknown", email="unknown", designation="unknown", dateAcquired, location="unknown", utm_source="unknown"){
+
+	// Flags
+	var ambassador = false;
+
+	// Handle single quotes
+	name = capitalize(name.replace(/'/g, "\\'"));
+	email = email.replace(/'/g, "\\'");
+	designation = designation.replace(/'/g, "\\'");
+	location = location.replace(/'/g, "\\'");
+
+	// Handle designation styling
+	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
+	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
+	// Update table contents
+	if(utm_source == "twitter"){
+		if(ambassador){
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+		}
+		else{
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else{
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			}
+		}
+	}
+}
+
+// Build instagram table rows
+function buildInstagramTableRow(name="unknown", email="unknown", designation="unknown", dateAcquired, location="unknown", utm_source="unknown"){
+
+	// Flags
+	var ambassador = false;
+
+	// Handle single quotes
+	name = capitalize(name.replace(/'/g, "\\'"));
+	email = email.replace(/'/g, "\\'");
+	designation = designation.replace(/'/g, "\\'");
+	location = location.replace(/'/g, "\\'");
+
+	// Handle designation styling
+	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
+	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
+	// Update table contents
+	if(utm_source == "instagram"){
+		if(ambassador){
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+		}
+		else{
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else{
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			}
+		}
+	}
+}
+
+// Build organic table rows
+function buildOrganicTableRow(name="unknown", email="unknown", designation="unknown", dateAcquired, location="unknown", utm_source="organic"){
+
+	// Flags
+	var ambassador = false;
+
+	// Handle single quotes
+	name = capitalize(name.replace(/'/g, "\\'"));
+	email = email.replace(/'/g, "\\'");
+	designation = designation.replace(/'/g, "\\'");
+	location = location.replace(/'/g, "\\'");
+
+	// Handle designation styling
+	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
+	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
+	// Update table contents
+	if(utm_source == "organic"){
+		if(ambassador){
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="downgradeAmbassador(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" style="background-color:#AA0000;" data-position="left" data-tooltip="Downgrade '+name+' to Volunteer"><i class="material-icons">arrow_downward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+		}
+		else{
+			if((Date.parse(new Date()) - Date.parse(dateAcquired)) <= (60 * 60 * 24 * 1000))
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'&emsp;<a href="#!" class="collection-item tooltipped" data-position="bottom" data-tooltip="'+dateAcquired+'"><span class="new badge">+</span></a></td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			else{
+				document.getElementById("tableContents").innerHTML += '<tr><td>'+name+'</td><td><span class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to copy" onclick="copyTextToClipboard(this);">'+email+'</span></td><td>'+location+'</td>'+designation+'<td><a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="upgradeVolunteer(\''+name+'\', \''+email+'\')" class="btn-floating tooltipped" data-position="left" data-tooltip="Upgrade '+name+' to Ambassador"><i class="material-icons">arrow_upward</i></a>&emsp;<a href="#someemailservice" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" onclick="editParticipant(\''+email+'\');" class="btn-floating tooltipped" style="background-color:#FFB500;" data-position="left" data-tooltip="Edit '+name+'\'s details"><i class="material-icons">edit</i></a></td></tr>';
+			}
+		}
+	}
+}
+
 // Build Participant Details Table Rows
 
 function buildParticipantDetailsTableRow(name="unknown", email="unknown", phone="unknown", age="unknown", locality="unknown", designation="unknown", dateAcquired, photoUrl="unknown", facebookLink="unknown", twitterLink="unknown"){
@@ -920,6 +1158,7 @@ function onModalClosed(){
 function onModalOpened(){
 	// Update graph
 	updateGraph();
+	document.getElementById("notificationsSectionClicker").click();
 	document.getElementById("downloadGraphButton").href = "data:application/octet-stream," + encodeURI(document.getElementById("acquisitionChart").innerHTML);
 }
 

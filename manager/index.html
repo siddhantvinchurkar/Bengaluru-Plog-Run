@@ -193,7 +193,7 @@
 					<div class="row">
 						<div class="col s12">
 							<ul class="tabs" id="notificationTabs" style="background-color:#FAFAFA;">
-								<li class="tab col s6"><a class="active" href="#notificationSection">Send Notification</a></li>
+								<li class="tab col s6" id="notificationsSectionClicker"><a class="active" href="#notificationSection">Send Notification</a></li>
 								<li class="tab col s6"><a href="#announcementSection">Make Announcement</a></li>
 							</ul>
 						</div>
@@ -240,6 +240,7 @@
 								</div>
 							</div>
 							<p id="passwordMessage" style="color:#A6A6A6; text-align:center; display:none;"><span><i class="material-icons" style="color:#A6A6A6; vertical-align:middle;">info</i></span>&emsp;Passwords are <u>changed everyday</u> for security reasons.</p>
+<p id="loadingMessage" style="color:#A6A6A6; text-align:center;"><span><i class="material-icons" style="color:#A6A6A6; vertical-align:middle;">info</i></span>&emsp;Preloading data; this may take a while.</p>
 						</div>
 					</div>
 				</div>
@@ -249,7 +250,7 @@
 				<div class="col s12 m10 offset-m1">
 					<div class="card">
 						<div class="card-content">
-							<i class="material-icons right" style="vertical-align:middle; color:#C6C6C6;">info</i><p class="right" style="color:#C6C6C6;"><b>All statastics are updated in real time.<br />Date and time of sign up is recorded for every signup only post Thursday, September 6<sup>th</sup> 2018.<br />All sign ups in the last 24 hours are considered new sign ups and have this<a href="#!" class="collection-item"><span class="new badge">+</span></a> badge:</b></p>
+							<i class="material-icons right" style="vertical-align:middle; color:#C6C6C6;">info</i><p class="right" style="color:#C6C6C6;"><b>All statastics are updated in real time (You don't have to refresh the page).<br />Date and time of sign up is recorded for every signup only post Thursday, September 6<sup>th</sup> 2018.<br />Source of sign up is recorded for every signup only post Monday, September 17<sup>th</sup> 2018.<br />All sign ups in the last 24 hours are considered new sign ups and have this<a href="#!" class="collection-item"><span class="new badge">+</span></a> badge:</b></p>
 							<h4 style="margin-top:2em;"><span><i class="material-icons" style="color:#0000FF; vertical-align:middle; font-size:2em;">playlist_add_check</i></span>Manage <span style="color:#FFD700;">Volunteers</span> and <span style="color:#FF0000;">Ambassadors</span><a id="refreshButton" data-position="left" data-tooltip="Refresh (Spacebar)" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped right" style="background-color:#00AA00;"><i class="material-icons">refresh</i></a><a id="editButton" href="#editParticipantModal" data-position="left" data-tooltip="View / Edit Participant Details (Double Shift)" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped modal-trigger right" style="background-color:#0000AA; margin-right:1em;"><i class="material-icons">remove_red_eye</i></a><a id="announceButton" href="#notificationModal" data-position="left" data-tooltip="Send Notification / Make Announcement" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" class="btn-floating tooltipped modal-trigger right" style="background-color:#005555; margin-right:1em;"><i class="material-icons">notifications_active</i></a></h4>
 
 							<div class="row">
@@ -258,10 +259,10 @@
 									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by ambassadors" style="cursor:pointer;" id="ambassadorFilter"><img src="../images/ambassador.png" /><span id="ambassadorCount" style="color:#FF0000;">5610</span> Ambassadors</div>
 									<div class="chip tooltipped" data-position="bottom" data-tooltip="Filter by new sign ups" style="cursor:pointer;" id="totalNewFilter"><img src="../images/new-user.png" /><span id="totalNewCount" style="color:#007700;">40</span> New people</div>
 									<div class="chip tooltipped" data-position="bottom" data-tooltip="Remove all filters" style="cursor:pointer;" id="totalFilter"><img src="../images/total.png" /><span id="totalCount" style="color:#0000FF;">4000</span> People total</div>
-<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through Facebook" style="cursor:pointer;" id="facebookFilter"><img src="../images/total.png" /><span id="facebookCount" style="color:#0000FF;">400</span> Facebook sign ups</div>
-<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through Twitter" style="cursor:pointer;" id="twitterFilter"><img src="../images/total.png" /><span id="twitterCount" style="color:#0000FF;">400</span> Twitter sign ups</div>
-<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through Instagram" style="cursor:pointer;" id="instagramFilter"><img src="../images/total.png" /><span id="instagramCount" style="color:#0000FF;">400</span> Instagram sign ups</div>
-<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through all other sources" style="cursor:pointer;" id="organicFilter"><img src="../images/total.png" /><span id="organicCount" style="color:#0000FF;">400</span> Organic sign ups</div>
+<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through Facebook" style="cursor:pointer;" id="facebookFilter"><img src="../images/facebook.png" /><span id="facebookCount" style="color:#0000FF;">400</span> Facebook sign ups</div>
+<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through Twitter" style="cursor:pointer;" id="twitterFilter"><img src="../images/twitter.png" /><span id="twitterCount" style="color:#0000FF;">400</span> Twitter sign ups</div>
+<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through Instagram" style="cursor:pointer;" id="instagramFilter"><img src="../images/instagram.png" /><span id="instagramCount" style="color:#0000FF;">400</span> Instagram sign ups</div>
+<div class="chip tooltipped" data-position="bottom" data-tooltip="People acquired through all other sources" style="cursor:pointer;" id="organicFilter"><img src="../images/organic.png" /><span id="organicCount" style="color:#0000FF;">400</span> Organic sign ups</div>
 								</div>
 								<div class="col s12 m2">
 									<a class="waves-effect waves-light btn modal-trigger blue darken-4 tooltipped" data-position="bottom" data-tooltip="View volunteer acquisition report" onmouseover="startPulse(this);" onmouseout="stopPulse(this);" href="#analyticsModal"><i style="font-size:1em; vertical-align:middle; margin-right:0.3em;" class="material-icons left">multiline_chart</i>View Report</a>
@@ -273,6 +274,10 @@
 										<option value="2">Volunteers</option>
 										<option value="3">Ambassadors</option>
 										<option value="4">New People</option>
+										<option value="5">Facebook Sign Ups</option>
+										<option value="6">Twitter Sign Ups</option>
+										<option value="7">Instagram Sign Ups</option>
+										<option value="8">Organic Sign Ups</option>
 									</select>
 								</div>
 							</div>
