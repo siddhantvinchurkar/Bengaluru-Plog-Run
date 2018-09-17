@@ -358,7 +358,7 @@
 			
 				// Handle location change
 				document.getElementById("loc").onchange = function(){
-					var locationCode = locCode[document.getElementById("loc").selectedIndex1];
+					var locationCode = locCode[document.getElementById("loc").selectedIndex-1];
 					document.getElementById("areaCode").innerHTML = "Area Code: " + locationCode;
 					document.getElementById("ambassadorDetails").style.display = "none";
 					document.getElementById("ambassadorImage").src = "../images/logo.svg";
