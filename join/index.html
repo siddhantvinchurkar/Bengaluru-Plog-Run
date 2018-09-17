@@ -370,7 +370,7 @@
 					document.getElementById("ambassadorDetails").style.display = "none";
 					document.getElementById("ambassadorImage").src = "../images/logo.svg";
 					document.getElementById("ambassadorName").innerHTML = "Shankar Sadashiv";
-					db.collection("volunteers").where("locality", "==", document.getElementById("loc").value).get().then(function(querySnapshot){querySnapshot.forEach(function(doc){
+					db.collection("volunteers").where("locality", "==", document.getElementById("loc").value.substring(0, document.getElementById("loc").value.indexOf(' ('))).get().then(function(querySnapshot){querySnapshot.forEach(function(doc){
 						if(doc.data().designation == "ambassador"){
 							document.getElementById("ambassadorImage").src = doc.data().photoUrl;
 							document.getElementById("ambassadorName").innerHTML = doc.data().firstName + " " + doc.data().lastName;
