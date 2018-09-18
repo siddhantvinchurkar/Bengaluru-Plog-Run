@@ -53,6 +53,7 @@ var ambassadorRecipientArray = [];
 var volunteerRecipientArray = [];
 var everyoneRecipientArray = [];
 var recipientArray = [];
+var lastKeyUpAt = 0;
 
 window.onload = function(){
 
@@ -600,6 +601,7 @@ window.onload = function(){
 
 	// Handle keypresses
 	document.addEventListener("keydown", function(event) {
+		var keyDownAt = new Date();
 		// Handle 'spacebar'
 		if(event.keyCode === 32){
 			if(!modalState){
@@ -620,6 +622,15 @@ window.onload = function(){
 				});
 			}
 		}
+			setTimeout(function() {
+				if(+keyDownAt > +lastKeyUpAt){
+					if(event.keyCode === 16){
+						if(!modalState){
+							alert("You held down shift!");
+						}
+					}
+				}}, 3000);
+			}
 		// Handle Double Shift
 		if(event.keyCode === 16){
 			if(shiftCount == 1){
@@ -643,6 +654,7 @@ window.onload = function(){
 
 	// Handle enter keypress for search
 	document.getElementById("searchBar").addEventListener("keyup", function(event) {
+		lastKeyUpAt = new Date();
 		event.preventDefault();
 		if(event.keyCode === 13){
 			// Refresh table
@@ -1004,7 +1016,7 @@ function buildMailingListChip(typedAddress){
 	var repeated = false;
 	typedAddress = typedAddress.substring(0, typedAddress.indexOf(' <'));
 	for(var i=0; i<previouslyTypedAddresses.length; i++)if(typedAddress == previouslyTypedAddresses[i]){repeated = true; break;}
-	if(!repeated)document.getElementById("mailingListChips").innerHTML += '<div class="chip">'+typedAddress+'<i class="close material-icons">close</i></div>';
+	if(!repeated)document.getElementById("mailingListChips").innerHTML += '<div class="chip">'+typedAddress+'</div>';
 	previouslyTypedAddresses.push(typedAddress);
 }
 
