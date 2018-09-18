@@ -53,7 +53,7 @@ var ambassadorRecipientArray = [];
 var volunteerRecipientArray = [];
 var everyoneRecipientArray = [];
 var recipientArray = [];
-var lastKeyUpAt = 0;
+var lastKeyUpAt = new Date();
 
 window.onload = function(){
 
@@ -622,15 +622,15 @@ window.onload = function(){
 				});
 			}
 		}
-			setTimeout(function() {
-				if(+keyDownAt > +lastKeyUpAt){
-					if(event.keyCode === 16){
-						if(!modalState){
-							alert("You held down shift!");
-						}
+		// Handle Long Shift
+		window.setTimeout(function() {
+			if(+keyDownAt > +lastKeyUpAt){
+				if(event.keyCode === 16){
+					if(!modalState){
+						modalInstances[3].open();
 					}
-				}}, 3000);
-			}
+				}
+			}}, 1000);
 		// Handle Double Shift
 		if(event.keyCode === 16){
 			if(shiftCount == 1){
@@ -1170,7 +1170,6 @@ function onModalClosed(){
 function onModalOpened(){
 	// Update graph
 	updateGraph();
-	document.getElementById("notificationsSectionClicker").click();
 	document.getElementById("downloadGraphButton").href = "data:application/octet-stream," + encodeURI(document.getElementById("acquisitionChart").innerHTML);
 }
 
