@@ -122,6 +122,7 @@ window.onload = function(){
 	var pwd = "password";
 
 	// Retrieve password from the database
+	document.getElementById("ambassadorReportTable").innerHTML = "";
 	db.collection("passwords").get().then((querySnapshot) => {
 		querySnapshot.forEach((doc) => {
 			pwd = doc.data().pwd;
@@ -131,8 +132,12 @@ window.onload = function(){
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+					buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
 				});
 				reinitializeTooltips();
+				// Create Ambassador Report
+				document.getElementById("ambassadorLoader").style.display = "none";
+				document.getElementById("ambassadorReportSection").style.display = "block";
 				// Enable signin
 				document.getElementById("password").disabled = false;
 				document.getElementById("passwordProgress").style.display = "none";
@@ -1018,6 +1023,28 @@ function buildMailingListChip(typedAddress){
 	for(var i=0; i<previouslyTypedAddresses.length; i++)if(typedAddress == previouslyTypedAddresses[i]){repeated = true; break;}
 	if(!repeated)document.getElementById("mailingListChips").innerHTML += '<div class="chip">'+typedAddress+'</div>';
 	previouslyTypedAddresses.push(typedAddress);
+}
+
+// Count the number of volunteers in an area
+function getNOV(locality="unknown"){
+	var counter = 0;
+	db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+			if(locality) counter++;
+		});
+	});
+}
+
+// Build Ambassador Report Table Rows
+function buildAmbassadorReportTableRow(name="unknown", email="unknown", locality="unknown", designation="volunteer"){
+
+	// Handle single quotes
+	name = capitalize(name.replace(/'/g, "\\'"));
+	email = email.replace(/'/g, "\\'");
+	locality = locality.replace(/'/g, "\\'");
+	designation = designation.replace(/'/g, "\\'");
+
+	document.getElementById("ambassadorReportTable").innerHTML += '<tr><td><a href="mailto:'+email+'" class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to send email">'+name+'</a></td><td>'+locality+'</td><td>'+getNOV(locality)+'</td></tr>';
 }
 
 // Handle upgrades and downgrades
