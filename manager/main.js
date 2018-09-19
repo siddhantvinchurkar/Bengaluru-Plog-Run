@@ -45,6 +45,7 @@ for (var i=0; i<7; i++){
 }
 var data = {labels:dateArray.reverse(), series:[seriesArray]};
 var shiftCount = 0;
+var volunteerCounter = 0;
 var sortBy = "firstName";
 var mailingList = {"Stuff": null, "More Stuff": null};
 var typedAddress = "someone@example.com";
@@ -132,7 +133,7 @@ window.onload = function(){
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
-					buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
+					if(doc.data().designation == "ambassador") buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
 				});
 				reinitializeTooltips();
 				// Create Ambassador Report
@@ -1025,16 +1026,6 @@ function buildMailingListChip(typedAddress){
 	previouslyTypedAddresses.push(typedAddress);
 }
 
-// Count the number of volunteers in an area
-function getNOV(locality="unknown"){
-	var counter = 0;
-	db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
-		querySnapshot.forEach((doc) => {
-			if(locality) counter++;
-		});
-	});
-}
-
 // Build Ambassador Report Table Rows
 function buildAmbassadorReportTableRow(name="unknown", email="unknown", locality="unknown", designation="volunteer"){
 
@@ -1044,7 +1035,15 @@ function buildAmbassadorReportTableRow(name="unknown", email="unknown", locality
 	locality = locality.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 
-	document.getElementById("ambassadorReportTable").innerHTML += '<tr><td><a href="mailto:'+email+'" class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to send email">'+name+'</a></td><td>'+locality+'</td><td>'+getNOV(locality)+'</td></tr>';
+	gdb.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+		// Reset Volunteer Counter
+		volunteerCounter = 0;
+		querySnapshot.forEach((doc) => {
+			if(doc.data().locality.includes(locality)) volunteerCounter++;
+		});
+		if(volunteerCounter <= 0) volunteerCounter = 0; else volunteerCounter--;
+		document.getElementById("ambassadorReportTable").innerHTML += '<tr><td><a href="mailto:'+email+'" class="tooltipped" style="cursor:pointer;" data-position="right" data-tooltip="Click to send email">'+name+'</a></td><td>'+locality+'</td><td>'+volunteerCounter+'</td></tr>';
+	});
 }
 
 // Handle upgrades and downgrades
