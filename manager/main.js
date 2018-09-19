@@ -759,6 +759,8 @@ function buildAmbassadorTableRow(name="unknown", email="unknown", designation="u
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
 
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
+
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
 	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
@@ -785,6 +787,8 @@ function buildVolunteerTableRow(name="unknown", email="unknown", designation="un
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
+
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
@@ -816,6 +820,8 @@ function buildSearchTableRow(searchString="", name="unknown", email="unknown", d
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
+
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
 	// Handle filtering
 	if(name.toLowerCase().includes(searchString.toLowerCase()) || email.toLowerCase().includes(searchString.toLowerCase()) || location.toLowerCase().includes(searchString.toLowerCase())) recordExists = true;
@@ -857,6 +863,8 @@ function buildNewPersonTableRow(name="unknown", email="unknown", designation="un
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
 
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
+
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
 	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
@@ -890,6 +898,8 @@ function buildFacebookTableRow(name="unknown", email="unknown", designation="unk
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
 
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
+
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
 	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
@@ -911,7 +921,7 @@ function buildFacebookTableRow(name="unknown", email="unknown", designation="unk
 	}
 }
 
-// Build facebook table rows
+// Build twitter table rows
 function buildTwitterTableRow(name="unknown", email="unknown", designation="unknown", dateAcquired, location="unknown", utm_source="unknown"){
 
 	// Flags
@@ -922,6 +932,8 @@ function buildTwitterTableRow(name="unknown", email="unknown", designation="unkn
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
+
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
@@ -956,6 +968,8 @@ function buildInstagramTableRow(name="unknown", email="unknown", designation="un
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
 
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
+
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
 	else {designation = '<td style="color:#FF0000;">Ambassador</td>'; ambassador = true;}
@@ -988,6 +1002,8 @@ function buildOrganicTableRow(name="unknown", email="unknown", designation="unkn
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
 	location = location.replace(/'/g, "\\'");
+
+	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
 	// Handle designation styling
 	if(designation === "volunteer") designation = '<td style="color:#FFD700;">Volunteer</td>';
