@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "Name": "Malleshwaram, Sankey tank", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.565722, 13.014106, 0.0 ], [ 77.5663442, 13.0136042, 0.0 ], [ 77.5681681, 13.0125589, 0.0 ], [ 77.5692625, 13.0118481, 0.0 ], [ 77.5701423, 13.0108864, 0.0 ], [ 77.5709576, 13.0096529, 0.0 ], [ 77.5716657, 13.0083984, 0.0 ], [ 77.5729532, 13.0076249, 0.0 ], [ 77.5742407, 13.0076876, 0.0 ], [ 77.5758071, 13.0078549, 0.0 ], [ 77.577116, 13.0073531, 0.0 ], [ 77.5785537, 13.0066318, 0.0 ], [ 77.5787575, 13.0068775, 0.0 ], [ 77.5781889, 13.0073949, 0.0 ], [ 77.5776953, 13.0077921, 0.0 ], [ 77.5767512, 13.008273, 0.0 ], [ 77.5757856, 13.0092556, 0.0 ], [ 77.5754853, 13.0104683, 0.0 ], [ 77.5752814, 13.0119631, 0.0 ], [ 77.5747986, 13.0126425, 0.0 ], [ 77.5740905, 13.0130606, 0.0 ], [ 77.5738759, 13.0137088, 0.0 ], [ 77.5736398, 13.0146077, 0.0 ], [ 77.5729317, 13.0146286, 0.0 ], [ 77.565722, 13.014106, 0.0 ] ] ] } },
-{ "type": "Feature", "properties": { "Name": "Start", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 77.5705285, 13.0103637, 0.0 ] } }
-]
-}

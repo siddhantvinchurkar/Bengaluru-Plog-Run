@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "Name": "Malleshwaram, Sampige road", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5706134, 12.9910576, 0.0 ], [ 77.5716862, 12.9907858, 0.0 ], [ 77.5715146, 12.9919985, 0.0 ], [ 77.5714717, 12.9950093, 0.0 ], [ 77.5714287, 12.996891, 0.0 ], [ 77.5713, 12.9990445, 0.0 ], [ 77.5713, 13.001867, 0.0 ], [ 77.5701198, 13.0019298, 0.0 ], [ 77.566472, 13.0019088, 0.0 ], [ 77.5633821, 13.0019088, 0.0 ], [ 77.5638113, 13.0008217, 0.0 ], [ 77.5647769, 12.9990863, 0.0 ], [ 77.5658927, 12.99733, 0.0 ], [ 77.5673089, 12.9954274, 0.0 ], [ 77.5706134, 12.9910576, 0.0 ] ] ] } },
-{ "type": "Feature", "properties": { "Name": "Start", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 77.5706134, 12.9910576, 0.0 ] } }
-]
-}
