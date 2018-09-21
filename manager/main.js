@@ -168,7 +168,6 @@ window.onload = function(){
 			if(doc.data().utm_source == "facebook") facebookCount++;
 			if(doc.data().utm_source == "twitter") twitterCount++;
 			if(doc.data().utm_source == "instagram") instagramCount++;
-			else organicCount++;
 			for(var i=0; i<dateArray.length; i++) if(new Date(Date.parse(doc.data().dateAcquired)).getDate() == dateArray[i]) seriesArray[i]++;
 			// Build CSV
 			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + + "," + doc.data().utm_source + "\n";
@@ -177,6 +176,7 @@ window.onload = function(){
 		});
 		reinitializeAutocomplete();
 		totalCount = volunteerCount + ambassadorCount;
+		organicCount = totalCount - facebookCount - twitterCount - instagramCount;
 		for(var i=0; i<dateArray.length; i++) if(dateArray[i] == 6) seriesArray[i] +=6;
 		var data = {labels:dateArray, series:[seriesArray]};
 		// Update values
