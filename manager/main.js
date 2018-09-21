@@ -55,6 +55,7 @@ var volunteerRecipientArray = [];
 var everyoneRecipientArray = [];
 var recipientArray = [];
 var lastKeyUpAt = new Date();
+var locationList = [];
 
 window.onload = function(){
 
@@ -71,7 +72,7 @@ window.onload = function(){
 	// Initialize Materialize Select
 	selectElements = document.querySelectorAll('select');
 	selectInstances = M.FormSelect.init(selectElements);
-	console.log("%cFeature Discovery Elements Initialized!", "background:#222222; color:#BADA55;");
+	console.log("%cSelect Elements Initialized!", "background:#222222; color:#BADA55;");
 
 	// Initialize Materialize Parallax
 	parallaxElements = document.querySelectorAll('.parallax');
@@ -134,11 +135,14 @@ window.onload = function(){
 					document.getElementById("tableProgress").style.display = "none";
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 					if(doc.data().designation == "ambassador") buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
+					locationList.push(doc.data().locality);
 				});
 				reinitializeTooltips();
 				// Create Ambassador Report
 				document.getElementById("ambassadorLoader").style.display = "none";
 				document.getElementById("ambassadorReportSection").style.display = "block";
+				// Create Location Dropdown
+				for(var i=0; i<locationList.length; i++) {document.getElementById("renameList").innerHTML += "<option>" + locationList[i] + "</option>";}
 				// Enable signin
 				document.getElementById("password").disabled = false;
 				document.getElementById("passwordProgress").style.display = "none";
@@ -521,6 +525,12 @@ window.onload = function(){
 	document.getElementById("announceButton").onclick = function(){
 		modalState = true;
 		document.getElementById("addressBar").focus();
+	}
+
+	// Handle rename button click
+	document.getElementById("renameButton").onclick = function(){
+		modalState = true;
+		document.getElementById("newName").focus();
 	}
 
 	// Handle announcements email selection

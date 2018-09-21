@@ -262,14 +262,20 @@
 				</div>
 			</div>
 
-			<!--Analytics Modal-->
-			<div id="renameModal" class="modal modal-fixed-footer">
+			<!--Rename Modal-->
+			<div id="renameModal" class="modal">
 				<div class="modal-content">
 					<h4><i class="material-icons prefix">wrap_text</i>Rename Location</h4>
 					<hr />
 					<div class="row">
-						<div class="col s12 m12">
-							<!--Stuff-->
+						<div class="col s12 m6 input-field">
+							<select id="renameList">
+								<option selected disabled>Select location to rename</option>
+							</select>
+						</div>
+						<div class="col s12 m6 input-field">
+							<input id="newName" type="text" class="validate" autofocus>
+							<label for="newName">New Name</label>
 						</div>
 					</div>
 				</div>
