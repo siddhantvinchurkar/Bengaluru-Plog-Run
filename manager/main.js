@@ -128,30 +128,34 @@ window.onload = function(){
 	db.collection("passwords").get().then((querySnapshot) => {
 		querySnapshot.forEach((doc) => {
 			pwd = doc.data().pwd;
-			// Begin fetching volunteer and/or ambassador records in the background
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					// Background fetch complete; hide progress bar
-					document.getElementById("tableProgress").style.display = "none";
-					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
-					if(doc.data().designation == "ambassador") buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
-					locationList.push(doc.data().locality);
-				});
-				reinitializeTooltips();
-				// Create Ambassador Report
-				document.getElementById("ambassadorLoader").style.display = "none";
-				document.getElementById("ambassadorReportSection").style.display = "block";
-				// Create Location Dropdown
-				for(var i=0; i<locationList.length; i++) {document.getElementById("renameList").innerHTML += "<option>" + locationList[i] + "</option>";}
-				// Enable signin
-				document.getElementById("password").disabled = false;
-				document.getElementById("passwordProgress").style.display = "none";
-				document.getElementById("passwordField").style.display = "block";
-				document.getElementById("passwordButton").style.display = "block";
-				document.getElementById("passwordMessage").style.display = "block";
-				document.getElementById("loadingMessage").style.display = "none";
-			});
 		});
+	});
+
+	// Begin fetching volunteer and/or ambassador records in the background
+	db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+		document.getElementById("tableProgress").style.display = "none";
+		querySnapshot.forEach((doc) => {
+			// Background fetch complete; hide progress bar
+			buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+			if(doc.data().designation == "ambassador") buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
+			if(locationList.indexOf(doc.data().locality) == -1) locationList.push(doc.data().locality);
+		});
+		reinitializeTooltips();
+		reinitializeSelects();
+		// Create Ambassador Report
+		document.getElementById("ambassadorLoader").style.display = "none";
+		document.getElementById("ambassadorReportSection").style.display = "block";
+		// Create Location Dropdown
+		locationList.sort();
+		for(var i=0; i<locationList.length; i++) {document.getElementById("renameList").innerHTML += '<option value="'+(i+1)+'">' + locationList[i] + "</option>";}
+		reinitializeSelects();
+		// Enable signin
+		document.getElementById("password").disabled = false;
+		document.getElementById("passwordProgress").style.display = "none";
+		document.getElementById("passwordField").style.display = "block";
+		document.getElementById("passwordButton").style.display = "block";
+		document.getElementById("passwordMessage").style.display = "block";
+		document.getElementById("loadingMessage").style.display = "none";
 	});
 
 	// Listen for data changes
@@ -449,6 +453,18 @@ window.onload = function(){
 
 		});
 		}
+	}
+
+	// Handle location rename
+	document.getElementById("renameBtn").onclick = function(){
+		db.collection("volunteers").orderBy("locality", "asc").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					if(doc.data().locality == document.getElementById("renameList").options[document.getElementById("renameList").selectedIndex].text){
+						db.collection("volunteers").doc(doc.data().email).update({locality: document.getElementById("newName").value});
+					}
+				});
+				modalInstances[5].close();
+		});
 	}
 
 	// Handle editing
@@ -1158,6 +1174,12 @@ function upgradeVolunteer(name, email){
 function reinitializeTooltips(){
 	tooltipElements = document.querySelectorAll('.tooltipped');
 	tooltipInstances = M.Tooltip.init(tooltipElements);
+}
+
+// Reinitialize selects
+function reinitializeSelects(){
+	selectElements = document.querySelectorAll('select');
+	selectInstances = M.FormSelect.init(selectElements);
 }
 
 // Reinitialize autocomplete
