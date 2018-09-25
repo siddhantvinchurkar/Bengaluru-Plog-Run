@@ -53,6 +53,7 @@ var previouslyTypedAddresses = [];
 var ambassadorRecipientArray = [];
 var volunteerRecipientArray = [];
 var everyoneRecipientArray = [];
+var selectedRecipientArray = [];
 var recipientArray = [];
 var lastKeyUpAt = new Date();
 var locationList = [];
@@ -149,6 +150,15 @@ window.onload = function(){
 		});
 		reinitializeTooltips();
 		reinitializeSelects();
+	});
+
+	// Build email lists
+	db.collection("volunteers").orderBy("email", "asc").get().then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+			everyoneRecipientArray.push(doc.data().email);
+			if(doc.data().designation == "ambassador") ambassadorRecipientArray.push(doc.data().email);
+			else if(doc.data().designation == "volunteer") volunteerRecipientArray.push(doc.data().email);
+		});
 	});
 
 	// Handle pagination
@@ -634,6 +644,27 @@ window.onload = function(){
 				"https://admin.sotf.in/console/sendcustombprmail.php",
 				// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
 				{name : recipientArray[i].substring(0, recipientArray[i].indexOf(" <")), eml : recipientArray[i], sub : document.getElementById("emailSubject").value, body : document.getElementById("emailBody").value},
+				function(data){
+					console.log("%c" + data, "background: #222222; color: #BADA55;");
+				}
+			);
+		}
+		modalInstances[3].close();
+	}
+
+	// Handle email announcement button
+	document.getElementById("sendAnnouncementButton").onclick = function(){
+		switch(document.getElementById("emailListOptions").options[document.getElementById("emailListOptions").selectedIndex].text){
+			case "Everyone": selectedRecipientArray = Array.from(everyoneRecipientArray); break;
+			case "Ambassadors Only": selectedRecipientArray = Array.from(ambassadorRecipientArray); break;
+			case "Volunteers Only": selectedRecipientArray = Array.from(volunteerRecipientArray); break;
+			default: selectedRecipientArray = Array.from(everyoneRecipientArray); break;
+		}
+		for(var i=0; i<selectedRecipientArray.length; i++){
+			$.get(
+				"https://admin.sotf.in/console/sendcustombprmail.php",
+				// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+				{name : selectedRecipientArray[i].substring(0, selectedRecipientArray[i].indexOf(" <")), eml : selectedRecipientArray[i], sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value},
 				function(data){
 					console.log("%c" + data, "background: #222222; color: #BADA55;");
 				}
