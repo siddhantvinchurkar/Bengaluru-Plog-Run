@@ -56,6 +56,8 @@ var everyoneRecipientArray = [];
 var recipientArray = [];
 var lastKeyUpAt = new Date();
 var locationList = [];
+var lastVisible = 0;
+var loadCategory = "all"
 
 window.onload = function(){
 
@@ -142,21 +144,39 @@ window.onload = function(){
 		document.getElementById("ambassadorReportTable").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "none";
 		querySnapshot.forEach((doc) => {
-			// Background fetch complete; hide progress bar
 			buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
-			if(doc.data().designation == "ambassador") buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
-			if(locationList.indexOf(doc.data().locality) == -1) locationList.push(doc.data().locality);
+			lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 		});
 		reinitializeTooltips();
 		reinitializeSelects();
-		// Create Ambassador Report
-		document.getElementById("ambassadorLoader").style.display = "none";
-		document.getElementById("ambassadorReportSection").style.display = "block";
-		// Create Location Dropdown
-		locationList.sort();
-		for(var i=0; i<locationList.length; i++) {document.getElementById("renameList").innerHTML += '<option value="'+(i+1)+'">' + locationList[i] + "</option>";}
+	});
+
+	// Handle pagination
+	document.getElementById("next10").onclick = function(){
+		document.getElementById("next10").style.display = "none";
+		document.getElementById("tableNextLoader").style.display = "block";
+		db.collection("volunteers").orderBy(sortBy, "asc").startAfter(lastVisible).limit(100).get().then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+			switch(loadCategory){
+				case "all": buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "ambassador": buildAmbassadorTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "volunteer": buildVolunteerTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "search": buildSearchTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "newPerson": buildNewPersonTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "facebook": buildFacebookTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "twitter": buildTwitterTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "instagram": buildInstagramTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				case "organic": buildOrganicTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+				default: buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality); break;
+			}
+			lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
+		});
+		document.getElementById("next10").style.display = "block";
+		document.getElementById("tableNextLoader").style.display = "none";
+		reinitializeTooltips();
 		reinitializeSelects();
 	});
+	}
 
 	// Listen for data changes
 	db.collection("volunteers").onSnapshot(function(querySnapshot){
@@ -170,6 +190,8 @@ window.onload = function(){
 		organicCount = 0;
 		csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link,Source Of Sign Up\n";
 		querySnapshot.forEach((doc) => {
+			if(doc.data().designation == "ambassador") buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
+			if(locationList.indexOf(doc.data().locality) == -1) locationList.push(doc.data().locality);
 			if(doc.data().designation == "volunteer") volunteerCount++;
 			else ambassadorCount++;
 			if((Date.parse(new Date()) - Date.parse(doc.data().dateAcquired)) <= (60 * 60 * 24 * 1000)) totalNewCount++;
@@ -202,6 +224,13 @@ window.onload = function(){
 		document.getElementById("downloadButton").href = "data:application/octet-stream," + encodeURI(csv);
 		document.getElementById("downloadGraphButton").download = new Date().getDate() + "-" + new Date().getMonth()+1 + "-" + new Date().getFullYear() + "-" + new Date().getHours() + "-" + new Date().getMinutes() + "-" + new Date().getSeconds() + "_graph.svg";
 		document.getElementById("downloadGraphButton").href = "data:application/octet-stream," + encodeURI(document.getElementById("acquisitionChart").innerHTML);
+		// Create Ambassador Report
+		document.getElementById("ambassadorLoader").style.display = "none";
+		document.getElementById("ambassadorReportSection").style.display = "block";
+		// Create Location Dropdown
+		locationList.sort();
+		for(var i=0; i<locationList.length; i++) {document.getElementById("renameList").innerHTML += '<option value="'+(i+1)+'">' + locationList[i] + "</option>";}
+		reinitializeSelects();
 	});
 
 	// Handle chips
@@ -249,7 +278,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "all";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -267,7 +297,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "all";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -285,7 +316,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "all";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -303,7 +335,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "all";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -321,7 +354,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "all";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -338,7 +372,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "volunteer";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -355,6 +390,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
+			loadCategory = "ambassador";
 			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
@@ -372,6 +408,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
+			loadCategory = "newPerson";
 			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
@@ -389,6 +426,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
+			loadCategory = "facebook";
 			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
@@ -406,6 +444,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
+			loadCategory = "twitter";
 			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
@@ -423,6 +462,7 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
+			loadCategory = "instagram";
 			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
@@ -440,7 +480,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "organic";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -640,7 +681,8 @@ window.onload = function(){
 				// Refresh table
 				document.getElementById("tableContents").innerHTML = "";
 				document.getElementById("tableProgress").style.display = "block";
-				db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+				loadCategory = "all";
+				db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 					querySnapshot.forEach((doc) => {
 						// Background fetch complete; hide progress bar
 						document.getElementById("tableProgress").style.display = "none";
@@ -692,7 +734,8 @@ window.onload = function(){
 			// Refresh table
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
-			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+			loadCategory = "search";
+			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -714,7 +757,8 @@ window.onload = function(){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+		loadCategory = "all";
+		db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
@@ -1105,7 +1149,8 @@ function downgradeAmbassador(name, email){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		gdb.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+		loadCategory = "all";
+		gdb.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";
@@ -1140,7 +1185,8 @@ function upgradeVolunteer(name, email){
 		// Refresh table
 		document.getElementById("tableContents").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "block";
-		gdb.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+		loadCategory = "all";
+		gdb.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				// Background fetch complete; hide progress bar
 				document.getElementById("tableProgress").style.display = "none";

@@ -310,7 +310,7 @@
 								</div>
 							</div>
 							<p id="passwordMessage" style="color:#A6A6A6; text-align:center; display:none;"><span><i class="material-icons" style="color:#A6A6A6; vertical-align:middle;">info</i></span>&emsp;Passwords are <u>changed everyday</u> for security reasons.</p>
-<p id="loadingMessage" style="color:#A6A6A6; text-align:center;"><span><i class="material-icons" style="color:#A6A6A6; vertical-align:middle;">info</i></span>&emsp;Preloading data; this may take a while.</p>
+<p id="loadingMessage" style="color:#A6A6A6; text-align:center;"><span><i class="material-icons" style="color:#A6A6A6; vertical-align:middle;">info</i></span>&emsp;Preloading data; this <b><u>won't</u></b> take long.</p>
 						</div>
 					</div>
 				</div>
@@ -370,6 +370,24 @@
 								<!--This stuff is populated dynamically-->
 							</tbody>
 						</table>
+					</div>
+					<div class="col s12 m3 offset-m5">
+						<a id="next10" class="waves-effect waves-light btn"><i class="material-icons left">autorenew</i>Load more entries</a>
+					</div>
+					<div id="tableNextLoader" class="col s12 m1 offset-m5" style="margin-top:1em; display:none;">
+						<div class="preloader-wrapper small active">
+							<div class="spinner-layer spinner-blue-only">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div>
+								<div class="gap-patch">
+									<div class="circle"></div>
+								</div>
+								<div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
