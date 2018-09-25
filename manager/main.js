@@ -286,6 +286,7 @@ window.onload = function(){
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -305,6 +306,7 @@ window.onload = function(){
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -324,6 +326,7 @@ window.onload = function(){
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -343,6 +346,7 @@ window.onload = function(){
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -362,6 +366,7 @@ window.onload = function(){
 					buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -380,6 +385,7 @@ window.onload = function(){
 					buildVolunteerTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -398,6 +404,7 @@ window.onload = function(){
 					buildAmbassadorTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -416,6 +423,7 @@ window.onload = function(){
 					buildNewPersonTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -434,6 +442,7 @@ window.onload = function(){
 					buildFacebookTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -452,6 +461,7 @@ window.onload = function(){
 					buildTwitterTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -470,6 +480,7 @@ window.onload = function(){
 					buildInstagramTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -488,6 +499,7 @@ window.onload = function(){
 					buildOrganicTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality, doc.data().utm_source);
 				});
 				reinitializeTooltips();
+				lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -735,7 +747,7 @@ window.onload = function(){
 			document.getElementById("tableContents").innerHTML = "";
 			document.getElementById("tableProgress").style.display = "block";
 			loadCategory = "search";
-			db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
+			db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					// Background fetch complete; hide progress bar
 					document.getElementById("tableProgress").style.display = "none";
@@ -765,6 +777,7 @@ window.onload = function(){
 				buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation,  doc.data().dateAcquired, doc.data().locality);
 			});
 			reinitializeTooltips();
+			lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Scroll table into view
 			document.getElementById("records").scrollIntoView();
@@ -1156,6 +1169,7 @@ function downgradeAmbassador(name, email){
 				document.getElementById("tableProgress").style.display = "none";
 				buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 			});
+			lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Display toast
 			M.toast({html: name + ' is now a volunteer!', classes: 'rounded'});
@@ -1192,6 +1206,7 @@ function upgradeVolunteer(name, email){
 				document.getElementById("tableProgress").style.display = "none";
 				buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
 			});
+			lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
 
 			// Display toast
 			M.toast({html: name + ' is now an ambassador!', classes: 'rounded'});
