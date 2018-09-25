@@ -627,6 +627,21 @@ window.onload = function(){
 		}
 	}
 
+	// Handle send email notification button
+	document.getElementById("sendNotificationButton").onclick = function(){
+		for(var i=0; i<recipientArray.length; i++){
+			$.get(
+				"https://admin.sotf.in/console/sendcustombprmail.php",
+				// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+				{name : recipientArray[i].substring(0, recipientArray[i].indexOf(" <")), eml : recipientArray[i], sub : document.getElementById("emailSubject").value, body : document.getElementById("emailBody").value},
+				function(data){
+					console.log("%c" + data, "background: #222222; color: #BADA55;");
+				}
+			);
+		}
+		modalInstances[3].close();
+	}
+
 	// Handle get details button click
 	document.getElementById("getDetailsButton").onclick = function(){
 		modalState = true;
@@ -723,7 +738,7 @@ window.onload = function(){
 				document.getElementById("editButton").click();
 				shiftCount = 0;
 			}
-			else shiftCount++;
+			else if(!modalState) shiftCount++;
 		}
 		// Handle letters
 		else if(event.keyCode >= 65 && event.keyCode <= 90){

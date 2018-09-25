@@ -209,6 +209,17 @@
 						<div class="col s12" id="mailingListChips">
 							<!--Chips go here-->
 						</div>
+						<div class="col s12 input-field">
+							<input type="text" id="emailSubject">
+							<label for="emailSubject">Subject</label>
+						</div>
+						<div class="col s12 input-field">
+							<textarea id="emailBody" class="materialize-textarea"></textarea>
+							<label for="emailBody">Body</label>
+						</div>
+						<div class="col s12 m2 offset-m10">
+							<a id="sendNotificationButton" class="btn waves-effect waves-green"><i class="material-icons right">send</i>Send Email</a>
+						</div>
 					</div>
 					<div class="row" id="announcementSection">
 						<!--Stuff goes here-->
@@ -405,6 +416,7 @@
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js" async></script>
 		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js" async></script>
 		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js" async></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" async></script>
 		<script type="text/javascript" src="main.js" async></script>
 	</body>
 </html>
