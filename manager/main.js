@@ -807,7 +807,7 @@ function buildTableRow(name="unknown", email="unknown", designation="unknown", d
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -840,7 +840,7 @@ function buildAmbassadorTableRow(name="unknown", email="unknown", designation="u
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -869,7 +869,7 @@ function buildVolunteerTableRow(name="unknown", email="unknown", designation="un
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -902,7 +902,7 @@ function buildSearchTableRow(searchString="", name="unknown", email="unknown", d
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -944,7 +944,7 @@ function buildNewPersonTableRow(name="unknown", email="unknown", designation="un
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -979,7 +979,7 @@ function buildFacebookTableRow(name="unknown", email="unknown", designation="unk
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -1014,7 +1014,7 @@ function buildTwitterTableRow(name="unknown", email="unknown", designation="unkn
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -1049,7 +1049,7 @@ function buildInstagramTableRow(name="unknown", email="unknown", designation="un
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -1084,7 +1084,7 @@ function buildOrganicTableRow(name="unknown", email="unknown", designation="unkn
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
 	designation = designation.replace(/'/g, "\\'");
-	location = location.replace(/'/g, "\\'");
+	// location = location.replace(/'/g, "\\'"); // Wierd inverted comma bug
 
 	if(location.length>30) location = location.substring(0, 15) + " ... " + location.substring(30, location.length);
 
@@ -1133,7 +1133,7 @@ function buildAmbassadorReportTableRow(name="unknown", email="unknown", locality
 	// Handle single quotes
 	name = capitalize(name.replace(/'/g, "\\'"));
 	email = email.replace(/'/g, "\\'");
-	locality = locality.replace(/'/g, "\\'");
+	// locality = locality.replace(/'/g, "\\'"); // Weird inverted comma bug...
 	designation = designation.replace(/'/g, "\\'");
 
 	gdb.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
