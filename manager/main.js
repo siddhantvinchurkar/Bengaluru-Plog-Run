@@ -124,15 +124,22 @@ window.onload = function(){
 	var pwd = "password";
 
 	// Retrieve password from the database
-	document.getElementById("ambassadorReportTable").innerHTML = "";
 	db.collection("passwords").get().then((querySnapshot) => {
 		querySnapshot.forEach((doc) => {
 			pwd = doc.data().pwd;
 		});
+		// Enable signin
+		document.getElementById("password").disabled = false;
+		document.getElementById("passwordProgress").style.display = "none";
+		document.getElementById("passwordField").style.display = "block";
+		document.getElementById("passwordButton").style.display = "block";
+		document.getElementById("passwordMessage").style.display = "block";
+		document.getElementById("loadingMessage").style.display = "none";
 	});
 
 	// Begin fetching volunteer and/or ambassador records in the background
-	db.collection("volunteers").orderBy(sortBy, "asc").get().then((querySnapshot) => {
+	db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
+		document.getElementById("ambassadorReportTable").innerHTML = "";
 		document.getElementById("tableProgress").style.display = "none";
 		querySnapshot.forEach((doc) => {
 			// Background fetch complete; hide progress bar
@@ -149,13 +156,6 @@ window.onload = function(){
 		locationList.sort();
 		for(var i=0; i<locationList.length; i++) {document.getElementById("renameList").innerHTML += '<option value="'+(i+1)+'">' + locationList[i] + "</option>";}
 		reinitializeSelects();
-		// Enable signin
-		document.getElementById("password").disabled = false;
-		document.getElementById("passwordProgress").style.display = "none";
-		document.getElementById("passwordField").style.display = "block";
-		document.getElementById("passwordButton").style.display = "block";
-		document.getElementById("passwordMessage").style.display = "block";
-		document.getElementById("loadingMessage").style.display = "none";
 	});
 
 	// Listen for data changes
