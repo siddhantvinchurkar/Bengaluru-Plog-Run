@@ -665,14 +665,26 @@ window.onload = function(){
 			default: selectedRecipientArray = Array.from(everyoneRecipientArray); break;
 		}
 		for(var i=0; i<selectedRecipientArray.length; i++){
-			$.get(
-				"https://admin.sotf.in/console/sendcustombprmail.php",
-				// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
-				{name : selectedRecipientArray[i].substring(0, selectedRecipientArray[i].indexOf(" <")), eml : selectedRecipientArray[i], sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value},
-				function(data){
-					console.log("%c" + data, "background: #222222; color: #BADA55;");
-				}
-			);
+			if(document.getElementById("announceEmailBody").value.startsWith("!@#")){
+				$.get(
+					"https://admin.sotf.in/console/sendcustomhtmlbprmail.php",
+					// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+					{name : selectedRecipientArray[i].substring(0, selectedRecipientArray[i].indexOf(" <")), eml : selectedRecipientArray[i], sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value.substring(3)},
+					function(data){
+						console.log("%c" + data, "background: #222222; color: #BADA55;");
+					}
+				);
+			}
+			else{
+				$.get(
+					"https://admin.sotf.in/console/sendcustombprmail.php",
+					// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+					{name : selectedRecipientArray[i].substring(0, selectedRecipientArray[i].indexOf(" <")), eml : selectedRecipientArray[i], sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value},
+					function(data){
+						console.log("%c" + data, "background: #222222; color: #BADA55;");
+					}
+				);
+			}
 		}
 		modalInstances[3].close();
 	}
