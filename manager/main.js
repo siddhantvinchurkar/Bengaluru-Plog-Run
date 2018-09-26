@@ -59,6 +59,7 @@ var lastKeyUpAt = new Date();
 var locationList = [];
 var lastVisible = 0;
 var loadCategory = "all"
+var currentEdition = "unknown";
 
 window.onload = function(){
 
@@ -125,6 +126,9 @@ window.onload = function(){
 
 	// Password store
 	var pwd = "password";
+
+	// Set timeout for the double shift hotkey
+	window.setTimeout(function(){shiftCount = 0;}, 1000);
 
 	// Retrieve password from the database
 	db.collection("passwords").get().then((querySnapshot) => {
@@ -701,6 +705,27 @@ window.onload = function(){
 		});
 	}
 
+	// Handle delete person forever button
+	document.getElementById("erasePersonButton").onclick = function(){
+		db.collection("volunteers").doc(currentEdition).delete();
+		// Refresh table
+		document.getElementById("tableContents").innerHTML = "";
+		document.getElementById("tableProgress").style.display = "block";
+		loadCategory = "all";
+		db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				// Background fetch complete; hide progress bar
+				document.getElementById("tableProgress").style.display = "none";
+				buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
+			});
+			reinitializeTooltips();
+			M.toast({html: currentEdition + 'is now past the event horizon.', classes: 'rounded'});
+			// Scroll table into view
+			document.getElementById("records").scrollIntoView();
+		});
+		modalInstances[2].close();
+	}
+
 	// Handle Sign in
 	document.getElementById("passwordButton").onclick = function(){
 		if(document.getElementById("password").value === pwd){
@@ -1158,6 +1183,7 @@ function buildOrganicTableRow(name="unknown", email="unknown", designation="unkn
 // Build Participant Details Table Rows
 
 function buildParticipantDetailsTableRow(name="unknown", email="unknown", phone="unknown", age="unknown", locality="unknown", designation="unknown", dateAcquired, photoUrl="unknown", facebookLink="unknown", twitterLink="unknown"){
+	currentEdition = email;
 	var whatsapp = "91" + phone;
 	if(designation == "ambassador") designation = '<span style="color:#FF0000;">Ambassador</span>';
 	else designation = '<span style="color:#FFD700;">Volunteer</span>';
