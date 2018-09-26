@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--Basic meta tags-->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<!--Load Materialize Asynchronously-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" media="none" onload="if(media!='screen,projection')media='screen,projection'">
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--Set the shortcut icon-->
+		<link rel="shortcut icon" type="image/ico" href="../images/favicon.png">
+		<!--Progressive Web App meta tags-->
+		<link rel="manifest" href="manifest.json">
+		<meta name="theme-color" content="#FFD700">
+		<meta name="Description" content="Bengaluru Plog Run Manager helps manage volunteers and ambassadors">
+		<title>Volunteer Count</title>
+		<!--Internal Styles-->
+		<style>
+			body{
+				background-color:#F6F6F6;
+				display: flex;
+				min-height: 100vh;
+				flex-direction: column;
+			}
+			main{
+				flex: 1 0 auto;
+			}
+			video#bgvid{ 
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				min-width: 100%;
+				min-height: 100%;
+				z-index: -100;
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			
+		</main>
+		<footer class="page-footer" style="padding:0px 0px 0px 0px;">
+			<div class="footer-copyright" style="background-color:#F6F6F6; padding:0px 0px 0px 0px; color:#000000;">
+				<div class="container">
+					<p>&copy; <span id="footerYear">2018</span> <a href="https:;/volatile.ga/" target="_blank">Volatile, Inc.</a>&emsp;|&emsp;All rights reserved.<span class="right">Designed by <a href="https://siddhantvinchurkar.me/">Siddhant Vinchurkar</a>.</span></p>
+				</div>
+			</div>
+		</footer>
+		<!--Load Scripts Asynchronously-->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js" async></script>
+		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js" async></script>
+		<script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js" async></script>
+		<script type="text/javascript" src="main.js" async></script>
+	</body>
+</html>
