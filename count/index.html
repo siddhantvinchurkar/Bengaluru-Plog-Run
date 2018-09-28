@@ -25,23 +25,28 @@
 			main{
 				flex: 1 0 auto;
 			}
-			video#bgvid{ 
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				min-width: 100%;
-				min-height: 100%;
-				z-index: -100;
-				-ms-transform: translateX(-50%) translateY(-50%);
-				-moz-transform: translateX(-50%) translateY(-50%);
-				-webkit-transform: translateX(-50%) translateY(-50%);
-				transform: translateX(-50%) translateY(-50%);
+			.center{
+				position: absolute;
+				margin: auto;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
 			}
 		</style>
 	</head>
 	<body>
 		<main>
-			
+			<span style="float:right; padding:2em;"><img src="https://www.amarugujarat.com/wp-content/uploads/2017/12/live-image-gif.gif" alt="Live" /></span>
+			<div class="center">
+				<span id="totalCount" style="font-size:20em;">- - - -</span>
+				<br />
+				<span style="font-size:5em;">People Registered</span>
+				<br />
+				<br />
+				<br />
+				<span style="font-size:10em; color:#FF0000;">Bengaluru <span style="color:#FFC500;">Plog Run</span></span>
+			</div>
 		</main>
 		<footer class="page-footer" style="padding:0px 0px 0px 0px;">
 			<div class="footer-copyright" style="background-color:#F6F6F6; padding:0px 0px 0px 0px; color:#000000;">
