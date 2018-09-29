@@ -193,7 +193,7 @@ window.onload = function(){
 	}
 
 	// Listen for data changes
-	db.collection("volunteers").onSnapshot(function(querySnapshot){
+	db.collection("volunteers").orderBy("locality").onSnapshot(function(querySnapshot){
 		volunteerCount = 0;
 		ambassadorCount = 0;
 		totalCount = 0;
@@ -204,7 +204,7 @@ window.onload = function(){
 		organicCount = 0;
 		csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link,Source Of Sign Up\n";
 		querySnapshot.forEach((doc) => {
-			if(doc.data().designation == "ambassador") buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
+			if(locationList.indexOf(doc.data().locality) == -1)buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
 			if(locationList.indexOf(doc.data().locality) == -1) locationList.push(doc.data().locality);
 			if(doc.data().designation == "volunteer") volunteerCount++;
 			else ambassadorCount++;
