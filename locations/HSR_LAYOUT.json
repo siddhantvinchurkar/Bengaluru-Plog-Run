@@ -1,89 +1,10 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#0000ff",
-        "marker-size": "medium",
-        "marker-symbol": "star",
-        "locality": "HSR Layout",
-        "ambassador": "Rohith",
-        "ambassador_email": "rohith@gmail.com",
-        "ambassador_photo_profile": "http://rohith.com"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          77.6522255,
-          12.9125066,
-          0
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Name": "Hsr layout circuit",
-        "Description": ""
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              77.6379776,
-              12.9144727,
-              0
-            ],
-            [
-              77.6381063,
-              12.9121302,
-              0
-            ],
-            [
-              77.6518393,
-              12.9119629,
-              0
-            ],
-            [
-              77.6516676,
-              12.9173589,
-              0
-            ],
-            [
-              77.644887,
-              12.9173171,
-              0
-            ],
-            [
-              77.6448011,
-              12.9152256,
-              0
-            ],
-            [
-              77.6425266,
-              12.9156021,
-              0
-            ],
-            [
-              77.6396513,
-              12.9158112,
-              0
-            ],
-            [
-              77.639823,
-              12.9144308,
-              0
-            ],
-            [
-              77.6379776,
-              12.9144727,
-              0
-            ]
-          ]
-        ]
-      }
-    }
-  ]
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Name": "HSR Layout", "Description": "" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.6381324, 12.9145021, 0.0 ], [ 77.6380144, 12.9122538, 0.0 ], [ 77.6415442, 12.9121701, 0.0 ], [ 77.6444517, 12.9121596, 0.0 ], [ 77.6472304, 12.9119087, 0.0 ], [ 77.6490222, 12.9118877, 0.0 ], [ 77.6489471, 12.9131845, 0.0 ], [ 77.6489685, 12.9157884, 0.0 ], [ 77.6456533, 12.9157361, 0.0 ], [ 77.6447521, 12.9156943, 0.0 ], [ 77.6447414, 12.9151191, 0.0 ], [ 77.644677, 12.9136446, 0.0 ], [ 77.6424561, 12.9138642, 0.0 ], [ 77.6402031, 12.9143871, 0.0 ], [ 77.6389585, 12.9144289, 0.0 ], [ 77.6381324, 12.9145021, 0.0 ] ] ] } }
+,
+{ "type": "Feature", "properties": { "Name": "START", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 77.638068, 12.9139583, 0.0 ] } }
+
+]
 }
