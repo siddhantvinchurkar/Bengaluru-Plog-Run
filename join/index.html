@@ -363,30 +363,37 @@
 					// Create Fake ID
 					if(!eml)eml = makeid();
 
+					var formDone = true;
+
+					if(loc == "Nearest Locality"){formDone=false; alert("Please enter locality");}
+					else if(!phone){formDone=false; alert("Please enter phone number");}
+
 					// Push data to Firebase!
-					db.collection("volunteers").doc(eml).set({
-						firstName: fn,
-						lastName: ln,
-						email: eml,
-						organization: org,
-						phone: phone,
-						age: age,
-						utm_source: utm,
-						dateAcquired: new Date().toString(),
-						bloodGroup: bg,
-						tShirtSize: tss,
-						locality: loc,
-						designation: "volunteer",
-						photoUrl: "https://bengaluru.plog.run/images/orange-logo.svg",
-						facebookLink: "#",
-						twitterLink: "#"
-					})
-					.then(function(docRef) {
-						console.log("Document written with ID: ", docRef.id);
-					})
-					.catch(function(error) {
-						console.error("Error adding document: ", error);
-					});
+					else {
+						formDone=true; 
+						db.collection("volunteers").doc(eml).set({
+							firstName: fn,
+							lastName: ln,
+							email: eml,
+							organization: org,
+							phone: phone,
+							age: age,
+							utm_source: utm,
+							dateAcquired: new Date().toString(),
+							bloodGroup: bg,
+							tShirtSize: tss,
+							locality: loc,
+							designation: "volunteer",
+							photoUrl: "https://bengaluru.plog.run/images/orange-logo.svg",
+							facebookLink: "#",
+							twitterLink: "#"
+						})
+						.then(function(docRef) {
+							console.log("Document written with ID: ", docRef.id);
+						})
+						.catch(function(error) {
+							console.error("Error adding document: ", error);
+						});
 			
 					if(documentCounter < 50){
 						// Send welcome email to volunteer
@@ -411,9 +418,10 @@
 					}
 			
 					// Display message on success
-					document.getElementById("container").innerHTML = '<center><h2>Thank you for signing up! We\'ll get in touch with you shortly.</h2><div><a href="https://www.addtoany.com/share#url=https%3A%2F%2Fbengaluru.plog.run%2F&amp;title=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/a2a.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/twitter.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/google_plus?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/google_plus.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/linkedin.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/whatsapp?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/whatsapp.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/reddit.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/wordpress?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/wordpress.svg" width="32" height="32" style="background-color:royalblue"></a></div></center>';
+					if(formDone)document.getElementById("container").innerHTML = '<center><h2>Thank you for signing up! We\'ll get in touch with you shortly.</h2><div><a href="https://www.addtoany.com/share#url=https%3A%2F%2Fbengaluru.plog.run%2F&amp;title=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/a2a.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/twitter.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/google_plus?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/google_plus.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/linkedin.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/whatsapp?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/whatsapp.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/reddit.svg" width="32" height="32" style="background-color:royalblue"></a><a href="https://www.addtoany.com/add_to/wordpress?linkurl=https%3A%2F%2Fbengaluru.plog.run%2F&amp;linkname=Bengaluru%20Plog%20Run" target="_blank"><img src="https://static.addtoany.com/buttons/wordpress.svg" width="32" height="32" style="background-color:royalblue"></a></div></center>';
 			
 				}
+}
 			
 				// Handle Terms and conditions
 				document.getElementById("tnc").onclick = function(){
