@@ -20,6 +20,7 @@ var organicCount = 0;
 var dateArray = [];
 var seriesArray = [0, 0, 0, 0, 0, 0, 0];
 var csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link\n";
+var csv2 = "Name,Email,Phone,Age,Locality\n";
 
 // Materialize elements
 var modalElements;
@@ -203,6 +204,7 @@ window.onload = function(){
 		instagramCount = 0;
 		organicCount = 0;
 		csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link,Source Of Sign Up\n";
+		csv2 = "Name,Email,Phone,Age,Locality\n";
 		querySnapshot.forEach((doc) => {
 			if(locationList.indexOf(doc.data().locality) == -1)buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
 			if(locationList.indexOf(doc.data().locality) == -1) locationList.push(doc.data().locality);
@@ -215,6 +217,8 @@ window.onload = function(){
 			for(var i=0; i<dateArray.length; i++) if(new Date(Date.parse(doc.data().dateAcquired)).getDate() == dateArray[i]) seriesArray[i]++;
 			// Build CSV
 			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + + "," + doc.data().utm_source + "\n";
+			// Build CSV 2
+			csv2 += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality.replace(/,/g, "\_") + "\n";
 			// Build autocomplete mailing list data
 			mailingList[doc.data().firstName + " " + doc.data().lastName + " (" + doc.data().email + ")"] = null;
 		});
@@ -236,6 +240,8 @@ window.onload = function(){
 		// Prepare download links
 		document.getElementById("downloadButton").download = new Date().getDate() + "-" + new Date().getMonth()+1 + "-" + new Date().getFullYear() + "-" + new Date().getHours() + "-" + new Date().getMinutes() + "-" + new Date().getSeconds() + "_report.csv";
 		document.getElementById("downloadButton").href = "data:application/octet-stream," + encodeURI(csv);
+		document.getElementById("downloadButton2").download = new Date().getDate() + "-" + new Date().getMonth()+1 + "-" + new Date().getFullYear() + "-" + new Date().getHours() + "-" + new Date().getMinutes() + "-" + new Date().getSeconds() + "_report.csv";
+		document.getElementById("downloadButton2").href = "data:application/octet-stream," + encodeURI(csv2);
 		document.getElementById("downloadGraphButton").download = new Date().getDate() + "-" + new Date().getMonth()+1 + "-" + new Date().getFullYear() + "-" + new Date().getHours() + "-" + new Date().getMinutes() + "-" + new Date().getSeconds() + "_graph.svg";
 		document.getElementById("downloadGraphButton").href = "data:application/octet-stream," + encodeURI(document.getElementById("acquisitionChart").innerHTML);
 		// Create Ambassador Report
@@ -524,7 +530,7 @@ window.onload = function(){
 
 	// Handle location rename
 	document.getElementById("renameBtn").onclick = function(){
-		db.collection("volunteers").orderBy("locality", "asc").get().then((querySnapshot) => {
+		db.collection("volunteers").where("locality", "==", document.getElementById("renameList").options[document.getElementById("renameList").selectedIndex].text).get().then((querySnapshot) => {
 				querySnapshot.forEach((doc) => {
 					if(doc.data().locality == document.getElementById("renameList").options[document.getElementById("renameList").selectedIndex].text){
 						db.collection("volunteers").doc(doc.data().email).update({locality: document.getElementById("newName").value});
