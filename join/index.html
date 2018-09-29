@@ -289,8 +289,16 @@
 			}
 			
 			function initMap(lat, lng, zoom, geojson){
-				document.getElementById("gmaps").href = "https://www.google.com/maps/?q=" + lat + "," + lng;
+				var latitude = 12.9716;
+				var longitude = 77.5946;
+				var file = "";
 				if(geojson != null){geojson = geojson.replace(/ /g,"_"); geojson = geojson.replace(/,/g,"_");}
+				if(geojson != null)file = '../locations/' + geojson + '.json';
+				$.getJSON(file, function(data) {
+						latitude = data.features[data.features.length-1].geometry.coordinates[1];
+						longitude = data.features[data.features.length-1].geometry.coordinates[0];
+						document.getElementById("gmaps").href = "https://www.google.com/maps/?q=" + latitude + "," + longitude;
+				});
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: zoom,
 					center: {lat: lat, lng: lng},
