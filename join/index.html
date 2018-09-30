@@ -465,7 +465,7 @@
 						console.log("Error getting documents: ", error);
 					});
 					document.getElementById("ambassadorDetails").style.display = "";
-					document.getElementById("ambassadorStuff").style.display = "";
+					if(detectmob())document.getElementById("ambassadorStuff").style.display = "";
 					var geocoder = new google.maps.Geocoder();
 					var row = document.getElementById("loc").value;
 					var temp = row;
