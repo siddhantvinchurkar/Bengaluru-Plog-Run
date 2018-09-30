@@ -2,9 +2,9 @@
 "type": "FeatureCollection",
                                                                                 
 "features": [
-{ "type": "Feature", "properties": { "Name": "Point 1", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 77.5735294, 12.8010046, 0.0 ] } }
-,
 { "type": "Feature", "properties": { "Name": "Line 2", "Description": "" }, "geometry": { "type": "LineString", "coordinates": [ [ 77.5764047, 12.8141971, 0.0 ], [ 77.5799238, 12.8141343, 0.0 ], [ 77.5798809, 12.8134229, 0.0 ], [ 77.5800954, 12.8134438, 0.0 ], [ 77.5784432, 12.811749, 0.0 ], [ 77.5788294, 12.8057858, 0.0 ], [ 77.57869, 12.8041014, 0.0 ], [ 77.5772684, 12.8032173, 0.0 ], [ 77.5771772, 12.8023751, 0.0 ], [ 77.5767963, 12.8015329, 0.0 ], [ 77.5760721, 12.8008163, 0.0 ], [ 77.5735294, 12.8010046, 0.0 ] ] } }
+,
+{ "type": "Feature", "properties": { "Name": "Starting Point", "Description": "" }, "geometry": { "type": "Point", "coordinates": [ 77.5799238, 12.8141343, 0.0 ] } }
 
 ]
 }
