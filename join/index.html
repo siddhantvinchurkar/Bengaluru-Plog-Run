@@ -194,6 +194,19 @@
 											<a id="gmaps" href="https://www.google.com/maps/?q=12.9716, 77.5946" target="_blank" class="button primary fit">Open Location In Google Maps</a>
 										</div>
 									</div>
+									<div class="row" style="margin-top:1em;">
+										<div class="col-12">
+											<div style="width:320px; height:400px;" id="map"></div>
+										</div>
+									</div>
+									<div id="ambassadorStuff" class="row" style="margin-top:1em; display:none;">
+										<div class="col-12">
+											<h3>Area Ambassador</h3>
+											<h4 id="ambassadorName2">Shankar Sadashiv</h4>
+											<h6 style="display:none;" id="ambassadorEmail2">Ambassador Email</h6>
+											<h6 id="ambassadorPhone2">+91 9916252247</h6>
+										</div>
+									</div>
 								</form>
 								<div class="row">
 									<div class="col-12">
@@ -203,7 +216,7 @@
 							</div>
 							<div class="col-5 off-1" style="margin-bottom:5em; display:none;">
 								<h3 id="areaCode"></h3>
-								<div style="width:100%; height:100%;" id="map"></div>
+								<div style="width:100%; height:100%;" id="map2"></div>
 							</div>
 							<div class="col-5 off-7" style="margin-top:15px; display:none;">
 								<div class="row" style="display:none;" id="ambassadorDetails">
@@ -444,11 +457,15 @@
 							document.getElementById("ambassadorName").innerHTML = doc.data().firstName + " " + doc.data().lastName;
 							document.getElementById("ambassadorEmail").innerHTML = doc.data().email;
 							document.getElementById("ambassadorPhone").innerHTML = "+91 " + doc.data().phone;
+							document.getElementById("ambassadorName2").innerHTML = doc.data().firstName + " " + doc.data().lastName;
+							document.getElementById("ambassadorEmail2").innerHTML = doc.data().email;
+							document.getElementById("ambassadorPhone2").innerHTML = "+91 " + doc.data().phone;
 						}
 					});}).catch(function(error){
 						console.log("Error getting documents: ", error);
 					});
 					document.getElementById("ambassadorDetails").style.display = "";
+					document.getElementById("ambassadorStuff").style.display = "";
 					var geocoder = new google.maps.Geocoder();
 					var row = document.getElementById("loc").value;
 					var temp = row;
