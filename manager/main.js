@@ -726,21 +726,7 @@ window.onload = function(){
 	// Handle delete person forever button
 	document.getElementById("erasePersonButton").onclick = function(){
 		db.collection("volunteers").doc(currentEdition).delete();
-		// Refresh table
-		document.getElementById("tableContents").innerHTML = "";
-		document.getElementById("tableProgress").style.display = "block";
 		loadCategory = "all";
-		db.collection("volunteers").orderBy(sortBy, "asc").limit(10).get().then((querySnapshot) => {
-			querySnapshot.forEach((doc) => {
-				// Background fetch complete; hide progress bar
-				document.getElementById("tableProgress").style.display = "none";
-				buildTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().designation, doc.data().dateAcquired, doc.data().locality);
-			});
-			reinitializeTooltips();
-			M.toast({html: currentEdition + 'is now past the event horizon.', classes: 'rounded'});
-			// Scroll table into view
-			document.getElementById("records").scrollIntoView();
-		});
 		modalInstances[2].close();
 	}
 
