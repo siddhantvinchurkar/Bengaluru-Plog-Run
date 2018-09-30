@@ -451,7 +451,13 @@
 					document.getElementById("ambassadorDetails").style.display = "";
 					var geocoder = new google.maps.Geocoder();
 					var row = document.getElementById("loc").value;
-					geocoder.geocode({ 'address': row.substring(0, row.indexOf(' (')) + ', Bengaluru, Karnataka, India'}, function(results, status){
+					var temp = row;
+					var stuff = row;
+					if(row.includes("GOVERNMENT")) temp = "K.C. General Hospital";	
+					else if(row.includes("HMT")) temp = "R T Nagar Police Station";
+					else if(row.includes("KENGERI")) stuff = "Kengeri Railway";
+					else stuff = temp.substring(0, row.indexOf(' (')) + ', Bengaluru, Karnataka, India'
+					geocoder.geocode({ 'address': stuff}, function(results, status){
 						if (status == 'OK') {
 							initMap(results[0].geometry.location.lat(), results[0].geometry.location.lng(), 14, row.substring(0, row.indexOf(' (')));
 						}
