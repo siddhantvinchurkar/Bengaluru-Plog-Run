@@ -114,8 +114,8 @@
 			<div id="main" class="wrapper style1">
 				<div class="container" id="container">
 					<header class="major">
-						<h2>Join the Movement for free!</h2>
-						<p>Be the change you want to see. Apply to become a volunteer today!</p>
+						<h2>Locations</h2>
+						<p>View the location circuits heres</p>
 					</header>
 					<!-- Content -->
 					<section id="content">
@@ -130,7 +130,7 @@
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
-									<div class="row">
+									<div class="row" style="display:none;">
 										<div class="col-12">
 											<input id="fn" type="text" placeholder="Name" />
 										</div>
@@ -139,7 +139,7 @@
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
-									<div class="row">
+									<div class="row" style="display:none;">
 										<div class="col-12">
 											<input id="eml" type="email" placeholder="Email" />
 										</div>
@@ -148,7 +148,7 @@
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
-									<div class="row">
+									<div class="row" style="display:none;">
 										<div class="col-6">
 											<input id="phone" type="text" placeholder="Phone" />
 										</div>
@@ -184,7 +184,7 @@
 										</div>
 									</div>
 									<div style="margin-top:15px; margin-bottom:15px;"></div>
-									<div class="row">
+									<div class="row" style="display:none;">
 										<div class="col-12">
 											<a id="cmi" class="button primary fit">Count me in!</a>
 										</div>
@@ -210,7 +210,7 @@
 								</form>
 								<div class="row">
 									<div class="col-12">
-										<p><a href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a id="tnc" href="#!">terms and conditions</a>.</p>
+										<p><a id="tnc" href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;Thank you for the overwhelming response to "Bengaluru Plog Run". The registrations for this event are now closed.</p>
 									</div>
 								</div>
 							</div>
@@ -329,7 +329,7 @@
 			window.onload = function(){
 
 				if(!detectmob()){
-					document.getElementById("content").innerHTML = '<div class="row"><div class="col-6"><form><div class="row"><div class="col-12"><select id="loc"><option selected disabled>Nearest Locality</option></select></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row"><div class="col-12"><input id="fn" type="text" placeholder="Name"/></div><div class="col-8" style="display:none;"><input id="ln" type="text" placeholder="Last Name" value=" "/></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row"><div class="col-12"><input id="eml" type="email" placeholder="Email"/></div><div class="col-8" style="display:none;"><input id="org" type="text" placeholder="Organization"/></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row"><div class="col-6"><input id="phone" type="text" placeholder="Phone"/></div><div class="col-6"><input id="age" type="text" placeholder="Age"/></div><div class="col-6" style="display:none;"><select id="bg"><option>Blood Group</option><option>A +ve</option><option>A -ve</option><option>B +ve</option><option>B -ve</option><option>O +ve</option><option>O -ve</option><option>AB +ve</option><option>AB -ve</option></select></div><div class="col-4" style="display:none;"><select id="tss"><option>T-shirt size</option><option>XXXS</option><option>XXS</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option></select></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row"><div class="col-12"><a id="cmi" class="button primary fit">Count me in!</a></div></div><div class="row" style="margin-top:1em;"><div class="col-12"><a id="gmaps" href="https://www.google.com/maps/?q=12.9716, 77.5946" target="_blank" class="button primary fit">Open Location In Google Maps</a></div></div></form><div class="row"><div class="col-12"><p><a href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;By clicking "Count me in!" you are agreeing to our <a id="tnc" href="#!">terms and conditions</a>.</p></div></div></div><div class="col-5 off-1" style="margin-bottom:5em;"><h3 id="areaCode"></h3><div style="width:100%; height:100%;" id="map"></div></div><div class="col-5 off-7" style="margin-top:15px;"><div class="row" style="display:none;" id="ambassadorDetails"><div class="col-4"><img id="ambassadorImage" height="128px" width="128px" src="../images/logo.svg"/></div><div class="col-8"><h3>Area Ambassador</h3><h4 id="ambassadorName">Shankar Sadashiv</h4><h6 style="display:none;" id="ambassadorEmail">Ambassador Email</h6><h6 id="ambassadorPhone">+91 9916252247</h6></div></div></div></div>';
+					document.getElementById("content").innerHTML = '<div class="row"><div class="col-6"><form><div class="row"><div class="col-12"><select id="loc"><option selected disabled>Nearest Locality</option></select></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row" style="display:none;"><div class="col-12"><input id="fn" type="text" placeholder="Name"/></div><div class="col-8" style="display:none;"><input id="ln" type="text" placeholder="Last Name" value=" "/></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row" style="display:none;"><div class="col-12"><input id="eml" type="email" placeholder="Email"/></div><div class="col-8" style="display:none;"><input id="org" type="text" placeholder="Organization"/></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row" style="display:none;"><div class="col-6"><input id="phone" type="text" placeholder="Phone"/></div><div class="col-6"><input id="age" type="text" placeholder="Age"/></div><div class="col-6" style="display:none;"><select id="bg"><option>Blood Group</option><option>A +ve</option><option>A -ve</option><option>B +ve</option><option>B -ve</option><option>O +ve</option><option>O -ve</option><option>AB +ve</option><option>AB -ve</option></select></div><div class="col-4" style="display:none;"><select id="tss"><option>T-shirt size</option><option>XXXS</option><option>XXS</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option></select></div></div><div style="margin-top:15px; margin-bottom:15px;"></div><div class="row" style="display:none;"><div class="col-12"><a id="cmi" class="button primary fit">Count me in!</a></div></div><div class="row" style="margin-top:1em;"><div class="col-12"><a id="gmaps" href="https://www.google.com/maps/?q=12.9716, 77.5946" target="_blank" class="button primary fit">Open Location In Google Maps</a></div></div></form><div class="row" style=""><div class="col-12"><p><a id="tnc" href="#!" class="icon alt fa-exclamation-circle"><span class="label">Twitter</span></a>&emsp;Thank you for the overwhelming response to "Bengaluru Plog Run". The registrations for the event are now closed.</p></div></div></div><div class="col-5 off-1" style="margin-bottom:5em;"><h3 id="areaCode"></h3><div style="width:100%; height:400px;" id="map"></div></div><div class="col-5 off-7" style="margin-top:15px;"><div class="row" style="display:none;" id="ambassadorDetails"><div class="col-4"><img id="ambassadorImage" height="128px" width="128px" src="../images/logo.svg"/></div><div class="col-8"><h3>Area Ambassador</h3><h4 id="ambassadorName">Shankar Sadashiv</h4><h6 style="display:none;" id="ambassadorEmail">Ambassador Email</h6><h6 id="ambassadorPhone">+91 9916252247</h6></div></div></div></div>';
 					locList(datasheet);
 					initMapWithParameters();
 				}
