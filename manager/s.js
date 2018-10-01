@@ -61,6 +61,8 @@ var locationList = [];
 var lastVisible = 0;
 var loadCategory = "all"
 var currentEdition = "unknown";
+var locn = "unknown";
+var bname = "unknown";
 
 window.onload = function(){
 
@@ -650,21 +652,39 @@ window.onload = function(){
 	// Handle send email notification button
 	document.getElementById("sendNotificationButton").onclick = function(){
 		for(var i=0; i<recipientArray.length; i++){
-			$.get(
-				"https://admin.sotf.in/console/sendcustombprmail.php",
-				// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
-				{name : recipientArray[i].substring(0, recipientArray[i].indexOf(" <")), eml : recipientArray[i], sub : document.getElementById("emailSubject").value, body : document.getElementById("emailBody").value},
-				function(data){
-					console.log("%c" + data, "background: #222222; color: #BADA55;");
+			var e = recipientArray[i].substring(recipientArray[i].indexOf(" <"), recipientArray[i].indexOf(">"));
+			e = e.substring(2);
+			var n = recipientArray[i].substring(0, recipientArray[i].indexOf(" <"));
+			db.collection("volunteers").doc(e).get().then(function(doc){
+				locn = doc.data().locality;
+				bname = doc.data().firstName;
+				if(document.getElementById("emailBody").value.startsWith("!@#")){
+					$.get(
+						"https://admin.sotf.in/console/sendcustomhtmlbprmail.php",
+						// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+						{name : n, eml : e, sub : document.getElementById("emailSubject").value, body : document.getElementById("emailBody").value.substring(3), locality: locn},
+						function(data){
+							console.log("%c" + data, "background: #222222; color: #BADA55;");
+						}
+					);
 				}
-			);
+				else{
+					$.get(
+						"https://admin.sotf.in/console/sendcustombprmail.php",
+						// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+						{name : n, eml : e, sub : document.getElementById("emailSubject").value, body : document.getElementById("emailBody").value, locality: locn},
+						function(data){
+							console.log("%c" + data, "background: #222222; color: #BADA55;");
+						}
+					);
+				}
+			});
 		}
 		modalInstances[3].close();
 	}
 
 	// Handle email announcement button
 	document.getElementById("sendAnnouncementButton").onclick = function(){
-		var stuff1 = false;
 		switch(document.getElementById("emailListOptions").options[document.getElementById("emailListOptions").selectedIndex].text){
 			case "Everyone": selectedRecipientArray = Array.from(everyoneRecipientArray); break;
 			case "Ambassadors Only": selectedRecipientArray = Array.from(ambassadorRecipientArray); break;
@@ -672,13 +692,15 @@ window.onload = function(){
 			default: selectedRecipientArray = Array.from(everyoneRecipientArray); break;
 		}
 		for(var i=0; i<selectedRecipientArray.length; i++){
-			if(selectedRecipientArray[i].includes("snalinisai@gmail.com")) {stuff1 = true;}
-			if(stuff1){
+			console.log(selectedRecipientArray[i]);
+			var e = selectedRecipientArray[i].substring(selectedRecipientArray[i].indexOf(" <"), selectedRecipientArray[i].indexOf(">"));
+			e = e.substring(2);
+			var n = selectedRecipientArray[i].substring(0, selectedRecipientArray[i].indexOf(" <"));
 			if(document.getElementById("announceEmailBody").value.startsWith("!@#")){
 				$.get(
 					"https://admin.sotf.in/console/sendcustomhtmlbprmail.php",
 					// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
-					{name : selectedRecipientArray[i].substring(0, selectedRecipientArray[i].indexOf(" <")), eml : selectedRecipientArray[i], sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value.substring(3)},
+					{name : n, eml : e, sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value.substring(3), locality: locn},
 					function(data){
 						console.log("%c" + data, "background: #222222; color: #BADA55;");
 					}
@@ -688,14 +710,40 @@ window.onload = function(){
 				$.get(
 					"https://admin.sotf.in/console/sendcustombprmail.php",
 					// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
-					{name : selectedRecipientArray[i].substring(0, selectedRecipientArray[i].indexOf(" <")), eml : selectedRecipientArray[i], sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value},
+					{name : n, eml : e, sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value, locality: locn},
 					function(data){
 						console.log("%c" + data, "background: #222222; color: #BADA55;");
 					}
 				);
 			}
-		}
-		else{console.log("skippping...")}
+//			try{
+//			db.collection("volunteers").doc(e).get().then(function(doc){
+//				locn = doc.data().locality;
+//				bname = doc.data().firstName;
+//				if(document.getElementById("announceEmailBody").value.startsWith("!@#")){
+//					$.get(
+//						"https://admin.sotf.in/console/sendcustomhtmlbprmail.php",
+//						// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+//						{name : n, eml : e, sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value.substring(3), locality: locn},
+//						function(data){
+//							console.log("%c" + data, "background: #222222; color: #BADA55;");
+//						}
+//					);
+//				}
+//				else{
+//					$.get(
+//						"https://admin.sotf.in/console/sendcustombprmail.php",
+//						// {fn : fn, ln : ln, eml : eml, amb : loc.toLowerCase() + "@bengaluruplog.run"},
+//						{name : n, eml : e, sub : document.getElementById("announceEmailSubject").value, body : document.getElementById("announceEmailBody").value, locality: locn},
+//						function(data){
+//							console.log("%c" + data, "background: #222222; color: #BADA55;");
+//						}
+//					);
+//				}
+//			});
+//			}catch(e){
+//				console.log("Fake email address encountered!");
+//			}
 		}
 		modalInstances[3].close();
 	}
