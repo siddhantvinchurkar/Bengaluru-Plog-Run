@@ -57,19 +57,19 @@
 					<div class="content">
 						<div class="container">
 							<div class="row">
-								<div class="col-4 col-12-medium">
+								<div class="col-6 col-12-medium">
 									<header>
-										<h2 id="tLoc" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
+										<h2 id="tLoc" style="color:#FF591F; font-weight:bold; font-size:5em; text-align:center;">0</h2>
 										<p style="text-align:center; font-weight:bold;">Localities</p>
 									</header>
 								</div>
-								<div class="col-4 col-12-medium">
+								<div class="col-6 col-12-medium">
 									<header>
-										<h2 id="tPlog" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
+										<h2 id="tPlog" style="color:#FF591F; font-weight:bold; font-size:5em; text-align:center;">0</h2>
 										<p style="text-align:center; font-weight:bold;">Ploggers</p>
 									</header>
 								</div>
-								<div class="col-4 col-12-medium">
+								<div class="col-4 col-12-medium" style="display:none;">
 									<header>
 										<div id="dRemContainer">
 											<h2 id="dRem" style="color:#FF591F; font-weight:bold; font-size:3em; text-align:center;">0</h2>
@@ -365,7 +365,7 @@
 					});
 
 					// Display date of event
-					setInterval(function(){
+					/*setInterval(function(){
 						if(dRemFlag){
 							document.getElementById("dRemContainer").style.display = "none";
 							document.getElementById("dateContainer").style.display = "block";
@@ -376,7 +376,7 @@
 							document.getElementById("dateContainer").style.display = "none";
 							dRemFlag = true;
 						}
-					}, 3000);
+					}, 3000);*/
 
 					// Handle mouse over event for header logo
 
@@ -417,8 +417,8 @@
 				}
 
 				// CountUp Animation End Callbacks
-				function AddPlusToLoc(){document.getElementById("tLoc").innerHTML += " +"}
-				function AddPlusToPlog(){document.getElementById("tPlog").innerHTML += " +"}
+				function AddPlusToLoc(){/*document.getElementById("tLoc").innerHTML += " +";*/}
+				function AddPlusToPlog(){document.getElementById("tPlog").innerHTML += " +";}
 			</script>
 
 	</body>
