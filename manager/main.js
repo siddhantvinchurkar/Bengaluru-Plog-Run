@@ -672,7 +672,8 @@ window.onload = function(){
 			default: selectedRecipientArray = Array.from(everyoneRecipientArray); break;
 		}
 		for(var i=0; i<selectedRecipientArray.length; i++){
-			if(selectedRecipientArray[i].includes("sumujois@gmail.com")) {stuff1 = true;}
+			if(selectedRecipientArray[i].includes("preetam.singh@rentomojo.com")) {stuff1 = true;}
+			//stuff1 = true;
 			if(stuff1){
 			if(document.getElementById("announceEmailBody").value.startsWith("!@#")){
 				$.get(
