@@ -19,8 +19,8 @@ var instagramCount = 0;
 var organicCount = 0;
 var dateArray = [];
 var seriesArray = [0, 0, 0, 0, 0, 0, 0];
-var csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link\n";
-var csv2 = "Name,Email,Phone,Age,Locality\n";
+var csv = "Name~Email Address~Phone Number~Age~Locality~Designation~Date Of Sign Up~Photo Link~Facebook Link~Twitter Link\n";
+var csv2 = "Name~Email~Phone~Age~Locality\n";
 
 // Materialize elements
 var modalElements;
@@ -203,8 +203,8 @@ window.onload = function(){
 		twitterCount = 0;
 		instagramCount = 0;
 		organicCount = 0;
-		csv = "Name,Email Address,Phone Number,Age,Locality,Designation,Date Of Sign Up,Photo Link,Facebook Link,Twitter Link,Source Of Sign Up\n";
-		csv2 = "Name,Email,Phone,Age,Locality\n";
+		csv = "Name~Email Address~Phone Number~Age~Locality~Designation~Date Of Sign Up~Photo Link~Facebook Link~Twitter Link~Source Of Sign Up\n";
+		csv`2 = "Name~Email~Phone~Age,Locality\n";
 		querySnapshot.forEach((doc) => {
 			if(locationList.indexOf(doc.data().locality) == -1)buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
 			if(locationList.indexOf(doc.data().locality) == -1) locationList.push(doc.data().locality);
@@ -216,9 +216,9 @@ window.onload = function(){
 			if(doc.data().utm_source == "instagram") instagramCount++;
 			for(var i=0; i<dateArray.length; i++) if(new Date(Date.parse(doc.data().dateAcquired)).getDate() == dateArray[i]) seriesArray[i]++;
 			// Build CSV
-			csv += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality + "," + doc.data().designation + "," + doc.data().dateAcquired + "," + doc.data().photoUrl + "," + doc.data().facebookLink + "," + doc.data().twitterLink + + "," + doc.data().utm_source + "\n";
+			csv += doc.data().firstName + " " + doc.data().lastName + "~" + doc.data().email + "~" + doc.data().phone + "~" + doc.data().age + "~" + doc.data().locality + "~" + doc.data().designation + "~" + doc.data().dateAcquired + "~" + doc.data().photoUrl + "~" + doc.data().facebookLink + "~" + doc.data().twitterLink + "~" + doc.data().utm_source + "\n";
 			// Build CSV 2
-			csv2 += doc.data().firstName + " " + doc.data().lastName + "," + doc.data().email + "," + doc.data().phone + "," + doc.data().age + "," + doc.data().locality.replace(/,/g, "\_") + "\n";
+			csv2 += doc.data().firstName + " " + doc.data().lastName + "~" + doc.data().email + "~" + doc.data().phone + "~" + doc.data().age + "~" + doc.data().locality.replace(/,/g, "\_") + "\n";
 			// Build autocomplete mailing list data
 			mailingList[doc.data().firstName + " " + doc.data().lastName + " (" + doc.data().email + ")"] = null;
 		});
