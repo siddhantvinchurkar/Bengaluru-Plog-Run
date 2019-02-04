@@ -204,7 +204,7 @@ window.onload = function(){
 		instagramCount = 0;
 		organicCount = 0;
 		csv = "Name~Email Address~Phone Number~Age~Locality~Designation~Date Of Sign Up~Photo Link~Facebook Link~Twitter Link~Source Of Sign Up\n";
-		csv`2 = "Name~Email~Phone~Age,Locality\n";
+		csv2 = "Name~Email~Phone~Age~Locality\n";
 		querySnapshot.forEach((doc) => {
 			if(locationList.indexOf(doc.data().locality) == -1)buildAmbassadorReportTableRow(doc.data().firstName + " " + doc.data().lastName, doc.data().email, doc.data().locality, doc.data().designation);
 			if(locationList.indexOf(doc.data().locality) == -1) locationList.push(doc.data().locality);
